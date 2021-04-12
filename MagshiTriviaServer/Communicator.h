@@ -3,6 +3,8 @@
 // Standard libraries
 #include <iostream>
 #include <map>
+#include <mutex>
+#include <thread>
 
 // Sockets libraries
 #include <WinSock2.h>
@@ -11,6 +13,8 @@
 
 // Project header files
 #include "IRequestHandler.h"
+#include "LoginRequestHandler.h"
+#include "StatusCodes.h"
 
 class Communicator
 {
@@ -30,4 +34,5 @@ private:
 	// Members
 	SOCKET _serverSocket;
 	std::map <SOCKET, IRequestHandler*> _clients;
+	std::mutex _clients_lock;
 };

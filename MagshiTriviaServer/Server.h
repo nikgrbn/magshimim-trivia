@@ -1,7 +1,11 @@
 #pragma once
 
+// Standard libraries
+#include <thread>
+
 // Project libraries
 #include "Communicator.h"
+#include "StatusCodes.h"
 
 class Server
 {
