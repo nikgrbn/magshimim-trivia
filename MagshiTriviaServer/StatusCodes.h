@@ -1,3 +1,3 @@
 #pragma once
 
-#define SERVER_PORT 1337
+#define SERVER_PORT 8728

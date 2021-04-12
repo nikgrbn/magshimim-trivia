@@ -41,5 +41,8 @@
     <ClInclude Include="Communicator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="StatusCodes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

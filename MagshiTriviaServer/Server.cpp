@@ -1,6 +1,9 @@
+#pragma comment(lib, "ws2_32.lib")
+
 #include "Server.h"
 
-Server::Server() {
+
+Server::Server() : _communicator() {
 }
 
 Server::~Server() {
@@ -9,7 +12,7 @@ Server::~Server() {
 void Server::run() {
 	std::string user_input{};
 
-	std::thread (&Communicator::startHandleRequests, this->_communicator).detach(); // this->_communicator = this (pointer to class)
+	std::thread (&Communicator::startHandleRequests, &this->_communicator).detach(); // this->_communicator = this (pointer to class)
 
 	// Admin pannel
 	std::cout << "[!] Trivia server is up on port @" << SERVER_PORT << '\n';

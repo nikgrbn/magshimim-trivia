@@ -1,13 +1,25 @@
 #include "Communicator.h"
 
 Communicator::Communicator() {
+	WSADATA wsa_data = { };
+	if (WSAStartup(MAKEWORD(2, 2), &wsa_data) != 0)
+		throw std::exception("WSAStartup Failed");
+
+	_serverSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+
+	if (_serverSocket == INVALID_SOCKET)
+		throw std::exception(__FUNCTION__ " - socket");
 }
 
 Communicator::~Communicator() {
+	try {
+		closesocket(this->_serverSocket);
+	} catch (...) {}
 }
 
 void Communicator::startHandleRequests() {
 	this->bindAndListen();
+
 	while (true) {
 		SOCKET client_socket = ::accept(this->_serverSocket, NULL, NULL); //accept client
 		if (client_socket == INVALID_SOCKET)
@@ -15,7 +27,7 @@ void Communicator::startHandleRequests() {
 
 		// insert new client to the map
 		std::unique_lock<std::mutex> lck(this->_clients_lock);
-		LoginRequestHandler login_req_handler; // new LoginRequestHandler instance
+		LoginRequestHandler* login_req_handler; // new LoginRequestHandler instance
 		this->_clients.emplace(client_socket, login_req_handler);
 		lck.unlock();
 
@@ -44,5 +56,17 @@ void Communicator::bindAndListen() {
 }
 
 void Communicator::handleNewClient(SOCKET client_socket) {
-	// TODO
+	try {
+		std::string welcome_message = "Hello";
+		send(client_socket, welcome_message.c_str(), welcome_message.size(), 0);
+
+		char user_message[6];
+		recv(client_socket, user_message, 5, 0);
+		user_message[5] = 0;
+
+		std::cout << "Client message: " << user_message << '\n';
+		closesocket(client_socket);
+	} catch (const std::exception& e) {
+		closesocket(client_socket);
+	}
 }

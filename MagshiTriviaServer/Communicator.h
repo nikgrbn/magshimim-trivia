@@ -9,7 +9,6 @@
 // Sockets libraries
 #include <WinSock2.h>
 #include <Windows.h>
-//#include "WSAInitializer.h"
 
 // Project header files
 #include "IRequestHandler.h"
