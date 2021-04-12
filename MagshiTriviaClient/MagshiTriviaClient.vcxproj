@@ -22,8 +22,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{48ec6984-6f4a-4cfc-81f5-b76261889822}</ProjectGuid>
-    <RootNamespace>MagshiTrivia</RootNamespace>
+    <ProjectGuid>{9960cc66-6874-4e15-9669-dce7e6698bce}</ProjectGuid>
+    <RootNamespace>MagshiTriviaClient</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
