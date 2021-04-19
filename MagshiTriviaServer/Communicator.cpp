@@ -60,6 +60,8 @@ void Communicator::handleNewClient(SOCKET client_socket) {
 		std::string welcome_message = "Hello";
 		send(client_socket, welcome_message.c_str(), welcome_message.size(), 0);
 
+		std::cout << '\n' << "Server message: " << welcome_message << '\n';
+
 		char user_message[6];
 		recv(client_socket, user_message, 5, 0);
 		user_message[5] = 0;
