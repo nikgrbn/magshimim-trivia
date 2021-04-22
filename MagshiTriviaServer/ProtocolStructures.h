@@ -5,8 +5,8 @@
 #include <ctime>
 #include <vector>
 
-// Definitions
-using Buffer = std::vector<unsigned char>;
+// Project header files
+#include "StatusCodes.h"
 
 // -------- Response ---------
 

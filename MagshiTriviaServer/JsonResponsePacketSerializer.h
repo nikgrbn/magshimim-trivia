@@ -9,7 +9,6 @@
 #include "json.hpp"
 
 // Definitions
-using Buffer = std::vector<unsigned char>;
 using json = nlohmann::json;
 
 class JsonResponsePacketSerializer

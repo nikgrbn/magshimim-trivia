@@ -1,5 +1,8 @@
 #pragma once
 
+// Definitions
+using Buffer = std::vector<unsigned char>;
+
 #define SERVER_PORT 8728
 
 // Protocol headers
