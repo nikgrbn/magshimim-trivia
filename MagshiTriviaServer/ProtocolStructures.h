@@ -2,6 +2,11 @@
 
 // Standard libarary
 #include <iostream>
+#include <ctime>
+#include <vector>
+
+// Definitions
+using Buffer = std::vector<unsigned char>;
 
 // -------- Response ---------
 
@@ -26,3 +31,14 @@ typedef struct LoginRequest {
 typedef struct SignupRequest {
 	std::string username, password, email;
 } SignupRequest;
+
+typedef struct RequestInfo {
+	ProtocolCodes id;
+	//std::ctime receivalTime;
+	Buffer buffer;
+} RequestInfo;
+
+typedef struct RequestResult {
+	Buffer buffer;
+	IRequestHandler* newHandler;
+} RequestResult;
