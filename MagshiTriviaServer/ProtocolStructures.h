@@ -16,3 +16,13 @@ typedef struct SignupResponse {
 typedef struct ErrorResponse {
 	std::string message;
 } ErrorResponse;
+
+// -------- Request ---------
+
+typedef struct LoginRequest {
+	std::string username, password;
+} LoginRequest;
+
+typedef struct SignupRequest {
+	std::string username, password, email;
+} SignupRequest;
