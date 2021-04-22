@@ -9,7 +9,7 @@
 */
 Buffer JsonResponsePacketSerializer::generateResponse(const std::string& json_message, ProtocolCodes message_code) {
     unsigned int message_length{ json_message.length() };
-    Buffer temp_buffer;
+    Buffer temp_buffer; // buffer to return
     temp_buffer.reserve(HEADER_SIZE + message_length);
 
     for (unsigned int i = 0; i < sizeof(unsigned int); i++) {
