@@ -1,7 +1,10 @@
 #include "LoginRequestHandler.h"
 
-LoginRequestHandler::LoginRequestHandler() {
+bool LoginRequestHandler::IsRequestRelevant(RequestInfo info) {
+	return (info.id == ProtocolCodes::Signup || info.id == ProtocolCodes::Login);
 }
 
-LoginRequestHandler::~LoginRequestHandler() {
+RequestResult LoginRequestHandler::handleRequest(RequestInfo info) {
+	// TODO: implement
+	RequestResult res;
 }
