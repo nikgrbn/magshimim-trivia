@@ -56,19 +56,64 @@ void Communicator::bindAndListen() {
 }
 
 void Communicator::handleNewClient(SOCKET client_socket) {
+	RequestInfo request{};
+	RequestResult response{};
+
+	std::map<SOCKET, IRequestHandler*>::iterator client = this->_clients.find(client_socket);
+
 	try {
-		std::string welcome_message = "Hello";
-		send(client_socket, welcome_message.c_str(), welcome_message.size(), 0);
+		while (true) {
+			request = receiveRequest(client_socket);
 
-		std::cout << '\n' << "Server message: " << welcome_message << '\n';
+			if ((*client).second != nullptr && !request.buffer.empty() && (*client).second->IsRequestRelevant(request)) {
+				response = (*client).second->handleRequest(request); //handle request
+			} else {
+				sendError(client_socket, "[!] Invalid request", response);
+				throw std::exception("Invalid request");
+			}
 
-		char user_message[6];
-		recv(client_socket, user_message, 5, 0);
-		user_message[5] = 0;
-
-		std::cout << "Client message: " << user_message << '\n';
-		closesocket(client_socket);
+			sendResponse(client_socket, response);
+		}
 	} catch (const std::exception& e) {
 		closesocket(client_socket);
+		this->_clients.erase(client_socket);
 	}
+}
+
+RequestInfo Communicator::receiveRequest(SOCKET client_socket) {
+	unsigned int message_length{};
+	RequestInfo request{};
+
+	int status = recv(client_socket, (char*)request.buffer.data(), HEADER_SIZE, NULL); // recieve header content
+	if (status <= 0) // checks if socket is up
+		throw std::exception("Socket was closed");
+
+	request.id = (ProtocolCodes)request.buffer[0]; // set the message code
+	for (unsigned int i = 0; i < sizeof(unsigned int); i++)
+		(&message_length)[i] = request.buffer[i + 1]; // inserting message length
+
+	request.buffer.resize(HEADER_SIZE + message_length);
+	if (message_length != 0)
+		recv(client_socket, (char*)(request.buffer.data() + HEADER_SIZE), message_length, NULL); // receive message
+
+	return request;
+}
+
+void Communicator::sendResponse(SOCKET client_socket, const RequestResult& response) {
+	int sendExitCode = 0;
+
+	sendExitCode = send(client_socket, (char*)response.buffer.data(), response.buffer.size(), NULL); //send response
+	this->_clients.find(client_socket)->second = response.newHandler; //set new handler
+
+	if (sendExitCode == SOCKET_ERROR) // checks if socket is up
+		throw std::exception("connection was closed");
+}
+
+void Communicator::sendError(SOCKET clientSocket, const std::string& errorMessage, RequestResult& response) {
+	ErrorResponse error_struct = {
+		errorMessage
+	};
+
+	response.buffer = JsonResponsePacketSerializer::serializeResponse(error_struct);
+	send(clientSocket, (char*)response.buffer.data(), response.buffer.size(), NULL);
 }
