@@ -2,7 +2,6 @@
 
 #include "Server.h"
 
-
 Server::Server() : _communicator() {
 }
 
