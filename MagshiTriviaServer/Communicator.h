@@ -31,7 +31,7 @@ private:
 	void handleNewClient(SOCKET client_socket);
 	RequestInfo receiveRequest(SOCKET client_socket);
 	void sendResponse(SOCKET client_socket, const RequestResult& response);
-	void sendError(SOCKET clientSocket, const std::string& errorMessage, RequestResult& response)
+	void sendError(SOCKET clientSocket, const std::string& errorMessage, RequestResult& response);
 
 
 
