@@ -5,6 +5,18 @@ bool LoginRequestHandler::IsRequestRelevant(RequestInfo info) {
 }
 
 RequestResult LoginRequestHandler::handleRequest(RequestInfo info) {
-	// TODO: implement
-	RequestResult res;
+	RequestResult response;
+
+	// -- Tests --
+
+	LoginRequest l = JsonRequestPacketDeserializer::deserializeLoginRequest(info.buffer);
+	LoginResponse r;
+	r.status = 100;
+
+	// ...
+
+	response.buffer = JsonResponsePacketSerializer::serializeResponse(r);
+	response.newHandler = nullptr;
+
+	// -- Tests --
 }
