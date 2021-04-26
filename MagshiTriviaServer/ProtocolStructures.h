@@ -8,6 +8,8 @@
 // Project header files
 #include "StatusCodes.h"
 
+class IRequestHandler;
+
 // -------- Response ---------
 
 typedef struct LoginResponse {
