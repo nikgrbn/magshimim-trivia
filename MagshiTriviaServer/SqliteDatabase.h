@@ -14,7 +14,7 @@ public:
 	// Questionaries
 	bool doesUserExists(std::string username) override;
 	bool doesPasswordMatch(std::string username, std::string password) override;
-	void addNewUser(std::string username, std::string password, std::string email) override;
+	void addNewUser(std::string username, std::string password, std::string mail) override;
 
 private:
 	// Database data

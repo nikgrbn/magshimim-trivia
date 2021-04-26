@@ -24,7 +24,7 @@ SqliteDatabase::SqliteDatabase()
 	{
 
 		// Create Users table
-		com = "CREATE TABLE USERS (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, USERNAME TEXT NOT NULL, PASSWORD TEXT NOT NULL, EMAIL TEXT NOT NULL);";
+		com = "CREATE TABLE USERS (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, USERNAME TEXT NOT NULL, PASSWORD TEXT NOT NULL, MAIL TEXT NOT NULL);";
 		res = sqlite3_exec(db, com, nullptr, nullptr, errMessage);
 		if (res != SQLITE_OK)
 		{
@@ -63,12 +63,12 @@ bool SqliteDatabase::doesPasswordMatch(std::string username, std::string passwor
 	return flag;
 }
 
-void SqliteDatabase::addNewUser(std::string username, std::string password, std::string email)
+void SqliteDatabase::addNewUser(std::string username, std::string password, std::string mail)
 {
 	// Insert new user
 	char sql_com[1024];
-	snprintf(sql_com, 1024, "INSERT INTO Users (username, password, email) VALUES ('%s', '%s', '%s');",
-		username.c_str(), password.c_str(), email.c_str());
+	snprintf(sql_com, 1024, "INSERT INTO Users (username, password, mail) VALUES ('%s', '%s', '%s');",
+		username.c_str(), password.c_str(), mail.c_str());
 	int res = sqlite3_exec(db, sql_com, nullptr, nullptr, errMessage);
 }
 
