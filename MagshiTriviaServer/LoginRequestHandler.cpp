@@ -15,7 +15,7 @@ RequestResult LoginRequestHandler::handleRequest(RequestInfo info) {
 		response.buffer = JsonResponsePacketSerializer::serializeResponse(r);
 		response.newHandler = nullptr;
 	} else if (info.id == ProtocolCodes::Signup) {
-		LoginRequest l = JsonRequestPacketDeserializer::deserializeLoginRequest(info.buffer);
+		SignupRequest l = JsonRequestPacketDeserializer::deserializeSignupRequest(info.buffer);
 		SignupResponse r_s;
 		r_s.status = 100;
 		response.buffer = JsonResponsePacketSerializer::serializeResponse(r_s);

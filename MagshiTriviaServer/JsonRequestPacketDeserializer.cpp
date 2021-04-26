@@ -7,7 +7,7 @@ json JsonRequestPacketDeserializer::retrieveJson(const Buffer& request)
 
     // Desirialize data length
     unsigned int data_length =
-        (request[CODE_SIZE] << 24) | (request[CODE_SIZE + 1] << 16) | (request[CODE_SIZE + 2] << 8) | request[CODE_SIZE + 3];
+        (request[CODE_SIZE]) | (request[CODE_SIZE + 1] << 8) | (request[CODE_SIZE + 2] << 16) | request[CODE_SIZE + 3] << 24;
 
     // Parse json
     json j = json::parse(request.begin() + HEADER_SIZE, request.begin() + HEADER_SIZE + data_length);
@@ -36,7 +36,7 @@ SignupRequest JsonRequestPacketDeserializer::deserializeSignupRequest(Buffer req
     struct SignupRequest sign_req;
     sign_req.username = j["username"];
     sign_req.password = j["password"];
-    sign_req.email = j["email"];
+    sign_req.email = j["mail"];
 
     return sign_req;
 }

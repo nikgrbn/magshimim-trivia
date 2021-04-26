@@ -27,7 +27,7 @@ void Communicator::startHandleRequests() {
 
 		// insert new client to the map
 		std::unique_lock<std::mutex> lck(this->_clients_lock);
-		LoginRequestHandler* login_req_handler; // new LoginRequestHandler instance
+		IRequestHandler* login_req_handler = new LoginRequestHandler(); // new LoginRequestHandler instance
 		this->_clients.emplace(client_socket, login_req_handler);
 		lck.unlock();
 
@@ -65,7 +65,7 @@ void Communicator::handleNewClient(SOCKET client_socket) {
 		while (true) {
 			request = receiveRequest(client_socket);
 
-			if ((*client).second != nullptr && !request.buffer.empty() && (*client).second->IsRequestRelevant(request)) {
+			if ((*client).second != nullptr && !request.buffer.empty()) {
 				response = (*client).second->handleRequest(request); //handle request
 			} else {
 				sendError(client_socket, "[!] Invalid request", response);
@@ -92,8 +92,8 @@ RequestInfo Communicator::receiveRequest(SOCKET client_socket) {
 		throw std::exception("Socket was closed");
 
 	request.id = (ProtocolCodes)request.buffer[0]; // set the message code
-	for (unsigned int i = 0; i < sizeof(unsigned int); i++)
-		(&message_length)[i] = request.buffer[i + 1]; // inserting message length
+	// Desirialize data length
+	message_length = (request.buffer[CODE_SIZE]) | (request.buffer[CODE_SIZE + 1] << 8) | (request.buffer[CODE_SIZE + 2] << 16) | request.buffer[CODE_SIZE + 3] << 24;
 
 	request.buffer.resize(HEADER_SIZE + message_length);
 	if (message_length != 0)
