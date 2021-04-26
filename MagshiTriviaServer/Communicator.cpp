@@ -84,6 +84,9 @@ RequestInfo Communicator::receiveRequest(SOCKET client_socket) {
 	unsigned int message_length{};
 	RequestInfo request{};
 
+	request.buffer = Buffer();
+	request.buffer.resize(HEADER_SIZE);
+
 	int status = recv(client_socket, (char*)request.buffer.data(), HEADER_SIZE, NULL); // recieve header content
 	if (status <= 0) // checks if socket is up
 		throw std::exception("Socket was closed");
