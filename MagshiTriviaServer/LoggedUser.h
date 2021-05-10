@@ -9,8 +9,11 @@ public:
 	~LoggedUser() = default;
 
 	// Getter
-	std::string getUsername();
+	std::string getUsername() const;
 
 private:
 	std::string _username;
 };
+
+// Overload comparision operator
+bool operator== (const LoggedUser& u1, const LoggedUser& u2);

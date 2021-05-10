@@ -3,6 +3,7 @@
 // Standard libraries
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 // Project libraries
 #include "LoggedUser.h"
