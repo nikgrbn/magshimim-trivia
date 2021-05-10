@@ -6,6 +6,7 @@
 // Project libraries
 #include "Communicator.h"
 #include "StatusCodes.h"
+#include "IDatabase.h"
 
 class Server
 {
@@ -19,4 +20,5 @@ public:
 
 private:
 	Communicator _communicator;
+	IDatabase* _database;
 };
