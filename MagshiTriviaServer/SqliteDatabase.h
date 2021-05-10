@@ -7,7 +7,7 @@
 class SqliteDatabase : public IDatabase
 {
 public:
-	// Constructor Q Destrcutor
+	// Constructor Q Destructor
 	SqliteDatabase();
 	~SqliteDatabase();
 
