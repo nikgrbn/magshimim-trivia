@@ -167,6 +167,7 @@
     <ClInclude Include="RequestHandlerFactory.h" />
     <ClInclude Include="Server.h" />
     <ClInclude Include="sqlite3.h" />
+    <ClInclude Include="SqliteDatabase.h" />
     <ClInclude Include="StatusCodes.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

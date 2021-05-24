@@ -1,7 +1,14 @@
 #include "Communicator.h"
 
-Communicator::Communicator() {
+Communicator::Communicator() : _handler_factory(RequestHandlerFactory()) {
+	WSADATA wsa_data = { };
+	if (WSAStartup(MAKEWORD(2, 2), &wsa_data) != 0)
+		throw std::exception("WSAStartup Failed");
 
+	_serverSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+
+	if (_serverSocket == INVALID_SOCKET)
+		throw std::exception(__FUNCTION__ " - socket");
 }
 
 Communicator::~Communicator() {
@@ -20,7 +27,8 @@ void Communicator::startHandleRequests() {
 
 		// insert new client to the map
 		std::unique_lock<std::mutex> lck(this->_clients_lock);
-		this->_clients.emplace(client_socket, nullptr);
+		LoginRequestHandler* login_req_handler = this->_handler_factory.createLoginRequestHandler();
+		this->_clients.emplace(client_socket, login_req_handler);
 		lck.unlock();
 
 		// creates new thread for the new client

@@ -36,7 +36,7 @@ private:
 
 	// Members
 	SOCKET _serverSocket;
-	RequestHandlerFactory* _handler_factory;
+	RequestHandlerFactory _handler_factory;
 	std::map <SOCKET, IRequestHandler*> _clients;
 	std::mutex _clients_lock;
 };
