@@ -14,6 +14,7 @@
 #include "IRequestHandler.h"
 #include "LoginRequestHandler.h"
 #include "RequestHandlerFactory.h"
+#include "SqliteDatabase.h"
 #include "StatusCodes.h"
 
 class Communicator

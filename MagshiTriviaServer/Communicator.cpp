@@ -1,6 +1,6 @@
 #include "Communicator.h"
 
-Communicator::Communicator() : _handler_factory(RequestHandlerFactory()) {
+Communicator::Communicator() : _handler_factory(RequestHandlerFactory(new SqliteDatabase)) {
 	WSADATA wsa_data = { };
 	if (WSAStartup(MAKEWORD(2, 2), &wsa_data) != 0)
 		throw std::exception("WSAStartup Failed");
