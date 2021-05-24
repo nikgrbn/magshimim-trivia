@@ -20,7 +20,6 @@ class Communicator
 {
 public:
 	// CON's / DES's
-	Communicator();
 	~Communicator();
 
 	// Public Methods

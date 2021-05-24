@@ -1,16 +1,5 @@
 #include "Communicator.h"
 
-Communicator::Communicator() {
-	WSADATA wsa_data = { };
-	if (WSAStartup(MAKEWORD(2, 2), &wsa_data) != 0)
-		throw std::exception("WSAStartup Failed");
-
-	_serverSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-
-	if (_serverSocket == INVALID_SOCKET)
-		throw std::exception(__FUNCTION__ " - socket");
-}
-
 Communicator::~Communicator() {
 	try {
 		closesocket(this->_serverSocket);
@@ -27,8 +16,7 @@ void Communicator::startHandleRequests() {
 
 		// insert new client to the map
 		std::unique_lock<std::mutex> lck(this->_clients_lock);
-		IRequestHandler* login_req_handler = new LoginRequestHandler(); // new LoginRequestHandler instance
-		this->_clients.emplace(client_socket, login_req_handler);
+		this->_clients.emplace(client_socket, nullptr);
 		lck.unlock();
 
 		// creates new thread for the new client

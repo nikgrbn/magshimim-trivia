@@ -11,7 +11,6 @@ class Server
 {
 public:
 	// CON's / DES's
-	Server();
 	~Server();
 
 	// Public Methods

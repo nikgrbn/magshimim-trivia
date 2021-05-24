@@ -3,6 +3,7 @@
 // Project header files
 #include "LoginRequestHandler.h"
 #include "LoginManager.h"
+#include "IDatabase.h"
 #include "MenuRequestHandler.h"
 
 class RequestHandlerFactory

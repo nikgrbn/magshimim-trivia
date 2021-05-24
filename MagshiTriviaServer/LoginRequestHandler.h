@@ -10,6 +10,7 @@
 class LoginRequestHandler : public IRequestHandler
 {
 public:
+	LoginRequestHandler() = default;
 	LoginRequestHandler(LoginManager& login_manager, RequestHandlerFactory* handler_factory);
 	~LoginRequestHandler();
 
