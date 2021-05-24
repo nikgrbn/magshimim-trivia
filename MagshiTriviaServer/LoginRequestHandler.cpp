@@ -1,8 +1,6 @@
 #include "LoginRequestHandler.h"
 
-
-
-LoginRequestHandler::LoginRequestHandler(LoginManager& login_manager, RequestHandlerFactory* handler_factory) 
+LoginRequestHandler::LoginRequestHandler(LoginManager& login_manager, RequestHandlerFactory* handler_factory)
 	: IRequestHandler(), _login_manager(login_manager), _handler_factory(handler_factory) {
 }
 

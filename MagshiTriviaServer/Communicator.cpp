@@ -1,5 +1,9 @@
 #include "Communicator.h"
 
+Communicator::Communicator() {
+
+}
+
 Communicator::~Communicator() {
 	try {
 		closesocket(this->_serverSocket);
