@@ -1,6 +1,6 @@
 #include "LoginRequestHandler.h"
 
-LoginRequestHandler::LoginRequestHandler(LoginManager& login_manager, RequestHandlerFactory& handler_factory) : IRequestHandler() {
+LoginRequestHandler::LoginRequestHandler(LoginManager& login_manager, RequestHandlerFactory* handler_factory) : IRequestHandler() {
 	this->_login_manager = login_manager;
 	this->_handler_factory = handler_factory;
 }
@@ -32,10 +32,10 @@ RequestResult LoginRequestHandler::login(RequestInfo request) {
 		LoginRequest deserialized_request = JsonRequestPacketDeserializer::deserializeLoginRequest(request.buffer);
 		this->_login_manager.login(deserialized_request.username, deserialized_request.password);
 		login_response.status = ResponseStatus::LoginSuccess;
-		//response.newHandler = this->_handler_factory.createLoginRequestHandler();
+		response.newHandler = this->_handler_factory->createMenuRequestHandler();
 	} catch (std::exception& e) {
 		login_response.status = ResponseStatus::LoginError;
-		response.newHandler = this->_handler_factory.createLoginRequestHandler();
+		response.newHandler = this->_handler_factory->createLoginRequestHandler();
 	}
 
 	response.buffer = JsonResponsePacketSerializer::serializeResponse(login_response);

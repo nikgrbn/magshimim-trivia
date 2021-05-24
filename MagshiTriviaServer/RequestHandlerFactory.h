@@ -3,6 +3,7 @@
 // Project header files
 #include "LoginRequestHandler.h"
 #include "LoginManager.h"
+#include "MenuRequestHandler.h"
 
 class RequestHandlerFactory
 {
@@ -12,6 +13,7 @@ public:
 	~RequestHandlerFactory();
 
 	LoginRequestHandler* createLoginRequestHandler();
+	MenuRequestHandler* createMenuRequestHandler();
 	LoginManager& getLoginManager();
 
 private:

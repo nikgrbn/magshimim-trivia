@@ -10,7 +10,7 @@
 class LoginRequestHandler : public IRequestHandler
 {
 public:
-	LoginRequestHandler(LoginManager& login_manager, RequestHandlerFactory& handler_factory);
+	LoginRequestHandler(LoginManager& login_manager, RequestHandlerFactory* handler_factory);
 	~LoginRequestHandler();
 
 	bool IsRequestRelevant(RequestInfo info) override;
@@ -21,5 +21,5 @@ private:
 	RequestResult signup(RequestInfo request);
 
 	LoginManager& _login_manager;
-	RequestHandlerFactory& _handler_factory;
+	RequestHandlerFactory* _handler_factory;
 };

@@ -13,6 +13,12 @@ LoginRequestHandler* RequestHandlerFactory::createLoginRequestHandler() {
 	return login_req_handler;
 }
 
+MenuRequestHandler* RequestHandlerFactory::createMenuRequestHandler() {
+	MenuRequestHandler* menu_req_handler = new MenuRequestHandler();
+
+	return menu_req_handler;
+}
+
 LoginManager& RequestHandlerFactory::getLoginManager() {
 	return this->_login_manager;
 }
