@@ -38,13 +38,12 @@ def generate_buffer(code: int, msg: dict):
     json_msg = json.dumps(msg)
 
     for x in [hex(len(json_msg) >> i & 0xff) for i in (24,16,8,0)][::-1]: # appending data length
-        print(x)
         to_send.append(int(x, 16))
 
     for x in str(json_msg): # appending json message
         to_send.append(ord(x))
 
-    print(to_send)
+    print("Packet to send: ", to_send, end="")
     return to_send
 
 
