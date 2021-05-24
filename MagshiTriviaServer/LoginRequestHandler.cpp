@@ -1,27 +1,47 @@
 #include "LoginRequestHandler.h"
 
+LoginRequestHandler::LoginRequestHandler(LoginManager& login_manager, RequestHandlerFactory& handler_factory) : IRequestHandler() {
+	this->_login_manager = login_manager;
+	this->_handler_factory = handler_factory;
+}
+
+LoginRequestHandler::~LoginRequestHandler()
+{ }
+
 bool LoginRequestHandler::IsRequestRelevant(RequestInfo info) {
 	return (info.id == ProtocolCodes::Signup || info.id == ProtocolCodes::Login);
 }
 
 RequestResult LoginRequestHandler::handleRequest(RequestInfo info) {
-	RequestResult response;
+	RequestResult response = { Buffer(), nullptr };
 
-	// -- Tests --
-	if (info.id == ProtocolCodes::Login) {
-		LoginRequest l = JsonRequestPacketDeserializer::deserializeLoginRequest(info.buffer);
-		LoginResponse r;
-		r.status = 100;
-		response.buffer = JsonResponsePacketSerializer::serializeResponse(r);
-		response.newHandler = nullptr;
-	} else if (info.id == ProtocolCodes::Signup) {
-		SignupRequest l = JsonRequestPacketDeserializer::deserializeSignupRequest(info.buffer);
-		SignupResponse r_s;
-		r_s.status = 100;
-		response.buffer = JsonResponsePacketSerializer::serializeResponse(r_s);
-		response.newHandler = nullptr;
+	if (info.buffer[0] == (unsigned char)ProtocolCodes::Signup) {
+		response = signup(info);
+	} else if (info.buffer[0] == (unsigned char)ProtocolCodes::Login) {
+		response = login(info);
 	}
-	// -- Tests --
 
 	return response;
+}
+
+RequestResult LoginRequestHandler::login(RequestInfo request) {
+	RequestResult response;
+	LoginResponse login_response;
+
+	try {
+		LoginRequest deserialized_request = JsonRequestPacketDeserializer::deserializeLoginRequest(request.buffer);
+		this->_login_manager.login(deserialized_request.username, deserialized_request.password);
+		login_response.status = ResponseStatus::LoginSuccess;
+		//response.newHandler = this->_handler_factory.createLoginRequestHandler();
+	} catch (std::exception& e) {
+		login_response.status = ResponseStatus::LoginError;
+		response.newHandler = this->_handler_factory.createLoginRequestHandler();
+	}
+
+	response.buffer = JsonResponsePacketSerializer::serializeResponse(login_response);
+	return response;
+}
+
+RequestResult LoginRequestHandler::signup(RequestInfo request) {
+	return RequestResult();
 }

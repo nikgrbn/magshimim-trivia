@@ -7,6 +7,10 @@
 class RequestHandlerFactory
 {
 public:
+	// C'TORs / D'TORs
+	RequestHandlerFactory(IDatabase* db);
+	~RequestHandlerFactory();
+
 	LoginRequestHandler* createLoginRequestHandler();
 	LoginManager& getLoginManager();
 
