@@ -13,6 +13,7 @@
 // Project header files
 #include "IRequestHandler.h"
 #include "LoginRequestHandler.h"
+#include "RequestHandlerFactory.h"
 #include "StatusCodes.h"
 
 class Communicator
@@ -33,10 +34,9 @@ private:
 	void sendResponse(SOCKET client_socket, const RequestResult& response);
 	void sendError(SOCKET clientSocket, const std::string& errorMessage, RequestResult& response);
 
-
-
 	// Members
 	SOCKET _serverSocket;
+	RequestHandlerFactory& _handler_factory;
 	std::map <SOCKET, IRequestHandler*> _clients;
 	std::mutex _clients_lock;
 };
