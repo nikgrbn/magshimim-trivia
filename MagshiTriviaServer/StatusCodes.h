@@ -19,5 +19,8 @@ enum class ProtocolCodes : unsigned int {
 
 enum ResponseStatus {
 	LoginSuccess = 100,
-	LoginError = 101
+	LoginError = 101,
+
+	SignupSuccess = 200,
+	SignupError = 201
 };

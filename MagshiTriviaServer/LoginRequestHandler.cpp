@@ -43,5 +43,20 @@ RequestResult LoginRequestHandler::login(RequestInfo request) {
 }
 
 RequestResult LoginRequestHandler::signup(RequestInfo request) {
-	return RequestResult();
+	SignupResponse signup_response;
+	RequestResult response;
+
+	try {
+		SignupRequest deserialized_request = JsonRequestPacketDeserializer::deserializeSignupRequest(request.buffer);
+		this->_login_manager.signup(deserialized_request.username, deserialized_request.password, deserialized_request.email);
+		
+		signup_response.status = ResponseStatus::SignupSuccess;
+		response.newHandler = this->_handler_factory->createLoginRequestHandler();
+	} catch (std::exception& e) {
+		signup_response.status = ResponseStatus::SignupError;
+		response.newHandler = this->_handler_factory->createLoginRequestHandler();
+	}
+
+	response.buffer = JsonResponsePacketSerializer::serializeResponse(signup_response);
+	return response;
 }
