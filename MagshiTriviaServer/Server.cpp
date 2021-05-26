@@ -1,9 +1,7 @@
 #pragma comment(lib, "ws2_32.lib")
-
 #include "Server.h"
 
-
-Server::Server() : _communicator() {
+Server::Server() : _handle_factory(nullptr), _communicator() {
 }
 
 Server::~Server() {

@@ -18,5 +18,7 @@ public:
 	void run();
 
 private:
+	IDatabase* _data_base;
+	RequestHandlerFactory _handle_factory;
 	Communicator _communicator;
 };
