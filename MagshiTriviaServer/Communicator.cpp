@@ -64,7 +64,7 @@ void Communicator::handleNewClient(SOCKET client_socket) {
 	try {
 		while (true) {
 			request = receiveRequest(client_socket);
-
+			
 			if ((*client).second != nullptr && !request.buffer.empty()) {
 				response = (*client).second->handleRequest(request); //handle request
 			} else {

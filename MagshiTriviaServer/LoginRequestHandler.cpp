@@ -31,7 +31,7 @@ RequestResult LoginRequestHandler::login(RequestInfo request) {
 		LoginRequest deserialized_request = JsonRequestPacketDeserializer::deserializeLoginRequest(request.buffer);
 		this->_login_manager.login(deserialized_request.username, deserialized_request.password);
 		login_response.status = ResponseStatus::LoginSuccess;
-		response.newHandler = this->_handler_factory->createMenuRequestHandler();
+		response.newHandler = this->_handler_factory->createLoginRequestHandler();
 	} catch (std::exception& e) {
 		login_response.status = ResponseStatus::LoginError;
 		response.newHandler = this->_handler_factory->createLoginRequestHandler();

@@ -26,12 +26,11 @@ void LoginManager::login(const std::string& username, const std::string& passwor
 	// Check if passwords match
 	if (this->_database->doesPasswordMatch(username, password))
 	{
-		LoggedUser current_user(username);
-		if (std::find(this->_loggedUsers.begin(), this->_loggedUsers.end(), current_user) != this->_loggedUsers.end())
+		if (this->isLogged(username))
 			throw std::exception("User already connected!");
 
 		// Push user to a vector
-		this->_loggedUsers.push_back(current_user);
+		this->_loggedUsers.push_back(LoggedUser(username));
 	}
 	// Throw exception if not
 	else
@@ -53,4 +52,12 @@ void LoginManager::logout(const std::string& username)
 			break;
 		}
 	}
+}
+
+bool LoginManager::isLogged(const std::string& username) const {
+	LoggedUser current_user(username);
+	if (std::find(this->_loggedUsers.begin(), this->_loggedUsers.end(), current_user) != this->_loggedUsers.end())
+		return true;
+
+	return false;
 }
