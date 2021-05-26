@@ -26,10 +26,10 @@ SqliteDatabase::SqliteDatabase()
 		// Create Users table
 		com = "CREATE TABLE USERS (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, USERNAME TEXT NOT NULL, PASSWORD TEXT NOT NULL, MAIL TEXT NOT NULL);";
 		res = sqlite3_exec(db, com, nullptr, nullptr, errMessage);
-		if (res != SQLITE_OK)
-		{
-			std::cout << "Failed to create DB [CODE: " << res << "]" << std::endl;
-		}
+
+		// Create Questionaree table
+		com = "CREATE TABLE Questions (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, QUESTION TEXT NOT NULL, FIRST_A TEXT NOT NULL, SECOND_A TEXT NOT NULL, THIRD_A TEXT NOT NULL, FOURTH_A TEXT NOT NULL, CORRECT_A TEXT NOT NULL);";
+		res = sqlite3_exec(db, com, nullptr, nullptr, errMessage);
 	}
 }
 
