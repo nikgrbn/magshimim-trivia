@@ -16,3 +16,11 @@ enum class ProtocolCodes : unsigned int {
 	Signup = 10,
 	Login = 11
 };
+
+enum ResponseStatus {
+	LoginSuccess = 100,
+	LoginError = 101,
+
+	SignupSuccess = 200,
+	SignupError = 201
+};
