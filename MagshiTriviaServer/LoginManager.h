@@ -20,6 +20,8 @@ public:
 	void login(const std::string &username, const std::string &password);
 	void logout(const std::string &username);
 
+	bool isLogged(const std::string& username) const;
+
 private:
 	IDatabase* _database;
 	std::vector<LoggedUser> _loggedUsers;

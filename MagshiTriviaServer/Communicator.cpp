@@ -1,6 +1,6 @@
 #include "Communicator.h"
 
-Communicator::Communicator() {
+Communicator::Communicator() : _handler_factory(RequestHandlerFactory(new SqliteDatabase)) {
 	WSADATA wsa_data = { };
 	if (WSAStartup(MAKEWORD(2, 2), &wsa_data) != 0)
 		throw std::exception("WSAStartup Failed");
@@ -27,7 +27,7 @@ void Communicator::startHandleRequests() {
 
 		// insert new client to the map
 		std::unique_lock<std::mutex> lck(this->_clients_lock);
-		IRequestHandler* login_req_handler = new LoginRequestHandler(); // new LoginRequestHandler instance
+		LoginRequestHandler* login_req_handler = this->_handler_factory.createLoginRequestHandler();
 		this->_clients.emplace(client_socket, login_req_handler);
 		lck.unlock();
 
@@ -64,7 +64,7 @@ void Communicator::handleNewClient(SOCKET client_socket) {
 	try {
 		while (true) {
 			request = receiveRequest(client_socket);
-
+			
 			if ((*client).second != nullptr && !request.buffer.empty()) {
 				response = (*client).second->handleRequest(request); //handle request
 			} else {
