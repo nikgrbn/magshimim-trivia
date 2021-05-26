@@ -72,6 +72,11 @@ void SqliteDatabase::addNewUser(std::string username, std::string password, std:
 	int res = sqlite3_exec(db, sql_com, nullptr, nullptr, errMessage);
 }
 
+std::list<Question> SqliteDatabase::getQuestions(int num)
+{
+	return std::list<Question>();
+}
+
 int isExists_callback(void* data, int argc, char** argv, char** azColName)
 {
 	if (argc > 0)
