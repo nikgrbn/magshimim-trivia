@@ -2,9 +2,11 @@
 
 // Callback functions
 int isExists_callback(void* data, int argc, char** argv, char** azColName);
+int getQuestions_callback(void* data, int argc, char** argv, char** azColName);
 
-// Global flag
+// Global variables
 bool flag;
+std::list<Question> global_question_list;
 
 SqliteDatabase::SqliteDatabase()
 {
@@ -30,6 +32,19 @@ SqliteDatabase::SqliteDatabase()
 		// Create Questionaree table
 		com = "CREATE TABLE Questions (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, QUESTION TEXT NOT NULL, FIRST_A TEXT NOT NULL, SECOND_A TEXT NOT NULL, THIRD_A TEXT NOT NULL, FOURTH_A TEXT NOT NULL, CORRECT_A TEXT NOT NULL);";
 		res = sqlite3_exec(db, com, nullptr, nullptr, errMessage);
+
+		// Fill table with questions
+		Questionnaire q;
+		std::list<Question> question_list = q.getQuestionList();
+
+		for (auto quest : question_list)
+		{
+			char sql_com[1024];
+			snprintf(sql_com, 1024,
+				"INSERT INTO QUESTIONS (QUESTION, FIRST_A, SECOND_A, THIRD_A, FOURTH_A, CORRECT_A) VALUES ('%s', '%s', '%s', '%s', '%s', %d);",
+				quest.question.c_str(), quest.answers[0].c_str(), quest.answers[1].c_str(), quest.answers[2].c_str(), quest.answers[3].c_str(), quest.correct_ans);
+			sqlite3_exec(db, sql_com, nullptr, nullptr, errMessage);
+		}
 	}
 }
 
@@ -74,7 +89,13 @@ void SqliteDatabase::addNewUser(std::string username, std::string password, std:
 
 std::list<Question> SqliteDatabase::getQuestions(int num)
 {
-	return std::list<Question>();
+	global_question_list.clear();
+
+	char sql_com[1024];
+	snprintf(sql_com, 1024, "SELECT * FROM QUESTIONS ORDER BY RANDOM() LIMIT %d;", num);
+	sqlite3_exec(db, sql_com, getQuestions_callback, nullptr, errMessage);
+
+	return global_question_list;
 }
 
 int isExists_callback(void* data, int argc, char** argv, char** azColName)
@@ -83,5 +104,37 @@ int isExists_callback(void* data, int argc, char** argv, char** azColName)
 	{
 		flag = true;
 	}
+	return 0;
+}
+
+int getQuestions_callback(void* data, int argc, char** argv, char** azColName)
+{
+	std::string question;
+	std::string answers[4];
+	unsigned int correct_ans = 0;
+
+	for (int i = 0; i < argc; i++) {
+		if (std::string(azColName[i]) == "QUESTION") {
+			question = argv[i];
+		}
+		else if (std::string(azColName[i]) == "FIRST_A") {
+			answers[0] = argv[i];
+		}
+		else if (std::string(azColName[i]) == "SECOND_A") {
+			answers[1] = argv[i];
+		}
+		else if (std::string(azColName[i]) == "THIRD_A") {
+			answers[2] = argv[i];
+		}
+		else if (std::string(azColName[i]) == "FOURTH_A") {
+			answers[3] = argv[i];
+		}
+		else if (std::string(azColName[i]) == "CORRECT_A") {
+			correct_ans = atoi(argv[i]);
+		}
+	}
+
+	global_question_list.push_back(Question(question, answers[0], answers[1], answers[2], answers[3], correct_ans));
+	
 	return 0;
 }
