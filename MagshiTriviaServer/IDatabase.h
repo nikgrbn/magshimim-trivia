@@ -14,4 +14,5 @@ public:
 	virtual void addNewUser(std::string username, std::string password, std::string mail) = 0;
 
 	virtual std::list<Question> getQuestions(int num) = 0;
+	virtual std::map<std::string, int> getScores() = 0;
 };

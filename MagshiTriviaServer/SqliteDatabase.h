@@ -15,7 +15,9 @@ public:
 	bool doesUserExists(std::string username) override;
 	bool doesPasswordMatch(std::string username, std::string password) override;
 	void addNewUser(std::string username, std::string password, std::string mail) override;
+
 	std::list<Question> getQuestions(int num) override;
+	std::map<std::string, int> getScores() override;
 
 private:
 	// Database data

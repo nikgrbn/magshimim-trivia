@@ -3,10 +3,12 @@
 // Callback functions
 int isExists_callback(void* data, int argc, char** argv, char** azColName);
 int getQuestions_callback(void* data, int argc, char** argv, char** azColName);
+int getScores_callback(void* data, int argc, char** argv, char** azColName);
 
 // Global variables
 bool flag;
 std::list<Question> global_question_list;
+std::map<std::string, int> global_scores;
 
 SqliteDatabase::SqliteDatabase()
 {
@@ -26,7 +28,7 @@ SqliteDatabase::SqliteDatabase()
 	{
 
 		// Create Users table
-		com = "CREATE TABLE USERS (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, USERNAME TEXT NOT NULL, PASSWORD TEXT NOT NULL, MAIL TEXT NOT NULL);";
+		com = "CREATE TABLE USERS (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, USERNAME TEXT NOT NULL, PASSWORD TEXT NOT NULL, MAIL TEXT NOT NULL, SCORE INTEGER DEFAULT 0);";
 		res = sqlite3_exec(db, com, nullptr, nullptr, errMessage);
 
 		// Create Questionaree table
@@ -98,6 +100,17 @@ std::list<Question> SqliteDatabase::getQuestions(int num)
 	return global_question_list;
 }
 
+std::map<std::string, int> SqliteDatabase::getScores()
+{
+	global_scores.clear();
+
+	char sql_com[1024];
+	snprintf(sql_com, 1024, "SELECT USERNAME, SCORE FROM USERS;");
+	sqlite3_exec(db, sql_com, getScores_callback, nullptr, errMessage);
+
+	return global_scores;
+}
+
 int isExists_callback(void* data, int argc, char** argv, char** azColName)
 {
 	if (argc > 0)
@@ -136,5 +149,24 @@ int getQuestions_callback(void* data, int argc, char** argv, char** azColName)
 
 	global_question_list.push_back(Question(question, answers[0], answers[1], answers[2], answers[3], correct_ans));
 	
+	return 0;
+}
+
+int getScores_callback(void* data, int argc, char** argv, char** azColName)
+{
+	std::string username;
+	unsigned int score = 0;
+
+	for (int i = 0; i < argc; i++) {
+		if (std::string(azColName[i]) == "USERNAME") {
+			username = argv[i];
+		}
+		else if (std::string(azColName[i]) == "SCORE") {
+			score = atoi(argv[i]);
+		}
+	}
+
+	global_scores.insert(std::pair<std::string, int>(username, score));
+
 	return 0;
 }
