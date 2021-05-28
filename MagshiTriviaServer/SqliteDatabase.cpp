@@ -111,7 +111,7 @@ int getQuestions_callback(void* data, int argc, char** argv, char** azColName)
 {
 	std::string question;
 	std::string answers[4];
-	unsigned int correct_ans;
+	unsigned int correct_ans = 0;
 
 	for (int i = 0; i < argc; i++) {
 		if (std::string(azColName[i]) == "QUESTION") {
