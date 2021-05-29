@@ -14,10 +14,11 @@ public:
 	~StatisticsManager() = default;
 
 	std::vector<std::map<std::string, std::string>> getStatistics();
+	std::vector<std::map<std::string, std::string>> getHighScore();
 
 private:
-	std::vector<std::string> getHighScore();
 	std::map<std::string, std::string> getUserStatistics(std::string username);
+	int calculateScore(std::map<std::string, std::string> user);
 
 	IDatabase* m_database;
 };
