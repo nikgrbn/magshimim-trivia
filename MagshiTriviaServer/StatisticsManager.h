@@ -9,15 +9,15 @@
 
 class StatisticsManager {
 public:
-	StatisticsManager();
+	StatisticsManager() {};
 	StatisticsManager(IDatabase* db) : m_database(db) {};
 	~StatisticsManager() = default;
 
-	std::vector<std::string> getStatistics();
+	std::vector<std::map<std::string, std::string>> getStatistics();
 
 private:
 	std::vector<std::string> getHighScore();
-	std::vector<std::string> getUserStatistics();
+	std::map<std::string, std::string> getUserStatistics(std::string username);
 
 	IDatabase* m_database;
 };

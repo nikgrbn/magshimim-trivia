@@ -2,13 +2,19 @@
 
 // Callback functions
 int isExists_callback(void* data, int argc, char** argv, char** azColName);
+int getUsers_callback(void* data, int argc, char** argv, char** azColName);
 int getQuestions_callback(void* data, int argc, char** argv, char** azColName);
-int getScores_callback(void* data, int argc, char** argv, char** azColName);
+int getTotalAnswers_callback(void* data, int argc, char** argv, char** azColName);
+int getCorrectAnswers_callback(void* data, int argc, char** argv, char** azColName);
+int getTimePlayed_callback(void* data, int argc, char** argv, char** azColName);
+int getTotalGames_callback(void* data, int argc, char** argv, char** azColName);
 
 // Global variables
 bool flag;
+std::vector<std::string> global_users_vector;
 std::list<Question> global_question_list;
-std::map<std::string, int> global_scores;
+int counter;
+float time_played;
 
 SqliteDatabase::SqliteDatabase()
 {
@@ -28,7 +34,11 @@ SqliteDatabase::SqliteDatabase()
 	{
 
 		// Create Users table
-		com = "CREATE TABLE USERS (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, USERNAME TEXT NOT NULL, PASSWORD TEXT NOT NULL, MAIL TEXT NOT NULL, SCORE INTEGER DEFAULT 0);";
+		com = "CREATE TABLE USERS (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, USERNAME TEXT NOT NULL, PASSWORD TEXT NOT NULL, MAIL TEXT NOT NULL);";
+		res = sqlite3_exec(db, com, nullptr, nullptr, errMessage);
+
+		// Create Statistics table
+		com = "CREATE TABLE STATISTICS (USERNAME TEXT PRIMARY KEY NOT NULL, TIME_PLAYED FLOAT DEFAULT 0.0, TOTAL_ANSWERS INTEGER DEFAULT 0, CORRECT_ANSWERS INTEGER DEFAULT 0, TOTAL_GAMES INTEGER DEFAULT 0);";
 		res = sqlite3_exec(db, com, nullptr, nullptr, errMessage);
 
 		// Create Questionaree table
@@ -82,11 +92,26 @@ bool SqliteDatabase::doesPasswordMatch(std::string username, std::string passwor
 
 void SqliteDatabase::addNewUser(std::string username, std::string password, std::string mail)
 {
-	// Insert new user
+	// Insert new user to a user table
 	char sql_com[1024];
 	snprintf(sql_com, 1024, "INSERT INTO Users (username, password, mail) VALUES ('%s', '%s', '%s');",
 		username.c_str(), password.c_str(), mail.c_str());
 	int res = sqlite3_exec(db, sql_com, nullptr, nullptr, errMessage);
+
+	// Insert new user to a statistics table
+	snprintf(sql_com, 1024, "INSERT INTO STATISTICS (username) VALUES ('%s');", username.c_str());
+	res = sqlite3_exec(db, sql_com, nullptr, nullptr, errMessage);
+}
+
+std::vector<std::string> SqliteDatabase::getUsers()
+{
+	global_users_vector.clear();
+
+	char sql_com[1024];
+	snprintf(sql_com, 1024, "SELECT USERNAME FROM USERS;");
+	sqlite3_exec(db, sql_com, getUsers_callback, nullptr, errMessage);
+
+	return global_users_vector;
 }
 
 std::list<Question> SqliteDatabase::getQuestions(int num)
@@ -100,15 +125,49 @@ std::list<Question> SqliteDatabase::getQuestions(int num)
 	return global_question_list;
 }
 
-std::map<std::string, int> SqliteDatabase::getScores()
+float SqliteDatabase::getPlayerAverageAnswerTime(std::string username)
 {
-	global_scores.clear();
+	time_played = 0;
 
 	char sql_com[1024];
-	snprintf(sql_com, 1024, "SELECT USERNAME, SCORE FROM USERS;");
-	sqlite3_exec(db, sql_com, getScores_callback, nullptr, errMessage);
+	snprintf(sql_com, 1024, "SELECT TIME_PLAYED FROM STATISTICS WHERE USERNAME = '%s';", username.c_str());
+	sqlite3_exec(db, sql_com, getTimePlayed_callback, nullptr, errMessage);
 
-	return global_scores;
+	int total_ans = SqliteDatabase::getNumOfTotalAnswers(username);
+	return total_ans == 0 ? 0.0 : time_played / total_ans;
+}
+
+int SqliteDatabase::getNumOfCorrectAnswers(std::string username)
+{
+	counter = 0;
+
+	char sql_com[1024];
+	snprintf(sql_com, 1024, "SELECT CORRECT_ANSWERS FROM STATISTICS WHERE USERNAME = '%s';", username.c_str());
+	sqlite3_exec(db, sql_com, getCorrectAnswers_callback, nullptr, errMessage);
+
+	return counter;
+}
+
+int SqliteDatabase::getNumOfTotalAnswers(std::string username)
+{
+	counter = 0;
+
+	char sql_com[1024];
+	snprintf(sql_com, 1024, "SELECT TOTAL_ANSWERS FROM STATISTICS WHERE USERNAME = '%s';", username.c_str());
+	sqlite3_exec(db, sql_com, getTotalAnswers_callback, nullptr, errMessage);
+
+	return counter;
+}
+
+int SqliteDatabase::getNumOfPlayerGames(std::string username)
+{
+	counter = 0;
+
+	char sql_com[1024];
+	snprintf(sql_com, 1024, "SELECT TOTAL_GAMES FROM STATISTICS WHERE USERNAME = '%s';", username.c_str());
+	sqlite3_exec(db, sql_com, getTotalGames_callback, nullptr, errMessage);
+
+	return counter;
 }
 
 int isExists_callback(void* data, int argc, char** argv, char** azColName)
@@ -117,6 +176,21 @@ int isExists_callback(void* data, int argc, char** argv, char** azColName)
 	{
 		flag = true;
 	}
+	return 0;
+}
+
+int getUsers_callback(void* data, int argc, char** argv, char** azColName)
+{
+	std::string username{};
+
+	for (int i = 0; i < argc; i++) {
+		if (std::string(azColName[i]) == "USERNAME") {
+			username = argv[i];
+		}
+	}
+
+	global_users_vector.push_back(username);
+
 	return 0;
 }
 
@@ -152,21 +226,47 @@ int getQuestions_callback(void* data, int argc, char** argv, char** azColName)
 	return 0;
 }
 
-int getScores_callback(void* data, int argc, char** argv, char** azColName)
+int getTotalAnswers_callback(void* data, int argc, char** argv, char** azColName)
 {
-	std::string username;
-	unsigned int score = 0;
-
 	for (int i = 0; i < argc; i++) {
-		if (std::string(azColName[i]) == "USERNAME") {
-			username = argv[i];
-		}
-		else if (std::string(azColName[i]) == "SCORE") {
-			score = atoi(argv[i]);
+		if (std::string(azColName[i]) == "TOTAL_ANSWERS") {
+			counter = atoi(argv[i]);
 		}
 	}
 
-	global_scores.insert(std::pair<std::string, int>(username, score));
+	return 0;
+}
+
+int getCorrectAnswers_callback(void* data, int argc, char** argv, char** azColName)
+{
+	for (int i = 0; i < argc; i++) {
+		if (std::string(azColName[i]) == "CORRECT_ANSWERS") {
+			counter = atoi(argv[i]);
+		}
+	}
+
+	return 0;
+}
+
+
+int getTimePlayed_callback(void* data, int argc, char** argv, char** azColName)
+{
+	for (int i = 0; i < argc; i++) {
+		if (std::string(azColName[i]) == "TIME_PLAYED") {
+			time_played = std::stof(argv[i]);
+		}
+	}
+
+	return 0;
+}
+
+int getTotalGames_callback(void* data, int argc, char** argv, char** azColName)
+{
+	for (int i = 0; i < argc; i++) {
+		if (std::string(azColName[i]) == "TOTAL_GAMES") {
+			counter = atoi(argv[i]);
+		}
+	}
 
 	return 0;
 }

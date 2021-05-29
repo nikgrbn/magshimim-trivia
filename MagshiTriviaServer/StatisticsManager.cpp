@@ -1,22 +1,19 @@
 #include "StatisticsManager.h"
 
 
-std::vector<std::string> StatisticsManager::getStatistics()
+std::vector<std::map<std::string, std::string>> StatisticsManager::getStatistics()
 {
-    // Get user/score map from database
-    std::map<std::string, int> scores_map = m_database->getScores();
-    std::vector<std::string> scores_vector;
+	std::vector<std::map<std::string, std::string>> statistics;
 
-    // Iterate through map and push to vector
-    std::map<std::string, int>::iterator it;
-    for (it = scores_map.begin(); it != scores_map.end(); it++)
-    {
-        char line[1024];
-        snprintf(line, 1024, "{\"username\": %s, \"score\": %d}", it->first.c_str(), it->second);
-        scores_vector.push_back(line);
-    }
+	// Iterate through usernames vector
+	std::vector<std::string> usernames = m_database->getUsers();
+	for (auto username : usernames)
+	{
+		// Push each user statistics to a statisctics vector
+		statistics.push_back(StatisticsManager::getUserStatistics(username));
+	}
 
-    return scores_vector;
+    return statistics;
 }
 
 std::vector<std::string> StatisticsManager::getHighScore()
@@ -24,7 +21,32 @@ std::vector<std::string> StatisticsManager::getHighScore()
     return std::vector<std::string>();
 }
 
-std::vector<std::string> StatisticsManager::getUserStatistics()
+std::map<std::string, std::string> StatisticsManager::getUserStatistics(std::string username)
 {
-    return std::vector<std::string>();
+	std::map<std::string, std::string> user_statistics;
+
+	// Check if username exists
+	if (this->m_database->doesUserExists(username))
+	{
+		// Create user statistics map
+		user_statistics.insert(std::pair<std::string, std::string>("username", username));
+
+		user_statistics.insert(std::pair<std::string, std::string>("average_answer_time",
+			std::to_string(m_database->getPlayerAverageAnswerTime(username))));
+
+		user_statistics.insert(std::pair<std::string, std::string>("games_played",
+			std::to_string(m_database->getNumOfPlayerGames(username))));
+
+		user_statistics.insert(std::pair<std::string, std::string>("correct_answers",
+			std::to_string(m_database->getNumOfCorrectAnswers(username))));
+
+		user_statistics.insert(std::pair<std::string, std::string>("total_answers",
+			std::to_string(m_database->getNumOfTotalAnswers(username))));
+	}
+	else
+	{
+		throw std::exception("User with such username does not exist!");
+	}
+
+	return user_statistics;
 }
