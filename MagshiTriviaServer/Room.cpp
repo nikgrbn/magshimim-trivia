@@ -13,13 +13,33 @@ Room::Room(unsigned int id, std::string name, unsigned int maxPlayers,
 
 void Room::addUser(LoggedUser user)
 {
+	this->_users.push_back(user);
 }
 
 void Room::removeUser(LoggedUser user)
 {
+	// Iterate through vector
+	for (std::vector<LoggedUser>::iterator iter = this->_users.begin(); iter != this->_users.end(); ++iter)
+	{
+		// Erase user
+		if (*iter == user)
+		{
+			this->_users.erase(iter);
+			break;
+		}
+	}
 }
 
 std::vector<std::string> Room::getAllUsers()
 {
-	return std::vector<std::string>();
+	std::vector<std::string> usernames;
+
+	// Iterate through vector
+	for (auto user : this->_users)
+	{
+		// Push usernames
+		usernames.push_back(user.getUsername());
+	}
+
+	return usernames;
 }
