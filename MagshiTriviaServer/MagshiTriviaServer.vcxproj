@@ -150,6 +150,7 @@
     <ClCompile Include="MenuRequestHandler.cpp" />
     <ClCompile Include="Questionnaire.cpp" />
     <ClCompile Include="RequestHandlerFactory.cpp" />
+    <ClCompile Include="Room.cpp" />
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="sqlite3.c" />
     <ClCompile Include="SqliteDatabase.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="ProtocolStructures.h" />
     <ClInclude Include="Questionnaire.h" />
     <ClInclude Include="RequestHandlerFactory.h" />
+    <ClInclude Include="Room.h" />
     <ClInclude Include="Server.h" />
     <ClInclude Include="sqlite3.h" />
     <ClInclude Include="SqliteDatabase.h" />
