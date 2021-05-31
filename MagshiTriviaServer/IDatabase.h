@@ -20,4 +20,6 @@ public:
 	virtual int getNumOfCorrectAnswers(std::string username) = 0;
 	virtual int getNumOfTotalAnswers(std::string username) = 0;
 	virtual int getNumOfPlayerGames(std::string username) = 0;
+	virtual void addToPlayerStatistic(std::string username, float time_played,
+		int games_played, int correct_answers, int total_answers) = 0;
 };
