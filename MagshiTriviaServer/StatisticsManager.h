@@ -24,9 +24,9 @@ public:
 
 	std::vector<UserStatistics> getStatistics();
 	std::vector<UserStatistics> getHighScore();
+	UserStatistics getUserStatistics(std::string username);
 
 private:
-	UserStatistics getUserStatistics(std::string username);
 	int calculateScore(UserStatistics user);
 
 	IDatabase* m_database;
