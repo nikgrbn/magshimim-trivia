@@ -24,6 +24,14 @@ MenuRequestHandler* RequestHandlerFactory::createMenuRequestHandler() {
 	return menu_req_handler;
 }
 
-LoginManager& RequestHandlerFactory::getLoginManager() {
+LoginManager& RequestHandlerFactory::getLoginManager()  {
 	return this->_login_manager;
+}
+
+RoomManager& RequestHandlerFactory::getRoomManager() {
+	return this->_room_manager;
+}
+
+StatisticsManager RequestHandlerFactory::getStatisticsManager() {
+	return this->_statistics_manager;
 }
