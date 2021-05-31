@@ -68,3 +68,8 @@ Buffer JsonResponsePacketSerializer::serializeResponse(CreateRoomResponse respon
 {
     return Buffer();
 }
+
+Buffer JsonResponsePacketSerializer::serializeResponse(GetStatisticsResponse response)
+{
+    return Buffer();
+}
