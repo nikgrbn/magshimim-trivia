@@ -20,7 +20,9 @@ enum class ProtocolCodes : unsigned int {
 	GetPlayersInRoomRequest = 14,
 	JoinRoomRequest = 15,
 	GetStatisticsRequest = 16,
-	LogoutRequest = 17
+	LogoutRequest = 17,
+	HighScoreRequest = 18,
+	GetPersonalStats = 19
 };
 
 enum ResponseStatus {

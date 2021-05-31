@@ -76,10 +76,6 @@ typedef struct RequestResult {
 	IRequestHandler* newHandler;
 } RequestResult;
 
-typedef struct LogoutResponse {
-	unsigned int status;
-} LogoutResponse;
-
 typedef struct GetPlayersInRoomRequest {
 	unsigned int roomId;
 } GetPlayersInRoomRequest;
