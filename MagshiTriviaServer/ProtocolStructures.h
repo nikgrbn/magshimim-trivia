@@ -56,6 +56,11 @@ typedef struct CreateRoomResponse {
 	unsigned int status;
 } CreateRoomResponse;
 
+typedef struct GetStatisticsResponse {
+	unsigned int status;
+	std::vector<std::string> statistics;
+} GetStatisticsResponse;
+
 // -------- Request ---------
 
 typedef struct LoginRequest {
