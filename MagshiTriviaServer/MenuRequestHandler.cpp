@@ -8,6 +8,7 @@ bool MenuRequestHandler::IsRequestRelevant(RequestInfo info) {
 }
 
 RequestResult MenuRequestHandler::handleRequest(RequestInfo info) {
+
 }
 
 RequestResult MenuRequestHandler::signout(RequestInfo) {
