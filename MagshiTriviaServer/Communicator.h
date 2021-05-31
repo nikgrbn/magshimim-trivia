@@ -34,6 +34,7 @@ private:
 	RequestInfo receiveRequest(SOCKET client_socket);
 	void sendResponse(SOCKET client_socket, const RequestResult& response);
 	void sendError(SOCKET clientSocket, const std::string& errorMessage, RequestResult& response);
+	bool LoginRequestSanitizer(RequestInfo request);
 
 	// Members
 	SOCKET _serverSocket;
