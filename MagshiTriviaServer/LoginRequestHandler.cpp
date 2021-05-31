@@ -1,4 +1,5 @@
 #include "LoginRequestHandler.h"
+#include "MenuRequestHandler.h"
 
 LoginRequestHandler::LoginRequestHandler(LoginManager& login_manager, RequestHandlerFactory* handler_factory)
 	: IRequestHandler(), _login_manager(login_manager), _handler_factory(handler_factory) {
@@ -31,7 +32,9 @@ RequestResult LoginRequestHandler::login(RequestInfo request) {
 		LoginRequest deserialized_request = JsonRequestPacketDeserializer::deserializeLoginRequest(request.buffer);
 		this->_login_manager.login(deserialized_request.username, deserialized_request.password);
 		login_response.status = ResponseStatus::LoginSuccess;
-		response.newHandler = this->_handler_factory->createMenuRequestHandler();
+
+		LoggedUser user(deserialized_request.username);
+		response.newHandler = this->_handler_factory->createMenuRequestHandler(user);
 	} catch (std::exception& e) {
 		login_response.status = ResponseStatus::LoginError;
 		response.newHandler = this->_handler_factory->createLoginRequestHandler();

@@ -1,5 +1,9 @@
 #include "MenuRequestHandler.h"
 
+MenuRequestHandler::MenuRequestHandler(RequestHandlerFactory* factory, LoggedUser& user) 
+	: _request_handler_factory(factory), _user(user) {
+}
+
 bool MenuRequestHandler::IsRequestRelevant(RequestInfo info) {
 	if (info.id >= ProtocolCodes::CreateRoomRequest && info.id <= ProtocolCodes::Login)
 		return true;
@@ -8,7 +12,7 @@ bool MenuRequestHandler::IsRequestRelevant(RequestInfo info) {
 }
 
 RequestResult MenuRequestHandler::handleRequest(RequestInfo info) {
-
+	return RequestResult();
 }
 
 RequestResult MenuRequestHandler::signout(RequestInfo) {

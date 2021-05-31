@@ -43,3 +43,28 @@ Buffer JsonResponsePacketSerializer::serializeResponse(SignupResponse response) 
 
     return generateResponse(j.dump(), ProtocolCodes::Signup);
 }
+
+Buffer JsonResponsePacketSerializer::serializeResponse(LogoutResponse response)
+{
+    return Buffer();
+}
+
+Buffer JsonResponsePacketSerializer::serializeResponse(GetRoomsResponse response)
+{
+    return Buffer();
+}
+
+Buffer JsonResponsePacketSerializer::serializeResponse(GetPlayersInRoomResponse response)
+{
+    return Buffer();
+}
+
+Buffer JsonResponsePacketSerializer::serializeResponse(JoinRoomResponse response)
+{
+    return Buffer();
+}
+
+Buffer JsonResponsePacketSerializer::serializeResponse(CreateRoomResponse response)
+{
+    return Buffer();
+}
