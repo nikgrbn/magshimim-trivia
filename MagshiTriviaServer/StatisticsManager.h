@@ -7,18 +7,27 @@
 // Project headers
 #include "SqliteDatabase.h"
 
+typedef struct UserStatistics {
+	std::string username;
+	std::string average_answer_time;
+	std::string games_played;
+	std::string correct_answers;
+	std::string total_answers;
+	std::string score;
+}; UserStatistics;
+
 class StatisticsManager {
 public:
 	StatisticsManager() {};
 	StatisticsManager(IDatabase* db) : m_database(db) {};
 	~StatisticsManager() = default;
 
-	std::vector<std::map<std::string, std::string>> getStatistics();
-	std::vector<std::map<std::string, std::string>> getHighScore();
+	std::vector<UserStatistics> getStatistics();
+	std::vector<UserStatistics> getHighScore();
 
 private:
-	std::map<std::string, std::string> getUserStatistics(std::string username);
-	int calculateScore(std::map<std::string, std::string> user);
+	UserStatistics getUserStatistics(std::string username);
+	int calculateScore(UserStatistics user);
 
 	IDatabase* m_database;
 };
