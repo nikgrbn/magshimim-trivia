@@ -1,4 +1,5 @@
 #include "RequestHandlerFactory.h"
+#include "MenuRequestHandler.h"
 #include "LoginRequestHandler.h"
 
 RequestHandlerFactory::RequestHandlerFactory() : _login_manager(nullptr) {
@@ -18,8 +19,8 @@ LoginRequestHandler* RequestHandlerFactory::createLoginRequestHandler() {
 	return login_req_handler;
 }
 
-MenuRequestHandler* RequestHandlerFactory::createMenuRequestHandler() {
-	MenuRequestHandler* menu_req_handler = new MenuRequestHandler();
+MenuRequestHandler* RequestHandlerFactory::createMenuRequestHandler(LoggedUser& user) {
+	MenuRequestHandler* menu_req_handler = new MenuRequestHandler(this, user);
 
 	return menu_req_handler;
 }
