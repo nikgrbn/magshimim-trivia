@@ -54,15 +54,6 @@
     <ClCompile Include="Questionnaire.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="StatisticsManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Room.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RoomManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IRequestHandler.h">
@@ -116,17 +107,5 @@
     <ClInclude Include="Questionnaire.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StatisticsManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Room.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RoomManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
 </Project>
