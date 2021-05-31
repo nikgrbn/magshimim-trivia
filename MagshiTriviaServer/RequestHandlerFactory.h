@@ -3,10 +3,10 @@
 // Project header files
 #include "LoginManager.h"
 #include "IDatabase.h"
-#include "MenuRequestHandler.h"
 #include "RoomManager.h"
 #include "StatisticsManager.h"
 
+class MenuRequestHandler;
 class LoginRequestHandler;
 
 class RequestHandlerFactory
@@ -18,7 +18,7 @@ public:
 	~RequestHandlerFactory();
 
 	LoginRequestHandler* createLoginRequestHandler();
-	MenuRequestHandler* createMenuRequestHandler();
+	MenuRequestHandler* createMenuRequestHandler(LoggedUser& user);
 
 	// Getters / Setters
 	LoginManager& getLoginManager();
