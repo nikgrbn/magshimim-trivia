@@ -1,13 +1,16 @@
 #include "StatisticsManager.h"
 
-bool comparator(const std::map<std::string, std::string>& lhs, const std::map<std::string, std::string>& rhs)
+bool comparator(const UserStatistics& lhs, const UserStatistics& rhs)
 {
-	return std::stoi(lhs.at("score")) < std::stoi(rhs.at("score"));
+	return std::stoi(lhs.score) < std::stoi(rhs.score);
 }
 
-std::vector<std::map<std::string, std::string>> StatisticsManager::getStatistics()
+/*
+Returns all users statistics
+*/
+std::vector<UserStatistics> StatisticsManager::getStatistics()
 {
-	std::vector<std::map<std::string, std::string>> statistics;
+	std::vector<UserStatistics> statistics;
 
 	// Iterate through usernames vector
 	std::vector<std::string> usernames = m_database->getUsers();
@@ -20,46 +23,34 @@ std::vector<std::map<std::string, std::string>> StatisticsManager::getStatistics
     return statistics;
 }
 
-std::vector<std::map<std::string, std::string>> StatisticsManager::getHighScore()
+/*
+Returns vector of 5 best scores
+*/
+std::vector<UserStatistics> StatisticsManager::getHighScore()
 {
-	std::vector<std::map<std::string, std::string>> leaderboard;
-	std::vector<std::map<std::string, std::string>> users = StatisticsManager::getStatistics();
-
-	for (auto user : users)
-	{
-		// Create vector of users and their scores
-		std::map<std::string, std::string> user_map;
-		user_map.insert(std::pair<std::string, std::string>("username", user["username"]));
-		user_map.insert(std::pair<std::string, std::string>("score", std::to_string(calculateScore(user))));
-		leaderboard.push_back(user_map);
-	}
+	// Get vector of all users statistics
+	std::vector<UserStatistics> leaderboard = StatisticsManager::getStatistics();
 
 	// Sort players by their scores using custom comparator
 	std::sort(leaderboard.begin(), leaderboard.end(), comparator);
-    return leaderboard.size() <= 5 ? leaderboard : std::vector<std::map<std::string, std::string>>(leaderboard.begin(), leaderboard.begin() + 5);
+
+    return leaderboard.size() <= 5 ? leaderboard : std::vector<UserStatistics>(leaderboard.begin(), leaderboard.begin() + 5);
 }
 
-std::map<std::string, std::string> StatisticsManager::getUserStatistics(std::string username)
+UserStatistics StatisticsManager::getUserStatistics(std::string username)
 {
-	std::map<std::string, std::string> user_statistics;
+	UserStatistics user_statistics;
 
 	// Check if username exists
 	if (this->m_database->doesUserExists(username))
 	{
-		// Create user statistics map
-		user_statistics.insert(std::pair<std::string, std::string>("username", username));
-
-		user_statistics.insert(std::pair<std::string, std::string>("average_answer_time",
-			std::to_string(m_database->getPlayerAverageAnswerTime(username))));
-
-		user_statistics.insert(std::pair<std::string, std::string>("games_played",
-			std::to_string(m_database->getNumOfPlayerGames(username))));
-
-		user_statistics.insert(std::pair<std::string, std::string>("correct_answers",
-			std::to_string(m_database->getNumOfCorrectAnswers(username))));
-
-		user_statistics.insert(std::pair<std::string, std::string>("total_answers",
-			std::to_string(m_database->getNumOfTotalAnswers(username))));
+		// Fill user statistics structure
+		user_statistics.username = username;
+		user_statistics.average_answer_time = std::to_string(m_database->getPlayerAverageAnswerTime(username));
+		user_statistics.games_played = std::to_string(m_database->getNumOfPlayerGames(username));
+		user_statistics.correct_answers = std::to_string(m_database->getNumOfCorrectAnswers(username));
+		user_statistics.total_answers = std::to_string(m_database->getNumOfTotalAnswers(username));
+		user_statistics.score = std::to_string(calculateScore(user_statistics));
 	}
 	else
 	{
@@ -69,15 +60,15 @@ std::map<std::string, std::string> StatisticsManager::getUserStatistics(std::str
 	return user_statistics;
 }
 
-int StatisticsManager::calculateScore(std::map<std::string, std::string> user)
+int StatisticsManager::calculateScore(UserStatistics user)
 {
 	float score = 0;
 
 	// Get user stats
-	float average_answer_time = std::stof(user["average_answer_time"]);
-	int games_played = std::stoi(user["games_played"]);
-	int correct_answers = std::stoi(user["correct_answers"]);
-	int total_answers = std::stoi(user["total_answers"]);
+	float average_answer_time = std::stof(user.average_answer_time);
+	int games_played = std::stoi(user.games_played);
+	int correct_answers = std::stoi(user.correct_answers);
+	int total_answers = std::stoi(user.total_answers);
 
 	// Check if stats aren't zeroes
 	if (average_answer_time != 0 && games_played != 0 && correct_answers != 0 && total_answers != 0)
