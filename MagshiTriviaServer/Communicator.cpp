@@ -65,7 +65,8 @@ void Communicator::handleNewClient(SOCKET client_socket) {
 		while (true) {
 			request = receiveRequest(client_socket);
 			
-			if ((*client).second != nullptr && !request.buffer.empty()) {
+			if (((*client).second != nullptr && !request.buffer.empty()) \
+				&& (this->LoginRequestSanitizer(request) && dynamic_cast<LoginRequestHandler*>((*client).second))) {
 				response = (*client).second->handleRequest(request); //handle request
 			} else {
 				sendError(client_socket, "[!] Invalid request", response);
@@ -119,4 +120,11 @@ void Communicator::sendError(SOCKET clientSocket, const std::string& errorMessag
 
 	response.buffer = JsonResponsePacketSerializer::serializeResponse(error_struct);
 	send(clientSocket, (char*)response.buffer.data(), response.buffer.size(), NULL);
+}
+
+bool Communicator::LoginRequestSanitizer(RequestInfo request) {
+	if (request.buffer[0] == (unsigned int)ProtocolCodes::Login)
+		return true;
+
+	return false;
 }
