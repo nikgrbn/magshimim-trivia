@@ -2,7 +2,7 @@
 
 bool comparator(const UserStatistics& lhs, const UserStatistics& rhs)
 {
-	return std::stoi(lhs.score) < std::stoi(rhs.score);
+	return std::stoi(lhs.score) > std::stoi(rhs.score);
 }
 
 /*
@@ -74,7 +74,7 @@ int StatisticsManager::calculateScore(UserStatistics user)
 	if (average_answer_time != 0 && games_played != 0 && correct_answers != 0 && total_answers != 0)
 	{
 		// Calculate score by formula
-		score = (float)100 * (((correct_answers / total_answers) * games_played) / average_answer_time);
+ 		score = 100 * ((((float)correct_answers / total_answers) * games_played) / average_answer_time);
 	}
 
 	return (int)score;

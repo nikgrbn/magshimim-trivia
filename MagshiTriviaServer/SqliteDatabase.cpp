@@ -170,6 +170,15 @@ int SqliteDatabase::getNumOfPlayerGames(std::string username)
 	return counter;
 }
 
+void SqliteDatabase::addToPlayerStatistic(std::string username, float time_played, int games_played, int correct_answers, int total_answers)
+{
+	char sql_com[1024];
+	snprintf(sql_com, 1024,
+		"UPDATE STATISTICS SET TIME_PLAYED = TIME_PLAYED + %f, TOTAL_ANSWERS = TOTAL_ANSWERS + %d, CORRECT_ANSWERS = CORRECT_ANSWERS + %d, TOTAL_GAMES = TOTAL_GAMES + %d WHERE USERNAME = '%s';",
+		time_played, total_answers, correct_answers, games_played, username.c_str());
+	sqlite3_exec(db, sql_com, nullptr, nullptr, errMessage);
+}
+
 int isExists_callback(void* data, int argc, char** argv, char** azColName)
 {
 	if (argc > 0)
