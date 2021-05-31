@@ -21,7 +21,6 @@ enum class ProtocolCodes : unsigned int {
 	JoinRoomRequest = 15,
 	GetStatisticsRequest = 16,
 	LogoutRequest = 17
-
 };
 
 enum ResponseStatus {

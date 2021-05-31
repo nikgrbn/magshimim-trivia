@@ -37,12 +37,10 @@ typedef struct GetPlayersInRoomResponse {
 	std::vector<std::string> players;
 } GetPlayersInRoomResponse;
 
-
 typedef struct getHighScoreResponse {
 	unsigned int status;
 	std::vector<std::string> statistics;
 } getHighScoreResponse;
-
 
 typedef struct getPersonalStatsResponse {
 	unsigned int status;
@@ -77,6 +75,10 @@ typedef struct RequestResult {
 	Buffer buffer;
 	IRequestHandler* newHandler;
 } RequestResult;
+
+typedef struct LogoutResponse {
+	unsigned int status;
+} LogoutResponse;
 
 typedef struct GetPlayersInRoomRequest {
 	unsigned int roomId;
