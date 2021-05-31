@@ -7,6 +7,7 @@
 
 // Project header files
 #include "StatusCodes.h"
+#include "Room.h"
 
 class IRequestHandler;
 
