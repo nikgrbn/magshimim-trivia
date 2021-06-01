@@ -8,6 +8,7 @@
 // Project header files
 #include "StatusCodes.h"
 #include "Room.h"
+#include "StatisticsManager.h"
 
 class IRequestHandler;
 
@@ -58,7 +59,8 @@ typedef struct CreateRoomResponse {
 
 typedef struct GetStatisticsResponse {
 	unsigned int status;
-	std::vector<std::string> statistics;
+	std::vector<UserStatistics> user_statistics;
+	std::vector<UserStatistics> high_score;
 } GetStatisticsResponse;
 
 // -------- Request ---------
