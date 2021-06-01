@@ -44,32 +44,53 @@ Buffer JsonResponsePacketSerializer::serializeResponse(SignupResponse response) 
     return generateResponse(j.dump(), ProtocolCodes::Signup);
 }
 
-Buffer JsonResponsePacketSerializer::serializeResponse(LogoutResponse response)
-{
-    return Buffer();
+Buffer JsonResponsePacketSerializer::serializeResponse(LogoutResponse response) {
+    json j{};
+    j["status"] = response.status;
+
+    return generateResponse(j.dump(), ProtocolCodes::LogoutRequest);
 }
 
-Buffer JsonResponsePacketSerializer::serializeResponse(GetRoomsResponse response)
-{
-    return Buffer();
+Buffer JsonResponsePacketSerializer::serializeResponse(GetRoomsResponse response) {
+    json j{};
+    std::string rooms_string{};
+
+    for (auto r : response.rooms) {
+        if (!rooms_string.empty())
+            rooms_string += ',';
+        rooms_string += r.name;
+    }
+
+    j["Rooms"] = rooms_string;
+
+    return generateResponse(j.dump(), ProtocolCodes::LogoutRequest);
 }
 
-Buffer JsonResponsePacketSerializer::serializeResponse(GetPlayersInRoomResponse response)
-{
-    return Buffer();
+Buffer JsonResponsePacketSerializer::serializeResponse(GetPlayersInRoomResponse response) {
+    json j{};
+    std::string users_string{};
+
+    for (auto r : response.players) {
+        if (!users_string.empty())
+            users_string += ',';
+        users_string += r;
+    }
+
+    j["Rooms"] = users_string;
+
+    return generateResponse(j.dump(), ProtocolCodes::LogoutRequest);
 }
 
-Buffer JsonResponsePacketSerializer::serializeResponse(JoinRoomResponse response)
-{
-    return Buffer();
+Buffer JsonResponsePacketSerializer::serializeResponse(JoinRoomResponse response) {
+    json j{};
+    j["status"] = response.status;
+
+    return generateResponse(j.dump(), ProtocolCodes::JoinRoomRequest);
 }
 
-Buffer JsonResponsePacketSerializer::serializeResponse(CreateRoomResponse response)
-{
-    return Buffer();
-}
+Buffer JsonResponsePacketSerializer::serializeResponse(CreateRoomResponse response) {
+    json j{};
+    j["status"] = response.status;
 
-Buffer JsonResponsePacketSerializer::serializeResponse(GetStatisticsResponse response)
-{
-    return Buffer();
+    return generateResponse(j.dump(), ProtocolCodes::CreateRoomRequest);
 }
