@@ -40,3 +40,42 @@ SignupRequest JsonRequestPacketDeserializer::deserializeSignupRequest(Buffer req
 
     return sign_req;
 }
+
+GetPlayersInRoomRequest JsonRequestPacketDeserializer::deserializeGetPlayersRequest(Buffer request)
+{
+    // Get json from request
+    json j = retrieveJson(request);
+
+    // Create struct with json
+    struct GetPlayersInRoomRequest room_req;
+    room_req.roomId = j["ID"];
+
+    return room_req;
+}
+
+JoinRoomRequest JsonRequestPacketDeserializer::deserializeJoinRoomRequest(Buffer request)
+{
+    // Get json from request
+    json j = retrieveJson(request);
+
+    // Create struct with json
+    struct JoinRoomRequest room_req;
+    room_req.roomId = j["ID"];
+
+    return room_req;
+}
+
+CreateRoomRequest JsonRequestPacketDeserializer::deserializeCreateRoomRequest(Buffer request)
+{
+    // Get json from request
+    json j = retrieveJson(request);
+
+    // Create struct with json
+    struct CreateRoomRequest room_req;
+    room_req.answerTimeout = j["answerTimeout"];
+    room_req.maxUsers = j["maxUsers"];
+    room_req.questionCount = j["questionCount"];
+    room_req.roomName = j["roomName"];
+
+    return room_req;
+}

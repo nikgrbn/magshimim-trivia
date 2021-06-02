@@ -20,4 +20,8 @@ public:
 	// Desirialize requests to structs
 	static LoginRequest deserializeLoginRequest(Buffer request);
 	static SignupRequest deserializeSignupRequest(Buffer request);
+
+	static GetPlayersInRoomRequest deserializeGetPlayersRequest(Buffer request);
+	static JoinRoomRequest deserializeJoinRoomRequest(Buffer request);
+	static CreateRoomRequest deserializeCreateRoomRequest(Buffer request);
 };
