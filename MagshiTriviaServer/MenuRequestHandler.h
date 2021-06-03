@@ -5,7 +5,9 @@
 #include "RoomManager.h"
 #include "StatisticsManager.h"
 #include "LoggedUser.h"
+#include "JsonResponsePacketSerializer.h"
 #include "RequestHandlerFactory.h"
+#include "SqliteDatabase.h"
 
 class MenuRequestHandler : public IRequestHandler
 {

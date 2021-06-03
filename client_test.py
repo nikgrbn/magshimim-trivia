@@ -14,7 +14,6 @@ def communicate_with_server():
 			exit()
 
 		print("* Connection succeeded \n")
-
 		"""
 		# Signup
 		json_dict = {"username": 'user1', "password": '1234', "mail": 'user1@gmail.com'}
@@ -23,7 +22,8 @@ def communicate_with_server():
 
 		reply = s.recv(1024).decode()
 		print(reply)
-
+		
+		
 		# Signup
 		json_dict = {"username": 'user2', "password": '1234', "mail": 'user2@gmail.com'}
 		code = 10 # signup
@@ -43,7 +43,7 @@ def communicate_with_server():
 
 		#login
 		json_dict = {"username": 'user1', "password": '1234'}
-		code = 11 # login
+		code = 15 # login
 		s.sendall(generate_buffer(code, json_dict))
 
 		reply = s.recv(1024).decode()
