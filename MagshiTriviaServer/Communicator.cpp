@@ -66,7 +66,9 @@ void Communicator::handleNewClient(SOCKET client_socket) {
 			request = receiveRequest(client_socket);
 			
 			if (((*client).second != nullptr && !request.buffer.empty()) \
-				&& (this->LoginRequestSanitizer(request) && dynamic_cast<LoginRequestHandler*>((*client).second))) {
+				&& (this->LoginRequestSanitizer(request) && dynamic_cast<LoginRequestHandler*>((*client).second))\
+				|| (!this->LoginRequestSanitizer(request) && dynamic_cast<LoginRequestHandler*>((*client).second))\
+				|| (!this->LoginRequestSanitizer(request) && !dynamic_cast<LoginRequestHandler*>((*client).second))) {
 				response = (*client).second->handleRequest(request); //handle request
 			} else {
 				sendError(client_socket, "[!] Invalid request", response);
