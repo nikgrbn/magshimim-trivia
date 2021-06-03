@@ -12,6 +12,15 @@ bool MenuRequestHandler::IsRequestRelevant(RequestInfo info) {
 }
 
 RequestResult MenuRequestHandler::handleRequest(RequestInfo info) {
+	GetStatisticsResponse r;
+	SqliteDatabase *db = new SqliteDatabase;
+	StatisticsManager s(db);
+
+	r.user_statistics = s.getStatistics();
+	r.high_score = s.getHighScore();
+	r.status = 100;
+
+	JsonResponsePacketSerializer::serializeResponse(r);
 	return RequestResult();
 }
 
