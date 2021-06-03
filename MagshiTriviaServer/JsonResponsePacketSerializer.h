@@ -27,4 +27,6 @@ public:
     static Buffer serializeResponse(JoinRoomResponse response);
     static Buffer serializeResponse(CreateRoomResponse response);
     static Buffer serializeResponse(GetStatisticsResponse response);
+    static Buffer serializeResponse(getPersonalStatsResponse response);
+    static Buffer serializeResponse(getHighScoreResponse response);
 };

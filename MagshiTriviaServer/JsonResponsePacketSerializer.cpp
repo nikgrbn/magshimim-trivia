@@ -63,7 +63,7 @@ Buffer JsonResponsePacketSerializer::serializeResponse(GetRoomsResponse response
 
     j["Rooms"] = rooms_string;
 
-    return generateResponse(j.dump(), ProtocolCodes::LogoutRequest);
+    return generateResponse(j.dump(), ProtocolCodes::GetRoomsRequest);
 }
 
 Buffer JsonResponsePacketSerializer::serializeResponse(GetPlayersInRoomResponse response) {
@@ -78,7 +78,7 @@ Buffer JsonResponsePacketSerializer::serializeResponse(GetPlayersInRoomResponse 
 
     j["Rooms"] = users_string;
 
-    return generateResponse(j.dump(), ProtocolCodes::LogoutRequest);
+    return generateResponse(j.dump(), ProtocolCodes::GetPlayersInRoomRequest);
 }
 
 Buffer JsonResponsePacketSerializer::serializeResponse(JoinRoomResponse response) {
@@ -130,4 +130,34 @@ Buffer JsonResponsePacketSerializer::serializeResponse(GetStatisticsResponse res
     final_j["HighScore"] = highscore_j;
 
     return generateResponse(final_j.dump(), ProtocolCodes::GetStatisticsRequest);
+}
+
+Buffer JsonResponsePacketSerializer::serializeResponse(getPersonalStatsResponse response) {
+    json j{};
+    std::string users_string{};
+
+    for (auto r : response.statistics) {
+        if (!users_string.empty())
+            users_string += ',';
+        users_string += r;
+    }
+
+    j["UsersStats"] = users_string;
+
+    return generateResponse(j.dump(), ProtocolCodes::GetPersonalStats);
+}
+
+Buffer JsonResponsePacketSerializer::serializeResponse(getHighScoreResponse response) {
+    json j{};
+    std::string users_string{};
+
+    for (auto r : response.statistics) {
+        if (!users_string.empty())
+            users_string += ',';
+        users_string += r;
+    }
+
+    j["HighScore"] = users_string;
+
+    return generateResponse(j.dump(), ProtocolCodes::HighScoreRequest);
 }
