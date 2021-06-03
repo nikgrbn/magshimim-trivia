@@ -11,7 +11,7 @@ bool MenuRequestHandler::IsRequestRelevant(RequestInfo info) {
 	return false;
 }
 
-RequestResult MenuRequestHandler::handleRequest(RequestInfo info) {
+/*
 	GetStatisticsResponse r;
 	SqliteDatabase *db = new SqliteDatabase;
 	StatisticsManager s(db);
@@ -21,33 +21,64 @@ RequestResult MenuRequestHandler::handleRequest(RequestInfo info) {
 	r.status = 100;
 
 	JsonResponsePacketSerializer::serializeResponse(r);
+*/
+RequestResult MenuRequestHandler::handleRequest(RequestInfo info) {
+	switch (info.id) {
+	case ProtocolCodes::LogoutRequest: {
+		break;
+	}
+
+	case ProtocolCodes::GetRoomsRequest: {
+		break;
+	}
+
+	case ProtocolCodes::GetPlayersInRoomRequest: {
+		break;
+	}
+
+	case ProtocolCodes::GetPersonalStats: {
+		break;
+	}
+
+	case ProtocolCodes::HighScoreRequest: {
+		break;
+	}
+
+	case ProtocolCodes::JoinRoomRequest: {
+		break;
+	}
+
+	case ProtocolCodes::CreateRoomRequest: {
+		break;
+	}
+	}
 	return RequestResult();
 }
 
-RequestResult MenuRequestHandler::signout(RequestInfo) {
+RequestResult MenuRequestHandler::signout(RequestInfo request) {
 	return RequestResult();
 }
 
-RequestResult MenuRequestHandler::getRooms(RequestInfo) {
+RequestResult MenuRequestHandler::getRooms(RequestInfo request) {
 	return RequestResult();
 }
 
-RequestResult MenuRequestHandler::getPlayersInRoom(RequestInfo) {
+RequestResult MenuRequestHandler::getPlayersInRoom(RequestInfo request) {
 	return RequestResult();
 }
 
-RequestResult MenuRequestHandler::getPersonalStats(RequestInfo) {
+RequestResult MenuRequestHandler::getPersonalStats(RequestInfo request) {
 	return RequestResult();
 }
 
-RequestResult MenuRequestHandler::getHighScore(RequestInfo) {
+RequestResult MenuRequestHandler::getHighScore(RequestInfo request) {
 	return RequestResult();
 }
 
-RequestResult MenuRequestHandler::joinRoom(RequestInfo) {
+RequestResult MenuRequestHandler::joinRoom(RequestInfo request) {
 	return RequestResult();
 }
 
-RequestResult MenuRequestHandler::createRoom(RequestInfo) {
+RequestResult MenuRequestHandler::createRoom(RequestInfo request) {
 	return RequestResult();
 }
