@@ -94,3 +94,40 @@ Buffer JsonResponsePacketSerializer::serializeResponse(CreateRoomResponse respon
 
     return generateResponse(j.dump(), ProtocolCodes::CreateRoomRequest);
 }
+
+// { UsersStatistics: {"user1": {...}, "user2" : {...}}, "HighScoreStatistics" : {"user1" :{....}} }
+
+Buffer JsonResponsePacketSerializer::serializeResponse(GetStatisticsResponse response) {
+    json final_j{};
+    json users_j{};
+    json highscore_j{};
+
+    for (auto user : response.user_statistics) {
+        json current_user;
+        
+        current_user["average_answer_time"] = user.average_answer_time;
+        current_user["games_played"] = user.games_played;
+        current_user["correct_answers"] = user.correct_answers;
+        current_user["total_answers"] = user.total_answers;
+        current_user["score"] = user.score;
+
+        users_j[user.username] = current_user;
+    }
+
+    for (auto user : response.high_score) {
+        json current_user;
+
+        current_user["average_answer_time"] = user.average_answer_time;
+        current_user["games_played"] = user.games_played;
+        current_user["correct_answers"] = user.correct_answers;
+        current_user["total_answers"] = user.total_answers;
+        current_user["score"] = user.score;
+
+        highscore_j[user.username] = current_user;
+    }
+    
+    final_j["UsersStatistics"] = users_j;
+    final_j["HighScore"] = highscore_j;
+
+    return generateResponse(final_j.dump(), ProtocolCodes::GetStatisticsRequest);
+}
