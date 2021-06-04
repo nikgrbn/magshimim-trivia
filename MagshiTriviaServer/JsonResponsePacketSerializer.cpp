@@ -134,15 +134,8 @@ Buffer JsonResponsePacketSerializer::serializeResponse(GetStatisticsResponse res
 
 Buffer JsonResponsePacketSerializer::serializeResponse(getPersonalStatsResponse response) {
     json j{};
-    std::string users_string{};
-
-    for (auto r : response.statistics) {
-        if (!users_string.empty())
-            users_string += ',';
-        users_string += r;
-    }
-
-    j["UsersStats"] = users_string;
+    j["status"] = response.status;
+    j["UsersStats"] = response.statistics;
 
     return generateResponse(j.dump(), ProtocolCodes::GetPersonalStats);
 }
