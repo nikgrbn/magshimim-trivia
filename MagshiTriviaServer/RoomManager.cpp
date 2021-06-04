@@ -3,6 +3,8 @@
 void RoomManager::createRoom(LoggedUser user, RoomData rm_data)
 {
 	// Create room
+	this->_room_id_counter++;
+	rm_data.id = this->_room_id_counter;
 	Room room(rm_data);
 	room.addUser(user);
 

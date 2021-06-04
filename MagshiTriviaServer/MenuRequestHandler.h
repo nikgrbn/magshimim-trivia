@@ -24,11 +24,11 @@ private:
 	LoggedUser _user;
 
 	// Private methods
-	RequestResult signout(RequestInfo);
-	RequestResult getRooms(RequestInfo);
-	RequestResult getPlayersInRoom(RequestInfo);
-	RequestResult getPersonalStats(RequestInfo);
-	RequestResult getHighScore(RequestInfo);
-	RequestResult joinRoom(RequestInfo);
-	RequestResult createRoom(RequestInfo);
+	RequestResult signout(RequestInfo request);
+	RequestResult getRooms(RequestInfo request);
+	RequestResult getPlayersInRoom(RequestInfo request);
+	RequestResult getPersonalStats(RequestInfo request);
+	RequestResult getHighScore(RequestInfo request);
+	RequestResult joinRoom(RequestInfo request);
+	RequestResult createRoom(RequestInfo request);
 };
