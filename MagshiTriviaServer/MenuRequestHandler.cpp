@@ -12,48 +12,47 @@ bool MenuRequestHandler::IsRequestRelevant(RequestInfo info) {
 	return false;
 }
 
-/*
-	GetStatisticsResponse r;
-	SqliteDatabase *db = new SqliteDatabase;
-	StatisticsManager s(db);
-
-	r.user_statistics = s.getStatistics();
-	r.high_score = s.getHighScore();
-	r.status = 100;
-
-	JsonResponsePacketSerializer::serializeResponse(r);
-*/
 RequestResult MenuRequestHandler::handleRequest(RequestInfo info) {
+	RequestResult response;
+
 	switch (info.id) {
 	case ProtocolCodes::LogoutRequest: {
+		response = this->signout(info);
 		break;
 	}
 
 	case ProtocolCodes::GetRoomsRequest: {
+		response = this->getRooms(info);
 		break;
 	}
 
 	case ProtocolCodes::GetPlayersInRoomRequest: {
+		response = this->getPlayersInRoom(info);
 		break;
 	}
 
 	case ProtocolCodes::GetPersonalStats: {
+		response = this->getPersonalStats(info);
 		break;
 	}
 
 	case ProtocolCodes::HighScoreRequest: {
+		response = this->getHighScore(info);
 		break;
 	}
 
 	case ProtocolCodes::JoinRoomRequest: {
+		response = this->joinRoom(info);
 		break;
 	}
 
 	case ProtocolCodes::CreateRoomRequest: {
+		response = this->createRoom(info);
 		break;
 	}
 	}
-	return RequestResult();
+
+	return response;
 }
 
 RequestResult MenuRequestHandler::signout(RequestInfo request) {
