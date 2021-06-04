@@ -8,7 +8,7 @@
 
 class RoomManager {
 public:
-	RoomManager() {};
+	RoomManager() : _room_id_counter(0) {};
 	~RoomManager() = default;
 
 	void createRoom(LoggedUser user, RoomData rm_data);
@@ -17,5 +17,6 @@ public:
 	std::vector<RoomData> getRooms();
 
 private:
+	unsigned int _room_id_counter;
 	std::map<unsigned int, Room> _rooms; // unsigned int is roomID
 };
