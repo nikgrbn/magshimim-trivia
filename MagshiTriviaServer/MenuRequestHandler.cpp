@@ -123,7 +123,7 @@ RequestResult MenuRequestHandler::getPersonalStats(RequestInfo request) {
 
 	try {
 		UserStatistics user_stats = this->_statistics_manager.getUserStatistics(this->_user.getUsername());
-		std::string stats = user_stats.score + user_stats.total_answers + user_stats.games_played + user_stats.correct_answers + user_stats.average_answer_time;
+		std::string stats = user_stats.score + ", " + user_stats.total_answers + ", " + user_stats.games_played + ", " + user_stats.correct_answers + ", " + user_stats.average_answer_time;
 
 		get_personal_stats.statistics = stats;
 		get_personal_stats.status = ResponseStatus::GetPersonalStatsSuccess;
@@ -138,20 +138,28 @@ RequestResult MenuRequestHandler::getPersonalStats(RequestInfo request) {
 }
 
 RequestResult MenuRequestHandler::getHighScore(RequestInfo request) {
-	/*RequestResult response{};
-	getHighScoreResponse get_high_score{};
+	RequestResult response{};
+	getHighScoreResponse get_high_score_response{};
 
 	try {
 		std::vector<UserStatistics> high_score = this->_statistics_manager.getHighScore();
-		get_high_score.status = ResponseStatus::HighScoreRequestSuccess;
+		std::vector<std::string> high_score_strings{};
+
+		for (auto user : high_score) {
+			std::string current_user_stats = user.score + ", " + user.total_answers + ", " + user.games_played + ", " + user.correct_answers + ", " + user.average_answer_time;
+			high_score_strings.push_back(current_user_stats);
+		}
+		
+		get_high_score_response.statistics = high_score_strings;
+		get_high_score_response.status = ResponseStatus::HighScoreRequestSuccess;
 		response.newHandler = this->_request_handler_factory->createLoginRequestHandler();
 	} catch (std::exception& e) {
-		get_high_score.status = ResponseStatus::HighScoreRequestError;
+		get_high_score_response.status = ResponseStatus::HighScoreRequestError;
 		response.newHandler = this->_request_handler_factory->createLoginRequestHandler();
 	}
 
-	response.buffer = JsonResponsePacketSerializer::serializeResponse(get_high_score);
-	return response;*/
+	response.buffer = JsonResponsePacketSerializer::serializeResponse(get_high_score_response);
+	return response;
 	return RequestResult();
 }
 
