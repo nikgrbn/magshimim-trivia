@@ -42,5 +42,14 @@ enum ResponseStatus {
 	JoinRoomError = 501,
 	
 	CreateRoomSuccess = 600,
-	CreateRoomError = 601
+	CreateRoomError = 601,
+
+	GetPlayersInRoomRequestSuccess = 700,
+	GetPlayersInRoomRequestError = 701,
+
+	GetPersonalStatsSuccess = 800,
+	GetPersonalStatsError = 801,
+
+	HighScoreRequestSuccess = 900,
+	HighScoreRequestError = 901
 };
