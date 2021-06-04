@@ -118,13 +118,14 @@ RequestResult MenuRequestHandler::getPlayersInRoom(RequestInfo request) {
 }
 
 RequestResult MenuRequestHandler::getPersonalStats(RequestInfo request) {
-	/*RequestResult response{};
+	RequestResult response{};
 	getPersonalStatsResponse get_personal_stats{};
 
 	try {
 		UserStatistics user_stats = this->_statistics_manager.getUserStatistics(this->_user.getUsername());
-		std::string stats{};
+		std::string stats = user_stats.score + user_stats.total_answers + user_stats.games_played + user_stats.correct_answers + user_stats.average_answer_time;
 
+		get_personal_stats.statistics = stats;
 		get_personal_stats.status = ResponseStatus::GetPersonalStatsSuccess;
 		response.newHandler = this->_request_handler_factory->createLoginRequestHandler();
 	} catch (std::exception& e) {
@@ -133,8 +134,7 @@ RequestResult MenuRequestHandler::getPersonalStats(RequestInfo request) {
 	}
 
 	response.buffer = JsonResponsePacketSerializer::serializeResponse(get_personal_stats);
-	return response;*/
-	return RequestResult();
+	return response;
 }
 
 RequestResult MenuRequestHandler::getHighScore(RequestInfo request) {
