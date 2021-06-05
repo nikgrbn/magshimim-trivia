@@ -41,22 +41,47 @@ namespace MagshiTriviaClient
 
         private void clicked_enter(object sender, RoutedEventArgs events)
         {
-            if (radiobutton_login.IsChecked == true)
+            try
             {
-                try
+                if (radiobutton_login.IsChecked == true && !string.IsNullOrWhiteSpace(tb_username.Text) && !string.IsNullOrWhiteSpace(tb_password.Text))
                 {
-                    string msg = "{" + String.Format("\"username\":\"{0}\", \"password\":\"{1}\"", tb_username.Text, tb_password.Text) + "}";
-                    l_error.Content = com.sendMsgToServer(11, msg);
+                    string resp = com.sendPacketToServer(Serializer.SerializeLoginRequest(tb_username.Text, tb_password.Text));
+                    if (Deserializer.DeserializeLoginResponse(resp).status == 101)
+                    {
+                        l_error.Content = "Login error!";
+                    }
+                    else
+                    {
+                        l_error.Content = "";
+                        MainWindow mainWindow = new MainWindow();
+                        Visibility = Visibility.Hidden;
+                        mainWindow.Show();
+                    }
                 }
-                catch (Exception e)
+
+                else if (radiobutton_register.IsChecked == true && !string.IsNullOrWhiteSpace(tb_username.Text) && !string.IsNullOrWhiteSpace(tb_password.Text) && !string.IsNullOrWhiteSpace(tb_email.Text))
                 {
-                    l_error.Content = e.Message;
+                    string resp = com.sendPacketToServer(Serializer.SerializeSignupRequest(tb_username.Text, tb_password.Text, tb_email.Text));
+                    if (Deserializer.DeserializeLoginResponse(resp).status == 201)
+                    {
+                        l_error.Content = "Registration error!";
+                    }
+                    else
+                    {
+                        l_error.Content = "";
+                        MainWindow mainWindow = new MainWindow();
+                        Visibility = Visibility.Hidden;
+                        mainWindow.Show();
+                    }
+                }
+                else
+                {
+                    l_error.Content = "All the fields must be filled!";
                 }
             }
-
-            else if (radiobutton_register.IsChecked == true)
+            catch (Exception e)
             {
-
+                l_error.Content = e.Message;
             }
         }
 
@@ -70,7 +95,7 @@ namespace MagshiTriviaClient
             }
             catch (Exception e)
             {
-                l_error.Content = "Can't establish connection to a server!";
+                l_error.Content = "Can't establish connection with a server!";
                 bt_enter.IsEnabled = false;
                 DelayAction(2000, connectToServer);
             }
