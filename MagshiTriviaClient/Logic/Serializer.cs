@@ -22,7 +22,7 @@ namespace MagshiTriviaClient
                 len = len >> 8;
             }
 
-            temp_buffer.AddRange(Encoding.ASCII.GetBytes(json + "$"));
+            temp_buffer.AddRange(Encoding.ASCII.GetBytes(json));
 
             return temp_buffer.ToArray();
         }
