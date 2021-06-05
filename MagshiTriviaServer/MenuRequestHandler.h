@@ -15,6 +15,7 @@ public:
 	MenuRequestHandler(RequestHandlerFactory* factory, LoggedUser& user);
 	bool IsRequestRelevant(RequestInfo info) override;
 	RequestResult handleRequest(RequestInfo info) override;
+	void DisconnectUser() override;
 
 private:
 	// Class members
