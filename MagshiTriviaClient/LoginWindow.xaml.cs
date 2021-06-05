@@ -53,9 +53,7 @@ namespace MagshiTriviaClient
                     else
                     {
                         l_error.Content = "";
-                        MainWindow mainWindow = new MainWindow();
-                        Visibility = Visibility.Hidden;
-                        mainWindow.Show();
+                        switchToMainWindow();
                     }
                 }
 
@@ -69,9 +67,7 @@ namespace MagshiTriviaClient
                     else
                     {
                         l_error.Content = "";
-                        MainWindow mainWindow = new MainWindow();
-                        Visibility = Visibility.Hidden;
-                        mainWindow.Show();
+                        switchToMainWindow();
                     }
                 }
                 else
@@ -85,6 +81,12 @@ namespace MagshiTriviaClient
             }
         }
 
+        private void switchToMainWindow()
+        {
+            MainWindow mainWindow = new MainWindow();
+            Visibility = Visibility.Hidden;
+            mainWindow.Show();
+        }
         private void connectToServer()
         {
             try
@@ -97,7 +99,7 @@ namespace MagshiTriviaClient
             {
                 l_error.Content = "Can't establish connection with a server!";
                 bt_enter.IsEnabled = false;
-                DelayAction(2000, connectToServer);
+                DelayAction(5000, connectToServer);
             }
         }
         private static void DelayAction(int millisecond, Action action)
@@ -112,6 +114,18 @@ namespace MagshiTriviaClient
 
             timer.Interval = TimeSpan.FromMilliseconds(millisecond);
             timer.Start();
+        }
+
+        private void logout(object sender, System.ComponentModel.CancelEventArgs evnt)
+        {
+            try
+            {
+                com.sendPacketToServer(Serializer.SerializeLogoutRequest());
+            }
+            catch (Exception e)
+            {
+                // PASS
+            }
         }
     }
 }

@@ -19,6 +19,11 @@ namespace MagshiTriviaClient
         public string mail;
     }
 
+    public struct LogoutRequest
+    {
+        // EMPTY
+    }
+
     // Response structs 
     public struct LoginResponse
     {

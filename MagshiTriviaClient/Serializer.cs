@@ -44,5 +44,12 @@ namespace MagshiTriviaClient
 
             return GenerateRequest(10, req);
         }
+
+        public static byte[] SerializeLogoutRequest()
+        {
+            LogoutRequest req;
+
+            return GenerateRequest(17, req);
+        }
     }
 }
