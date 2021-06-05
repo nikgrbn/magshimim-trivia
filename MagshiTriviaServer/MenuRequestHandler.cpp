@@ -6,7 +6,7 @@ MenuRequestHandler::MenuRequestHandler(RequestHandlerFactory* factory, LoggedUse
 }
 
 bool MenuRequestHandler::IsRequestRelevant(RequestInfo info) {
-	if (info.id >= ProtocolCodes::CreateRoomRequest && info.id <= ProtocolCodes::Login)
+	if (info.id >= ProtocolCodes::CreateRoomRequest && info.id <= ProtocolCodes::LogoutRequest)
 		return true;
 
 	return false;
