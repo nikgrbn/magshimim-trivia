@@ -20,9 +20,23 @@ namespace MagshiTriviaClient
     /// </summary>
     public partial class MainWindow : Window
     {
+        public MainWindow(Communicator com)
+        {
+            _communicator_obj = com;
+            InitializeComponent();
+        }
+
         public MainWindow()
         {
             InitializeComponent();
         }
+
+        private void logout(object sender, EventArgs e)
+        {
+            this._communicator_obj.sendPacketToServer(Serializer.SerializeLogoutRequest());
+        }
+
+        // Members
+        Communicator _communicator_obj;
     }
 }
