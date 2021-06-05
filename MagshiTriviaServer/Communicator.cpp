@@ -72,6 +72,7 @@ void Communicator::handleNewClient(SOCKET client_socket) {
 			sendResponse(client_socket, response);
 		}
 	} catch (const std::exception& e) {
+		this->_clients.find(client_socket)->second->DisconnectUser();
 		closesocket(client_socket);
 		this->_clients.erase(client_socket);
 	}
