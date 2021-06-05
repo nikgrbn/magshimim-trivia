@@ -21,6 +21,7 @@ public:
 	void logout(const std::string &username);
 
 	bool isLogged(const std::string& username) const;
+	std::vector<LoggedUser> GetLoggedUsers();
 
 private:
 	IDatabase* _database;

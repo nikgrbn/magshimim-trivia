@@ -24,6 +24,9 @@ RequestResult LoginRequestHandler::handleRequest(RequestInfo info) {
 	return response;
 }
 
+void LoginRequestHandler::DisconnectUser()
+{ }
+
 RequestResult LoginRequestHandler::login(RequestInfo request) {
 	RequestResult response;
 	LoginResponse login_response;
