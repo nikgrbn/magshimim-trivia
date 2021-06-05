@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MagshiTriviaClient"
         mc:Ignorable="d"
+        Closed="logout"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Rectangle Fill="#FF363636" HorizontalAlignment="Left" Height="116" Margin="26,22,0,0" Stroke="#FF2C2C2C" VerticalAlignment="Top" Width="340"/>
     </Grid>
 </Window>

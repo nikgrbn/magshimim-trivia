@@ -9,7 +9,7 @@ using System.Net.Sockets;
 
 namespace MagshiTriviaClient
 {
-    class Communicator
+    public class Communicator
     {
         private System.Net.Sockets.TcpClient socket;
 

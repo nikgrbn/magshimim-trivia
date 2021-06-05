@@ -83,7 +83,7 @@ namespace MagshiTriviaClient
 
         private void switchToMainWindow()
         {
-            MainWindow mainWindow = new MainWindow();
+            MainWindow mainWindow = new MainWindow(com);
             Visibility = Visibility.Hidden;
             mainWindow.Show();
         }
@@ -115,14 +115,13 @@ namespace MagshiTriviaClient
             timer.Interval = TimeSpan.FromMilliseconds(millisecond);
             timer.Start();
         }
-
-        private void logout(object sender, System.ComponentModel.CancelEventArgs evnt)
+        private void logout(object sender, EventArgs e)
         {
             try
             {
                 com.sendPacketToServer(Serializer.SerializeLogoutRequest());
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
                 // PASS
             }

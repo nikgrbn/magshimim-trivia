@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MagshiTriviaClient"
         mc:Ignorable="d"
-        Closing="logout"
+        Closed="logout"
         Title="LoginWindow" Height="270" Width="400">
     
     <Grid Background="#FF2C2C2C">
