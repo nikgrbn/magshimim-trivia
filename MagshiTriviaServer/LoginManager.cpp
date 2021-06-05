@@ -61,3 +61,7 @@ bool LoginManager::isLogged(const std::string& username) const {
 
 	return false;
 }
+
+std::vector<LoggedUser> LoginManager::GetLoggedUsers() {
+	return this->_loggedUsers;
+}
