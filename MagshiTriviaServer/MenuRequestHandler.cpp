@@ -55,6 +55,10 @@ RequestResult MenuRequestHandler::handleRequest(RequestInfo info) {
 	return response;
 }
 
+void MenuRequestHandler::DisconnectUser() {
+	this->_request_handler_factory->getLoginManager().logout(this->_user.getUsername());
+}
+
 RequestResult MenuRequestHandler::signout(RequestInfo request) {
 	RequestResult response{};
 	LogoutResponse logout_response{};
