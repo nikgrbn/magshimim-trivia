@@ -59,20 +59,14 @@ void Communicator::handleNewClient(SOCKET client_socket) {
 	RequestInfo request{};
 	RequestResult response{};
 
-	std::map<SOCKET, IRequestHandler*>::iterator client = this->_clients.find(client_socket);
-
 	try {
 		while (true) {
 			request = receiveRequest(client_socket);
 			
-			if (((*client).second != nullptr && !request.buffer.empty()) \
-				&& (this->LoginRequestSanitizer(request) && dynamic_cast<LoginRequestHandler*>((*client).second))\
-				|| (!this->LoginRequestSanitizer(request) && dynamic_cast<LoginRequestHandler*>((*client).second))\
-				|| (!this->LoginRequestSanitizer(request) && !dynamic_cast<LoginRequestHandler*>((*client).second))) {
-				response = (*client).second->handleRequest(request); //handle request
+			if (this->RequestValidation(request, client_socket)) {
+				response = (this->_clients.find(client_socket))->second->handleRequest(request); // handle request
 			} else {
 				sendError(client_socket, "[!] Invalid request", response);
-				throw std::exception("Invalid request");
 			}
 
 			sendResponse(client_socket, response);
@@ -126,6 +120,13 @@ void Communicator::sendError(SOCKET clientSocket, const std::string& errorMessag
 
 bool Communicator::LoginRequestSanitizer(RequestInfo request) {
 	if (request.buffer[0] == (unsigned int)ProtocolCodes::Login)
+		return true;
+
+	return false;
+}
+
+bool Communicator::RequestValidation(RequestInfo request, SOCKET client_socket) {
+	if (this->_clients.find(client_socket)->second->IsRequestRelevant(request))
 		return true;
 
 	return false;
