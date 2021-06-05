@@ -6,7 +6,7 @@ MenuRequestHandler::MenuRequestHandler(RequestHandlerFactory* factory, LoggedUse
 }
 
 bool MenuRequestHandler::IsRequestRelevant(RequestInfo info) {
-	if (info.id >= ProtocolCodes::CreateRoomRequest && info.id <= ProtocolCodes::Login)
+	if (info.id >= ProtocolCodes::CreateRoomRequest && info.id <= ProtocolCodes::LogoutRequest)
 		return true;
 
 	return false;
@@ -53,6 +53,10 @@ RequestResult MenuRequestHandler::handleRequest(RequestInfo info) {
 	}
 
 	return response;
+}
+
+void MenuRequestHandler::DisconnectUser() {
+	this->_request_handler_factory->getLoginManager().logout(this->_user.getUsername());
 }
 
 RequestResult MenuRequestHandler::signout(RequestInfo request) {
