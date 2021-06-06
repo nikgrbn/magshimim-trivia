@@ -42,7 +42,7 @@ namespace MagshiTriviaClient
         private void logout(object sender, EventArgs e)
         {
             this._communicator.sendPacketToServer(Serializer.SerializeLogoutRequest());
-            System.Windows.Application.Current.Shutdown();
+            this.Close();
         }
     }
 }
