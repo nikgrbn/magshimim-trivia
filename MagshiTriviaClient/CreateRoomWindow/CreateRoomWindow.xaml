@@ -20,6 +20,7 @@
         <Label Content="Question Time:" HorizontalAlignment="Left" Margin="229,191,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16"/>
         <Label Content="Numbr Of Players:" HorizontalAlignment="Left" Margin="229,227,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16"/>
         <Label Content="Number Of Questions:" HorizontalAlignment="Left" Margin="229,264,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16"/>
+        <Label x:Name="creation_error" Content="" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="{x:Null}" Foreground="Red"/>
 
     </Grid>
 </Window>
