@@ -23,7 +23,13 @@ namespace MagshiTriviaClient
 
         public StatisticsWindow(Communicator com)
         {
+            // Initialize communicator
             _communicator = com;
+
+            // Get statistics
+            string resp = com.sendPacketToServer(Serializer.SerializeStatisticsRequest());
+            StatisticsResponse stats = Deserializer.DeserializeStatisticsResponse(resp);
+
             InitializeComponent();
         }
 
