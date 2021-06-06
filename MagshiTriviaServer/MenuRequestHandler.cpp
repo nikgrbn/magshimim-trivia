@@ -130,8 +130,9 @@ RequestResult MenuRequestHandler::getPersonalStats(RequestInfo request) {
 
 	try {
 		UserStatistics user_stats = this->_statistics_manager.getUserStatistics(this->_user.getUsername());
-		std::string stats = user_stats.score + ", " + user_stats.total_answers + ", " + user_stats.games_played + ", " + user_stats.correct_answers + ", " + user_stats.average_answer_time;
-
+		
+		char sql_com[1024];
+		std::string stats =  user_stats.average_answer_time + ", " + user_stats.games_played + ", " + user_stats.correct_answers + ", " + user_stats.total_answers + ", " + user_stats.score;
 		get_personal_stats.statistics = stats;
 		get_personal_stats.status = ResponseStatus::GetPersonalStatsSuccess;
 		response.newHandler = this->_request_handler_factory->createLoginRequestHandler();
