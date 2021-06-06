@@ -29,7 +29,6 @@ namespace MagshiTriviaClient
             // Get statistics
             string resp = com.sendPacketToServer(Serializer.SerializeStatisticsRequest());
             StatisticsResponse stats = Deserializer.DeserializeStatisticsResponse(resp);
-
             InitializeComponent();
         }
 

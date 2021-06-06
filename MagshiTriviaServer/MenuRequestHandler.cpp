@@ -3,10 +3,13 @@
 
 MenuRequestHandler::MenuRequestHandler(RequestHandlerFactory* factory, LoggedUser& user) 
 	: _request_handler_factory(factory), _user(user) {
+
+	SqliteDatabase* db = new SqliteDatabase();
+	this->_statistics_manager = StatisticsManager(db);
 }
 
 bool MenuRequestHandler::IsRequestRelevant(RequestInfo info) {
-	if (info.id >= ProtocolCodes::CreateRoomRequest && info.id <= ProtocolCodes::LogoutRequest)
+	if (info.id >= ProtocolCodes::CreateRoomRequest && info.id <= ProtocolCodes::GetPersonalStats)
 		return true;
 
 	return false;
