@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace MagshiTriviaClient.CreateRoomWindow
+namespace MagshiTriviaClient
 {
     /// <summary>
     /// Interaction logic for CreateRoomWindow.xaml
