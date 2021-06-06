@@ -51,5 +51,12 @@ namespace MagshiTriviaClient
 
             return GenerateRequest(17, req);
         }
+
+        public static byte[] SerializeStatisticsRequest()
+        {
+            StatisticsRequest req;
+
+            return GenerateRequest(19, req);
+        }
     }
 }

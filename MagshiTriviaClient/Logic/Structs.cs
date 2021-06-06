@@ -18,7 +18,10 @@ namespace MagshiTriviaClient
         public string password;
         public string mail;
     }
-
+    public struct StatisticsRequest
+    {
+        // EMPTY
+    }
     public struct LogoutRequest
     {
         // EMPTY
@@ -32,5 +35,10 @@ namespace MagshiTriviaClient
     public struct SignupResponse
     {
         public int status;
+    }
+    public struct StatisticsResponse
+    {
+        public int status;
+        public string statistics;
     }
 }
