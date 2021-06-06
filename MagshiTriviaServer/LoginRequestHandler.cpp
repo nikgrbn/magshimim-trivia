@@ -56,7 +56,8 @@ RequestResult LoginRequestHandler::signup(RequestInfo request) {
 		this->_login_manager.signup(deserialized_request.username, deserialized_request.password, deserialized_request.email);
 		
 		signup_response.status = ResponseStatus::SignupSuccess;
-		response.newHandler = this->_handler_factory->createLoginRequestHandler();
+		LoggedUser user(deserialized_request.username);
+		response.newHandler = this->_handler_factory->createMenuRequestHandler(user);
 	} catch (std::exception& e) {
 		signup_response.status = ResponseStatus::SignupError;
 		response.newHandler = this->_handler_factory->createLoginRequestHandler();
