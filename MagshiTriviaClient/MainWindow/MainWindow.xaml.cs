@@ -37,6 +37,7 @@ namespace MagshiTriviaClient
         private void logout(object sender, EventArgs e)
         {
             this._communicator_obj.sendPacketToServer(Serializer.SerializeLogoutRequest());
+            System.Windows.Application.Current.Shutdown();
         }
 
         private void clicked_join_room(object sender, RoutedEventArgs e)
@@ -63,7 +64,8 @@ namespace MagshiTriviaClient
 
         private void clicked_logout(object sender, RoutedEventArgs e)
         {
-
+            this._communicator_obj.sendPacketToServer(Serializer.SerializeLogoutRequest());
+            System.Windows.Application.Current.Shutdown();
         }
     }
 }
