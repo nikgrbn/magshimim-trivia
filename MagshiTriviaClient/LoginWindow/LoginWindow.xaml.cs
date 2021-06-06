@@ -127,6 +127,7 @@ namespace MagshiTriviaClient
             try
             {
                 com.sendPacketToServer(Serializer.SerializeLogoutRequest());
+                this.Close();
             }
             catch (Exception ex)
             {
