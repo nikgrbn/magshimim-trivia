@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.Net;
 using System.Net.Sockets;
 using System.Windows.Threading;
+using System.IO;
 
 namespace MagshiTriviaClient
 {
@@ -94,6 +95,12 @@ namespace MagshiTriviaClient
                 com.ConnectToServer();
                 l_error.Content = "";
                 bt_enter.IsEnabled = true;
+            }
+            catch (DirectoryNotFoundException e)
+            {
+                l_error.Content = e.Message;
+                bt_enter.IsEnabled = false;
+                DelayAction(5000, connectToServer);
             }
             catch (Exception e)
             {
