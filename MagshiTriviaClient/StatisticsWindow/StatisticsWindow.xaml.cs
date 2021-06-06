@@ -19,9 +19,24 @@ namespace MagshiTriviaClient
     /// </summary>
     public partial class StatisticsWindow : Window
     {
+        Communicator _communicator;
+
+        public StatisticsWindow(Communicator com)
+        {
+            _communicator = com;
+            InitializeComponent();
+        }
+
         public StatisticsWindow()
         {
             InitializeComponent();
+        }
+
+        private void return_to_menu(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = new MainWindow(this._communicator);
+            Visibility = Visibility.Hidden;
+            mainWindow.Show();
         }
     }
 }
