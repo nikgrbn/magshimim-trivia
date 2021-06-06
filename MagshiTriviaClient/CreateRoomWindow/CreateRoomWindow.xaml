@@ -1,0 +1,25 @@
+﻿<Window x:Class="MagshiTriviaClient.CreateRoomWindow.CreateRoomWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MagshiTriviaClient.CreateRoomWindow"
+        mc:Ignorable="d"
+        Closed="logout"
+        Title="Create Room" Height="450" Width="800">
+    <Grid>
+        <Rectangle Fill="#FF363636" HorizontalAlignment="Center" Height="419" Stroke="#FF2C2C2C" VerticalAlignment="Bottom" Width="792" />
+        <Image Source="/Resources/Magshimim.png" HorizontalAlignment="Left" Height="85" Margin="239,36,0,0" VerticalAlignment="Top" Width="287"/>
+        <Label Content="Create Room" HorizontalAlignment="Left" Margin="332,117,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="15"/>
+        <Button Content="Create" Click="clicked_create" HorizontalAlignment="Left" Margin="361,312,0,0" Background="#5199FF" BorderBrush="Black" VerticalAlignment="Top" Width="167" Height="38"/>
+        <TextBox x:Name="tb_room_name" HorizontalAlignment="Left" Height="23" Margin="337,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" Background="White" TextDecorations="{x:Null}" FontStyle="Italic" TextAlignment="Center" FontWeight="Bold"/>
+        <TextBox x:Name="tb_question_time" HorizontalAlignment="Left" Height="23" Margin="353,196,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="189" Background="White" TextDecorations="{x:Null}" FontStyle="Italic" TextAlignment="Center" FontWeight="Bold"/>
+        <TextBox x:Name="tb_number_of_players" HorizontalAlignment="Left" Height="23" Margin="377,233,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="165" Background="White" TextDecorations="{x:Null}" FontStyle="Italic" TextAlignment="Center" FontWeight="Bold"/>
+        <TextBox x:Name="tb_number_of_questions" HorizontalAlignment="Left" Height="23" Margin="406,270,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136" Background="White" TextDecorations="{x:Null}" FontStyle="Italic" TextAlignment="Center" FontWeight="Bold"/>
+        <Label Content="Room Name:" HorizontalAlignment="Left" Margin="229,156,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16"/>
+        <Label Content="Question Time:" HorizontalAlignment="Left" Margin="229,191,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16"/>
+        <Label Content="Numbr Of Players:" HorizontalAlignment="Left" Margin="229,227,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16"/>
+        <Label Content="Number Of Questions:" HorizontalAlignment="Left" Margin="229,264,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16"/>
+
+    </Grid>
+</Window>
