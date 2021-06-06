@@ -6,8 +6,15 @@
         xmlns:local="clr-namespace:MagshiTriviaClient"
         mc:Ignorable="d"
         Closed="logout"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Menu" Height="450" Width="800">
     <Grid>
-        <Rectangle Fill="#FF363636" HorizontalAlignment="Left" Height="116" Margin="26,22,0,0" Stroke="#FF2C2C2C" VerticalAlignment="Top" Width="340"/>
+        <Rectangle Fill="#FF363636" HorizontalAlignment="Center" Height="419" Stroke="#FF2C2C2C" VerticalAlignment="Bottom" Width="792" />
+        <Button Content="Join Room" Click="clicked_join_room" HorizontalAlignment="Left" Margin="254,145,0,0" Background="#5199FF" BorderBrush="Black" VerticalAlignment="Top" Width="258" Height="40"/>
+        <Button Content="Create Room" Click="clicked_create_room" HorizontalAlignment="Left" Margin="254,190,0,0" Background="#5199FF" BorderBrush="Black" VerticalAlignment="Top" Width="258" Height="39"/>
+        <Button Content="High Score" Click="clicked_high_score" HorizontalAlignment="Left" Margin="254,235,0,0" Background="#5199FF" BorderBrush="Black" VerticalAlignment="Top" Width="258" Height="39"/>
+        <Button Content="My Statistics" Click="clicked_statistics" HorizontalAlignment="Left" Margin="254,279,0,0" Background="#5199FF" BorderBrush="Black" VerticalAlignment="Top" Width="258" Height="40"/>
+        <Button Content="Logout" Click="clicked_logout" HorizontalAlignment="Left" Margin="254,325,0,0" Background="#5199FF" BorderBrush="Black" VerticalAlignment="Top" Width="258" Height="38"/>
+        <Label Content="MagshiTrivia 2021 (by Ori and Nikita)" HorizontalAlignment="Left" Margin="247,110,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="15"/>
+        <Image Source="/Resources/Magshimim.png" HorizontalAlignment="Left" Height="85" Margin="239,36,0,0" VerticalAlignment="Top" Width="287"/>
     </Grid>
 </Window>
