@@ -75,7 +75,9 @@
     <Compile Include="Logic\Serializer.cs" />
     <Compile Include="Logic\Structs.cs" />
     <Compile Include="LoginWindow\LoginWindow.xaml.cs" />
-    <Compile Include="MainWindow\MainWindow.xaml.cs" />
+    <Compile Include="MainWindow\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -117,7 +119,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="StatisticsWindow\gifbgstatistics.gif" />
+    <Resource Include="Resources\gifbgstatistics.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Magshimim.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
