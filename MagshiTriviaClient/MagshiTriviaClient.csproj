@@ -69,7 +69,7 @@
     <Compile Include="Logic\Serializer.cs" />
     <Compile Include="Logic\Structs.cs" />
     <Compile Include="LoginWindow\LoginWindow.xaml.cs" />
-    <Compile Include="MainWindow\MainWindow.xaml.cs" />
+    <Compile Include="MainMenu\MainMenu.xaml.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -101,7 +101,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="MainWindow\MainWindow.xaml">
+    <Page Include="MainMenu\MainMenu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
