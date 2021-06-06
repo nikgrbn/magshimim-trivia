@@ -20,14 +20,22 @@ namespace MagshiTriviaClient
 
             return response.Substring(5, data_length);
         }
+
         public static LoginResponse DeserializeLoginResponse(string response)
         {
             LoginResponse res = JsonConvert.DeserializeObject<LoginResponse>(retrieveJson(response));
             return res;
         }
+
         public static SignupResponse DeserializeSignupResponse(string response)
         {
             SignupResponse res = JsonConvert.DeserializeObject<SignupResponse>(retrieveJson(response));
+            return res;
+        }
+
+        public static StatisticsResponse DeserializeStatisticsResponse(string response)
+        {
+            StatisticsResponse res = JsonConvert.DeserializeObject<StatisticsResponse>(retrieveJson(response));
             return res;
         }
     }

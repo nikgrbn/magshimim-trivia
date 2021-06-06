@@ -135,7 +135,7 @@ Buffer JsonResponsePacketSerializer::serializeResponse(GetStatisticsResponse res
 Buffer JsonResponsePacketSerializer::serializeResponse(getPersonalStatsResponse response) {
     json j{};
     j["status"] = response.status;
-    j["UsersStats"] = response.statistics;
+    j["statistics"] = response.statistics;
 
     return generateResponse(j.dump(), ProtocolCodes::GetPersonalStats);
 }

@@ -3,10 +3,13 @@
 
 MenuRequestHandler::MenuRequestHandler(RequestHandlerFactory* factory, LoggedUser& user) 
 	: _request_handler_factory(factory), _user(user) {
+
+	SqliteDatabase* db = new SqliteDatabase();
+	this->_statistics_manager = StatisticsManager(db);
 }
 
 bool MenuRequestHandler::IsRequestRelevant(RequestInfo info) {
-	if (info.id >= ProtocolCodes::CreateRoomRequest && info.id <= ProtocolCodes::LogoutRequest)
+	if (info.id >= ProtocolCodes::CreateRoomRequest && info.id <= ProtocolCodes::GetPersonalStats)
 		return true;
 
 	return false;
@@ -111,10 +114,10 @@ RequestResult MenuRequestHandler::getPlayersInRoom(RequestInfo request) {
 
 		Room desired_room(room_data);
 		get_players_in_room_response.players = desired_room.getAllUsers();
-		response.newHandler = this->_request_handler_factory->createLoginRequestHandler();
+		response.newHandler = this->_request_handler_factory->createMenuRequestHandler(this->_user);
 
 	} catch (std::exception& e) {
-		response.newHandler = this->_request_handler_factory->createLoginRequestHandler();
+		response.newHandler = this->_request_handler_factory->createMenuRequestHandler(this->_user);
 	}
 
 	response.buffer = JsonResponsePacketSerializer::serializeResponse(get_players_in_room_response);
@@ -127,14 +130,15 @@ RequestResult MenuRequestHandler::getPersonalStats(RequestInfo request) {
 
 	try {
 		UserStatistics user_stats = this->_statistics_manager.getUserStatistics(this->_user.getUsername());
-		std::string stats = user_stats.score + ", " + user_stats.total_answers + ", " + user_stats.games_played + ", " + user_stats.correct_answers + ", " + user_stats.average_answer_time;
-
+		
+		char sql_com[1024];
+		std::string stats =  user_stats.average_answer_time + ", " + user_stats.games_played + ", " + user_stats.correct_answers + ", " + user_stats.total_answers + ", " + user_stats.score;
 		get_personal_stats.statistics = stats;
 		get_personal_stats.status = ResponseStatus::GetPersonalStatsSuccess;
-		response.newHandler = this->_request_handler_factory->createLoginRequestHandler();
+		response.newHandler = this->_request_handler_factory->createMenuRequestHandler(this->_user);
 	} catch (std::exception& e) {
 		get_personal_stats.status = ResponseStatus::GetPersonalStatsError;
-		response.newHandler = this->_request_handler_factory->createLoginRequestHandler();
+		response.newHandler = this->_request_handler_factory->createMenuRequestHandler(this->_user);
 	}
 
 	response.buffer = JsonResponsePacketSerializer::serializeResponse(get_personal_stats);
@@ -156,10 +160,10 @@ RequestResult MenuRequestHandler::getHighScore(RequestInfo request) {
 		
 		get_high_score_response.statistics = high_score_strings;
 		get_high_score_response.status = ResponseStatus::HighScoreRequestSuccess;
-		response.newHandler = this->_request_handler_factory->createLoginRequestHandler();
+		response.newHandler = this->_request_handler_factory->createMenuRequestHandler(this->_user);
 	} catch (std::exception& e) {
 		get_high_score_response.status = ResponseStatus::HighScoreRequestError;
-		response.newHandler = this->_request_handler_factory->createLoginRequestHandler();
+		response.newHandler = this->_request_handler_factory->createMenuRequestHandler(this->_user);
 	}
 
 	response.buffer = JsonResponsePacketSerializer::serializeResponse(get_high_score_response);
@@ -178,6 +182,7 @@ RequestResult MenuRequestHandler::joinRoom(RequestInfo request) {
 
 		room.addUser(this->_user);
 		join_room_response.status = ResponseStatus::JoinRoomSuccess;
+		response.newHandler = this->_request_handler_factory->createMenuRequestHandler(this->_user);
 	} catch (std::exception& e) {
 		join_room_response.status = ResponseStatus::JoinRoomError;
 		response.newHandler = this->_request_handler_factory->createMenuRequestHandler(this->_user);
@@ -200,6 +205,7 @@ RequestResult MenuRequestHandler::createRoom(RequestInfo request) {
 		room_data.timePerQuestion = create_room_request.answerTimeout;
 
 		this->_room_manager.createRoom(this->_user, room_data);
+		response.newHandler = this->_request_handler_factory->createMenuRequestHandler(this->_user);
 		create_room_response.status = ResponseStatus::CreateRoomSuccess;
 	} catch (std::exception& e) {
 		create_room_response.status = ResponseStatus::CreateRoomError;
