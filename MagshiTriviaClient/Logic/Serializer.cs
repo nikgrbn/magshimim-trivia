@@ -58,5 +58,16 @@ namespace MagshiTriviaClient
 
             return GenerateRequest(19, req);
         }
+
+        public static byte[] SerializeCreateRoomRequest(string roomName, int maxUsers, int questionCount, int answerTimeout)
+        {
+            CreateRoomRequest req;
+            req.roomName = roomName;
+            req.maxUsers = maxUsers;
+            req.questionCount = questionCount;
+            req.answerTimeout = answerTimeout;
+
+            return GenerateRequest(12, req);
+        }
     }
 }
