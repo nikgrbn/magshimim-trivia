@@ -47,7 +47,9 @@ namespace MagshiTriviaClient
 
         private void clicked_create_room(object sender, RoutedEventArgs e)
         {
-
+            /*CreateRoomWindow create_room_window = new CreateRoomWindow(this._communicator_obj);
+            Visibility = Visibility.Hidden;
+            create_room_window.Show();*/
         }
 
         private void clicked_high_score(object sender, RoutedEventArgs e)

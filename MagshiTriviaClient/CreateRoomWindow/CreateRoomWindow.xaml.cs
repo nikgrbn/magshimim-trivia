@@ -40,7 +40,29 @@ namespace MagshiTriviaClient.CreateRoomWindow
 
         private void clicked_create(object sender, RoutedEventArgs e)
         {
-            // TODO: add create room request
+            CreateRoomRequest create_room;
+            create_room.roomName = this.tb_room_name.Text;
+            create_room.maxUsers = Int32.Parse(this.tb_number_of_players.Text);
+            create_room.questionCount = Int32.Parse(this.tb_number_of_questions.Text);
+            create_room.answerTimeout = Int32.Parse(this.tb_question_time.Text);
+            string res = this._communicator.sendPacketToServer(Serializer.SerializeCreateRoomRequest(create_room));
+
+            if (Deserializer.DeserializeCreateRoomResponse(res).status == 601)
+            {
+                creation_error.Content = "Login error!";
+            }
+            else
+            {
+                creation_error.Content = "";
+                switchToMainWindow();
+            }
+        }
+
+        private void switchToMainWindow()
+        {
+            MainWindow mainWindow = new MainWindow(this._communicator);
+            Visibility = Visibility.Hidden;
+            mainWindow.Show();
         }
     }
 }

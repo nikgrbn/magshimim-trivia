@@ -38,5 +38,12 @@ namespace MagshiTriviaClient
             StatisticsResponse res = JsonConvert.DeserializeObject<StatisticsResponse>(retrieveJson(response));
             return res;
         }
+
+
+        public static CreateRoomResponse DeserializeCreateRoomResponse(string response)
+        {
+            CreateRoomResponse res = JsonConvert.DeserializeObject<CreateRoomResponse>(retrieveJson(response));
+            return res;
+        }
     }
 }
