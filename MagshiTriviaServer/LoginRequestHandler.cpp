@@ -9,7 +9,7 @@ LoginRequestHandler::~LoginRequestHandler()
 { }
 
 bool LoginRequestHandler::IsRequestRelevant(RequestInfo info) {
-	return (info.id == ProtocolCodes::Signup || info.id == ProtocolCodes::Login);
+	return (info.id == ProtocolCodes::Signup || info.id == ProtocolCodes::Login || info.id == ProtocolCodes::LogoutRequest);
 }
 
 RequestResult LoginRequestHandler::handleRequest(RequestInfo info) {
