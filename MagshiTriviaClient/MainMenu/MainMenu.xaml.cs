@@ -20,6 +20,9 @@ namespace MagshiTriviaClient
     /// </summary>
     public partial class MainWindow : Window
     {
+        // Members
+        Communicator _communicator_obj;
+
         public MainWindow(Communicator com)
         {
             _communicator_obj = com;
@@ -36,7 +39,29 @@ namespace MagshiTriviaClient
             this._communicator_obj.sendPacketToServer(Serializer.SerializeLogoutRequest());
         }
 
-        // Members
-        Communicator _communicator_obj;
+        private void clicked_join_room(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void clicked_create_room(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void clicked_high_score(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void clicked_statistics(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void clicked_logout(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
