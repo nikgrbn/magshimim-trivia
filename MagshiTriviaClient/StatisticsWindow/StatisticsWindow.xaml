@@ -6,6 +6,7 @@
         xmlns:gif="http://wpfanimatedgif.codeplex.com" 
         xmlns:local="clr-namespace:MagshiTriviaClient"
         mc:Ignorable="d"
+        Closed="logout"
         Title="StatisticsWindow" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>

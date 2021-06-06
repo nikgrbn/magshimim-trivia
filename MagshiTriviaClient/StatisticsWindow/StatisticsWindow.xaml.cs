@@ -38,5 +38,11 @@ namespace MagshiTriviaClient
             Visibility = Visibility.Hidden;
             mainWindow.Show();
         }
+
+        private void logout(object sender, EventArgs e)
+        {
+            this._communicator.sendPacketToServer(Serializer.SerializeLogoutRequest());
+            this.Close();
+        }
     }
 }
