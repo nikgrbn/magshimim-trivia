@@ -56,6 +56,7 @@ namespace MagshiTriviaClient
                 RoomsList.Items.Add(room_name);
             }
         }
+
         private void clicked_refresh(object sender, RoutedEventArgs e)
         {
             loading.Content = "Loading...";
@@ -76,6 +77,19 @@ namespace MagshiTriviaClient
         {
             this._communicator.sendPacketToServer(Serializer.SerializeLogoutRequest());
             this.Close();
+        }
+
+        private void MouseDoubleClick_Event(object sender, MouseButtonEventArgs e)
+        {
+            JoinRoomRequest req;
+            req.roomId = 1; // TEST
+            JoinRoomResponse response = Deserializer.DeserializeJoinRoomResponse(this._communicator.sendPacketToServer(Serializer.SerializeJoinRoomRequest(req)));
+            
+            if (response.status == 501)
+            {
+                MessageBox.Show("Failed to enter the room!", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return;
+            }
         }
     }
 }
