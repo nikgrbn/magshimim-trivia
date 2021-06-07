@@ -87,11 +87,22 @@ namespace MagshiTriviaClient
     public struct GetRoomsResponse
     {
         public int status;
-        public string Rooms;
+        public List<RoomData> Rooms;
     }
 
     public struct JoinRoomResponse
     {
         public int status;
+    }
+
+    // -------------
+    public struct RoomData
+    {
+        public int id;
+        public string name;
+        public int maxPlayers;
+        public int numOfQuestionsInGame;
+        public int timePerQuestion;
+        public int isActive;
     }
 }
