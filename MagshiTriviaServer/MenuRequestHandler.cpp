@@ -135,8 +135,6 @@ RequestResult MenuRequestHandler::getPersonalStats(RequestInfo request) {
 
 	try {
 		UserStatistics user_stats = this->_statistics_manager.getUserStatistics(this->_user.getUsername());
-		
-		char sql_com[1024];
 		std::string stats =  user_stats.average_answer_time + ", " + user_stats.games_played + ", " + user_stats.correct_answers + ", " + user_stats.total_answers + ", " + user_stats.score;
 		get_personal_stats.statistics = stats;
 		get_personal_stats.status = ResponseStatus::GetPersonalStatsSuccess;
@@ -159,7 +157,7 @@ RequestResult MenuRequestHandler::getHighScore(RequestInfo request) {
 		std::vector<std::string> high_score_strings{};
 
 		for (auto user : high_score) {
-			std::string current_user_stats = user.score + ", " + user.total_answers + ", " + user.games_played + ", " + user.correct_answers + ", " + user.average_answer_time;
+			std::string current_user_stats = user.username + ", " + user.average_answer_time + ", " + user.games_played + ", " + user.correct_answers + ", " + user.total_answers + ", " + user.score;
 			high_score_strings.push_back(current_user_stats);
 		}
 		

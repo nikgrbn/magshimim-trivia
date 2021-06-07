@@ -25,6 +25,7 @@ namespace MagshiTriviaClient
         {
             this._communicator = com;
             InitializeComponent();
+            SetHighScore();
         }
         public HighScoreWindow()
         {
@@ -36,6 +37,53 @@ namespace MagshiTriviaClient
             MainWindow mainWindow = new MainWindow(this._communicator);
             Visibility = Visibility.Hidden;
             mainWindow.Show();
+        }
+
+        private void SetHighScore()
+        {
+            string[] rooms_names_arr;
+            int tmp = 0;
+
+            // Hide gui 
+            group_user_1.Visibility = Visibility.Hidden;
+            group_user_2.Visibility = Visibility.Hidden;
+            group_user_3.Visibility = Visibility.Hidden;
+            group_user_4.Visibility = Visibility.Hidden;
+
+            // Get high scores
+            HighScoreResponse response = Deserializer.DeserializeHighScoreResponse(_communicator.sendPacketToServer(Serializer.SerializeHighScoreRequest()));
+            rooms_names_arr = response.HighScore.Split(',');
+
+            // Display scores
+            for (int i = 0; i < rooms_names_arr.Length; i+=6)
+            {
+                switch (tmp)
+                {
+                    case 0:
+                        group_user_1.Visibility = Visibility.Visible;
+                        label_name_user1.Content = rooms_names_arr[i];
+                        label_score_user1.Content = rooms_names_arr[i + 5];
+                        break;
+                    case 1:
+                        group_user_2.Visibility = Visibility.Visible;
+                        label_name_user2.Content = rooms_names_arr[i];
+                        label_score_user2.Content = rooms_names_arr[i + 5];
+                        break;
+                    case 2:
+                        group_user_3.Visibility = Visibility.Visible;
+                        label_name_user3.Content = rooms_names_arr[i];
+                        label_score_user3.Content = rooms_names_arr[i + 5];
+                        break;
+                    case 3:
+                        group_user_4.Visibility = Visibility.Visible;
+                        label_name_user4.Content = rooms_names_arr[i];
+                        label_score_user4.Content = rooms_names_arr[i + 5];
+                        break;
+                    default:
+                        break;
+                }
+                tmp++;
+            }
         }
     }
 }

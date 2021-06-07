@@ -9,44 +9,50 @@ namespace MagshiTriviaClient
 {
     public static class Deserializer
     {
-        private static string retrieveJson(string response)
+        private static string retrieveJson(byte[] response)
         {
-            int response_code = (int) response[0];
-            byte[] bytes = Encoding.ASCII.GetBytes(response);
+            string str_resp = System.Text.Encoding.ASCII.GetString(response);
+            int response_code = (int) str_resp[0];
             byte[] len_byte = new byte[4];
-            Array.Copy(bytes, 1, len_byte, 0, 4);
+            
+            Array.Copy(response, 1, len_byte, 0, 4);
             Array.Reverse(len_byte);
             int data_length = BitConverter.ToInt32(len_byte, 0);
 
-            return response.Substring(5, data_length);
+            return str_resp.Substring(5, data_length);
         }
 
-        public static LoginResponse DeserializeLoginResponse(string response)
+        public static LoginResponse DeserializeLoginResponse(byte[] response)
         {
             LoginResponse res = JsonConvert.DeserializeObject<LoginResponse>(retrieveJson(response));
             return res;
         }
 
-        public static SignupResponse DeserializeSignupResponse(string response)
+        public static SignupResponse DeserializeSignupResponse(byte[] response)
         {
             SignupResponse res = JsonConvert.DeserializeObject<SignupResponse>(retrieveJson(response));
             return res;
         }
 
-        public static StatisticsResponse DeserializeStatisticsResponse(string response)
+        public static StatisticsResponse DeserializeStatisticsResponse(byte[] response)
         {
             StatisticsResponse res = JsonConvert.DeserializeObject<StatisticsResponse>(retrieveJson(response));
             return res;
         }
 
+        public static HighScoreResponse DeserializeHighScoreResponse(byte[] response)
+        {
+            HighScoreResponse res = JsonConvert.DeserializeObject<HighScoreResponse>(retrieveJson(response));
+            return res;
+        }
 
-        public static CreateRoomResponse DeserializeCreateRoomResponse(string response)
+        public static CreateRoomResponse DeserializeCreateRoomResponse(byte[] response)
         {
             CreateRoomResponse res = JsonConvert.DeserializeObject<CreateRoomResponse>(retrieveJson(response));
             return res;
         }
 
-        public static GetRoomsResponse DeserializeGetRoomsResponse(string response)
+        public static GetRoomsResponse DeserializeGetRoomsResponse(byte[] response)
         {
             GetRoomsResponse res = JsonConvert.DeserializeObject<GetRoomsResponse>(retrieveJson(response));
             return res;
