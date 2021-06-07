@@ -48,7 +48,7 @@ GetPlayersInRoomRequest JsonRequestPacketDeserializer::deserializeGetPlayersRequ
 
     // Create struct with json
     struct GetPlayersInRoomRequest room_req;
-    room_req.roomId = j["ID"];
+    room_req.roomId = j["roomId"];
 
     return room_req;
 }
@@ -60,7 +60,7 @@ JoinRoomRequest JsonRequestPacketDeserializer::deserializeJoinRoomRequest(Buffer
 
     // Create struct with json
     struct JoinRoomRequest room_req;
-    room_req.roomId = j["ID"];
+    room_req.roomId = j["roomId"];
 
     return room_req;
 }

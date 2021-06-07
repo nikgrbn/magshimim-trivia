@@ -15,6 +15,7 @@ void RoomManager::createRoom(LoggedUser user, RoomData rm_data)
 void RoomManager::deleteRoom(unsigned int ID)
 {
 	this->_rooms.erase(this->_rooms.find(ID));
+	this->_room_id_counter--;
 }
 
 unsigned int RoomManager::getRoomState(int ID)
