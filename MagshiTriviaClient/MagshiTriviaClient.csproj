@@ -144,12 +144,12 @@
     <Resource Include="Resources\Magshimim.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\kisspng-computer-icons-portable-network-graphics-vector-gr-person-outline-transparent-amp-png-clipart-free-5d02928d206b16.9431901115604496771328.png" />
+    <Resource Include="Resources\user_icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\cup_icon-icons.com_55322.png" />
-    <Resource Include="Resources\free-icon-bronze-medal-179250%281%29.png" />
-    <Resource Include="Resources\free-icon-silver-medal-179251.png" />
+    <Resource Include="Resources\cup_icon.png" />
+    <Resource Include="Resources\bronze_medal.png" />
+    <Resource Include="Resources\silver_medal.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

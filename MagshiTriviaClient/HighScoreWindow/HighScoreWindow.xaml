@@ -12,37 +12,37 @@
 
         <Grid x:Name="group_user_1">
             <Rectangle Fill="#FF363636" HorizontalAlignment="Left" Height="64" Margin="206,56,0,0" Stroke="#FF2C2C2C" VerticalAlignment="Top" Width="393"/>
-            <Image HorizontalAlignment="Left" Height="64" Margin="220,56,0,0" VerticalAlignment="Top" Width="64" Source="/Resources/kisspng-computer-icons-portable-network-graphics-vector-gr-person-outline-transparent-amp-png-clipart-free-5d02928d206b16.9431901115604496771328.png"/>
+            <Image HorizontalAlignment="Left" Height="64" Margin="220,56,0,0" VerticalAlignment="Top" Width="64" Source="/Resources/user_icon.png"/>
             <Label Content="Name:" HorizontalAlignment="Left" Margin="294,58,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Background="{x:Null}" Foreground="White"/>
             <Label Content="Score:" HorizontalAlignment="Left" Margin="294,81,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Background="{x:Null}" Foreground="White"/>
             <Label x:Name="lable_name_user1" Content="User" HorizontalAlignment="Left" Margin="364,58,0,0" VerticalAlignment="Top" FontSize="18" Background="{x:Null}" Foreground="White" FontStyle="Italic"/>
             <Label x:Name="label_score_user1" Content="0" HorizontalAlignment="Left" Margin="364,81,0,0" VerticalAlignment="Top" FontSize="18" Background="{x:Null}" Foreground="White" FontStyle="Italic"/>
-            <Image HorizontalAlignment="Left" Height="50" Margin="527,63,0,0" VerticalAlignment="Top" Width="50" Source="/Resources/cup_icon-icons.com_55322.png" RenderTransformOrigin="0.513,0.493"/>
+            <Image HorizontalAlignment="Left" Height="50" Margin="527,63,0,0" VerticalAlignment="Top" Width="50" Source="/Resources/cup_icon.png" RenderTransformOrigin="0.513,0.493"/>
         </Grid>
 
         <Grid x:Name="group_user_2" Margin="0,70,0,0">
             <Rectangle Fill="#FF363636" HorizontalAlignment="Left" Height="64" Margin="206,56,0,0" Stroke="#FF2C2C2C" VerticalAlignment="Top" Width="393"/>
-            <Image HorizontalAlignment="Left" Height="64" Margin="220,56,0,0" VerticalAlignment="Top" Width="64" Source="/Resources/kisspng-computer-icons-portable-network-graphics-vector-gr-person-outline-transparent-amp-png-clipart-free-5d02928d206b16.9431901115604496771328.png"/>
+            <Image HorizontalAlignment="Left" Height="64" Margin="220,56,0,0" VerticalAlignment="Top" Width="64" Source="/Resources/user_icon.png"/>
             <Label Content="Name:" HorizontalAlignment="Left" Margin="294,58,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Background="{x:Null}" Foreground="White"/>
             <Label Content="Score:" HorizontalAlignment="Left" Margin="294,81,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Background="{x:Null}" Foreground="White"/>
             <Label x:Name="lable_name_user2"  Content="User" HorizontalAlignment="Left" Margin="364,58,0,0" VerticalAlignment="Top" FontSize="18" Background="{x:Null}" Foreground="White" FontStyle="Italic"/>
             <Label x:Name="label_score_user2" Content="0" HorizontalAlignment="Left" Margin="364,81,0,0" VerticalAlignment="Top" FontSize="18" Background="{x:Null}" Foreground="White" FontStyle="Italic"/>
-            <Image HorizontalAlignment="Left" Height="50" Margin="527,63,0,0" VerticalAlignment="Top" Width="50" Source="/Resources/free-icon-silver-medal-179251.png" RenderTransformOrigin="0.513,0.493"/>
+            <Image HorizontalAlignment="Left" Height="50" Margin="527,63,0,0" VerticalAlignment="Top" Width="50" Source="/Resources/silver_medal.png" RenderTransformOrigin="0.513,0.493"/>
         </Grid>
 
         <Grid x:Name="group_user_3" Margin="0,140,0,0">
             <Rectangle Fill="#FF363636" HorizontalAlignment="Left" Height="64" Margin="206,56,0,0" Stroke="#FF2C2C2C" VerticalAlignment="Top" Width="393"/>
-            <Image HorizontalAlignment="Left" Height="64" Margin="220,56,0,0" VerticalAlignment="Top" Width="64" Source="/Resources/kisspng-computer-icons-portable-network-graphics-vector-gr-person-outline-transparent-amp-png-clipart-free-5d02928d206b16.9431901115604496771328.png"/>
+            <Image HorizontalAlignment="Left" Height="64" Margin="220,56,0,0" VerticalAlignment="Top" Width="64" Source="/Resources/user_icon.png"/>
             <Label Content="Name:" HorizontalAlignment="Left" Margin="294,58,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Background="{x:Null}" Foreground="White"/>
             <Label Content="Score:" HorizontalAlignment="Left" Margin="294,81,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Background="{x:Null}" Foreground="White"/>
             <Label x:Name="lable_name_user3"  Content="User" HorizontalAlignment="Left" Margin="364,58,0,0" VerticalAlignment="Top" FontSize="18" Background="{x:Null}" Foreground="White" FontStyle="Italic"/>
             <Label x:Name="label_score_user3" Content="0" HorizontalAlignment="Left" Margin="364,81,0,0" VerticalAlignment="Top" FontSize="18" Background="{x:Null}" Foreground="White" FontStyle="Italic"/>
-            <Image HorizontalAlignment="Left" Height="50" Margin="527,63,0,0" VerticalAlignment="Top" Width="50" Source="/Resources/free-icon-bronze-medal-179250(1).png" RenderTransformOrigin="0.513,0.493"/>
+            <Image HorizontalAlignment="Left" Height="50" Margin="527,63,0,0" VerticalAlignment="Top" Width="50" Source="/Resources/bronze_medal.png" RenderTransformOrigin="0.513,0.493"/>
         </Grid>
 
         <Grid x:Name="group_user_4" Margin="0,210,0,0">
             <Rectangle Fill="#FF363636" HorizontalAlignment="Left" Height="64" Margin="206,56,0,0" Stroke="#FF2C2C2C" VerticalAlignment="Top" Width="393"/>
-            <Image HorizontalAlignment="Left" Height="64" Margin="220,56,0,0" VerticalAlignment="Top" Width="64" Source="/Resources/kisspng-computer-icons-portable-network-graphics-vector-gr-person-outline-transparent-amp-png-clipart-free-5d02928d206b16.9431901115604496771328.png"/>
+            <Image HorizontalAlignment="Left" Height="64" Margin="220,56,0,0" VerticalAlignment="Top" Width="64" Source="/Resources/user_icon.png"/>
             <Label Content="Name:" HorizontalAlignment="Left" Margin="294,58,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Background="{x:Null}" Foreground="White"/>
             <Label Content="Score:" HorizontalAlignment="Left" Margin="294,81,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Background="{x:Null}" Foreground="White"/>
             <Label x:Name="lable_name_user4"  Content="User" HorizontalAlignment="Left" Margin="364,58,0,0" VerticalAlignment="Top" FontSize="18" Background="{x:Null}" Foreground="White" FontStyle="Italic"/>
