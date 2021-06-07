@@ -10,7 +10,7 @@
     <Grid Background="#FF363636">
         <Image Source="/Resources/Magshimim.png" HorizontalAlignment="Left" Height="85" Margin="249,17,0,0" VerticalAlignment="Top" Width="287"/>
         <Label Content="Join Room" HorizontalAlignment="Left" Margin="348,98,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="15"/>
-        <Button Content="Resresh" Click="clicked_refresh" HorizontalAlignment="Left" Margin="213,369,0,0" Background="#FF46D38C" BorderBrush="Black" VerticalAlignment="Top" Width="167" Height="38"/>
+        <Button Content="Refresh" Click="clicked_refresh" HorizontalAlignment="Left" Margin="213,369,0,0" Background="#FF46D38C" BorderBrush="Black" VerticalAlignment="Top" Width="167" Height="38"/>
         <Button Content="Menu" Click="clicked_menu" HorizontalAlignment="Left" Margin="391,369,0,0" Background="#5199FF" BorderBrush="Black" VerticalAlignment="Top" Width="167" Height="38"/>
         <Label Name="get_rooms_error" Content="" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="{x:Null}" Foreground="Red" Margin="391,0,391,237"/>
         <Label Name="loading" Content="" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="{x:Null}" Foreground="Green" Margin="391,0,391,237"/>
