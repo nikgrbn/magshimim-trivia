@@ -1,12 +1,86 @@
-﻿<Window x:Class="MagshiTriviaClient.HighScoreWindow.HighScoreWindow"
+﻿<Window x:Class="MagshiTriviaClient.HighScoreWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MagshiTriviaClient.HighScoreWindow"
+        xmlns:local="clr-namespace:MagshiTriviaClient"
         mc:Ignorable="d"
+        Background="#FF2C2C2C"
         Title="HighScoreWindow" Height="450" Width="800">
     <Grid>
-        
+        <Label Content="Best scores:" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" FontSize="24" FontWeight="Bold" Height="41" Margin="334,6,298,0" Width="160" />
+
+        <Grid x:Name="group_user_1">
+            <Rectangle Fill="#FF363636" HorizontalAlignment="Left" Height="64" Margin="206,56,0,0" Stroke="#FF2C2C2C" VerticalAlignment="Top" Width="393"/>
+            <Image HorizontalAlignment="Left" Height="64" Margin="220,56,0,0" VerticalAlignment="Top" Width="64" Source="/Resources/kisspng-computer-icons-portable-network-graphics-vector-gr-person-outline-transparent-amp-png-clipart-free-5d02928d206b16.9431901115604496771328.png"/>
+            <Label Content="Name:" HorizontalAlignment="Left" Margin="294,58,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Background="{x:Null}" Foreground="White"/>
+            <Label Content="Score:" HorizontalAlignment="Left" Margin="294,81,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Background="{x:Null}" Foreground="White"/>
+            <Label x:Name="lable_name_user1" Content="User" HorizontalAlignment="Left" Margin="364,58,0,0" VerticalAlignment="Top" FontSize="18" Background="{x:Null}" Foreground="White" FontStyle="Italic"/>
+            <Label x:Name="label_score_user1" Content="0" HorizontalAlignment="Left" Margin="364,81,0,0" VerticalAlignment="Top" FontSize="18" Background="{x:Null}" Foreground="White" FontStyle="Italic"/>
+            <Image HorizontalAlignment="Left" Height="50" Margin="527,63,0,0" VerticalAlignment="Top" Width="50" Source="/Resources/cup_icon-icons.com_55322.png" RenderTransformOrigin="0.513,0.493"/>
+        </Grid>
+
+        <Grid x:Name="group_user_2" Margin="0,70,0,0">
+            <Rectangle Fill="#FF363636" HorizontalAlignment="Left" Height="64" Margin="206,56,0,0" Stroke="#FF2C2C2C" VerticalAlignment="Top" Width="393"/>
+            <Image HorizontalAlignment="Left" Height="64" Margin="220,56,0,0" VerticalAlignment="Top" Width="64" Source="/Resources/kisspng-computer-icons-portable-network-graphics-vector-gr-person-outline-transparent-amp-png-clipart-free-5d02928d206b16.9431901115604496771328.png"/>
+            <Label Content="Name:" HorizontalAlignment="Left" Margin="294,58,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Background="{x:Null}" Foreground="White"/>
+            <Label Content="Score:" HorizontalAlignment="Left" Margin="294,81,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Background="{x:Null}" Foreground="White"/>
+            <Label x:Name="lable_name_user2"  Content="User" HorizontalAlignment="Left" Margin="364,58,0,0" VerticalAlignment="Top" FontSize="18" Background="{x:Null}" Foreground="White" FontStyle="Italic"/>
+            <Label x:Name="label_score_user2" Content="0" HorizontalAlignment="Left" Margin="364,81,0,0" VerticalAlignment="Top" FontSize="18" Background="{x:Null}" Foreground="White" FontStyle="Italic"/>
+            <Image HorizontalAlignment="Left" Height="50" Margin="527,63,0,0" VerticalAlignment="Top" Width="50" Source="/Resources/free-icon-silver-medal-179251.png" RenderTransformOrigin="0.513,0.493"/>
+        </Grid>
+
+        <Grid x:Name="group_user_3" Margin="0,140,0,0">
+            <Rectangle Fill="#FF363636" HorizontalAlignment="Left" Height="64" Margin="206,56,0,0" Stroke="#FF2C2C2C" VerticalAlignment="Top" Width="393"/>
+            <Image HorizontalAlignment="Left" Height="64" Margin="220,56,0,0" VerticalAlignment="Top" Width="64" Source="/Resources/kisspng-computer-icons-portable-network-graphics-vector-gr-person-outline-transparent-amp-png-clipart-free-5d02928d206b16.9431901115604496771328.png"/>
+            <Label Content="Name:" HorizontalAlignment="Left" Margin="294,58,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Background="{x:Null}" Foreground="White"/>
+            <Label Content="Score:" HorizontalAlignment="Left" Margin="294,81,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Background="{x:Null}" Foreground="White"/>
+            <Label x:Name="lable_name_user3"  Content="User" HorizontalAlignment="Left" Margin="364,58,0,0" VerticalAlignment="Top" FontSize="18" Background="{x:Null}" Foreground="White" FontStyle="Italic"/>
+            <Label x:Name="label_score_user3" Content="0" HorizontalAlignment="Left" Margin="364,81,0,0" VerticalAlignment="Top" FontSize="18" Background="{x:Null}" Foreground="White" FontStyle="Italic"/>
+            <Image HorizontalAlignment="Left" Height="50" Margin="527,63,0,0" VerticalAlignment="Top" Width="50" Source="/Resources/free-icon-bronze-medal-179250(1).png" RenderTransformOrigin="0.513,0.493"/>
+        </Grid>
+
+        <Grid x:Name="group_user_4" Margin="0,210,0,0">
+            <Rectangle Fill="#FF363636" HorizontalAlignment="Left" Height="64" Margin="206,56,0,0" Stroke="#FF2C2C2C" VerticalAlignment="Top" Width="393"/>
+            <Image HorizontalAlignment="Left" Height="64" Margin="220,56,0,0" VerticalAlignment="Top" Width="64" Source="/Resources/kisspng-computer-icons-portable-network-graphics-vector-gr-person-outline-transparent-amp-png-clipart-free-5d02928d206b16.9431901115604496771328.png"/>
+            <Label Content="Name:" HorizontalAlignment="Left" Margin="294,58,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Background="{x:Null}" Foreground="White"/>
+            <Label Content="Score:" HorizontalAlignment="Left" Margin="294,81,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Background="{x:Null}" Foreground="White"/>
+            <Label x:Name="lable_name_user4"  Content="User" HorizontalAlignment="Left" Margin="364,58,0,0" VerticalAlignment="Top" FontSize="18" Background="{x:Null}" Foreground="White" FontStyle="Italic"/>
+            <Label x:Name="label_score_user4" Content="0" HorizontalAlignment="Left" Margin="364,81,0,0" VerticalAlignment="Top" FontSize="18" Background="{x:Null}" Foreground="White" FontStyle="Italic"/>
+        </Grid>
+
+        <Grid x:Name="group_user_5" Margin="0,280,0,0">
+            <Rectangle Fill="#FF363636" HorizontalAlignment="Left" Height="64" Margin="206,56,0,0" Stroke="#FF2C2C2C" VerticalAlignment="Top" Width="393"/>
+            <Image HorizontalAlignment="Left" Height="64" Margin="220,56,0,0" VerticalAlignment="Top" Width="64" Source="/Resources/kisspng-computer-icons-portable-network-graphics-vector-gr-person-outline-transparent-amp-png-clipart-free-5d02928d206b16.9431901115604496771328.png"/>
+            <Label Content="Name:" HorizontalAlignment="Left" Margin="294,58,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Background="{x:Null}" Foreground="White"/>
+            <Label Content="Score:" HorizontalAlignment="Left" Margin="294,81,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Background="{x:Null}" Foreground="White"/>
+            <Label x:Name="lable_name_user5"  Content="User" HorizontalAlignment="Left" Margin="364,58,0,0" VerticalAlignment="Top" FontSize="18" Background="{x:Null}" Foreground="White" FontStyle="Italic"/>
+            <Label x:Name="label_score_user5" Content="0" HorizontalAlignment="Left" Margin="364,81,0,0" VerticalAlignment="Top" FontSize="18" Background="{x:Null}" Foreground="White" FontStyle="Italic"/>
+        </Grid>
+
+        <Rectangle HorizontalAlignment="Left" Height="411" Margin="50,-25,0,0" Stroke="#FF2C2C2C" VerticalAlignment="Top" Width="12" Opacity="0.8">
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFF0BE53" Offset="0"/>
+                    <GradientStop Color="#FFDE3030" Offset="1"/>
+                    <GradientStop Color="#FF2E8DDC" Offset="0.458"/>
+                    <GradientStop Color="#FFB774DC" Offset="0.691"/>
+                    <GradientStop Color="#FF92A284" Offset="0.225"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Rectangle HorizontalAlignment="Left" Height="411" Margin="722,-25,0,0" Stroke="#FF2C2C2C" VerticalAlignment="Top" Width="12" Opacity="0.8">
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFF0BE53" Offset="0"/>
+                    <GradientStop Color="#FFDE3030" Offset="1"/>
+                    <GradientStop Color="#FF2E8DDC" Offset="0.458"/>
+                    <GradientStop Color="#FFB774DC" Offset="0.691"/>
+                    <GradientStop Color="#FF92A284" Offset="0.225"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+
     </Grid>
 </Window>
