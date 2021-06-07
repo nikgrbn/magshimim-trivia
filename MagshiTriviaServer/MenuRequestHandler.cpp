@@ -180,10 +180,13 @@ RequestResult MenuRequestHandler::joinRoom(RequestInfo request) {
 
 	try {
 		JoinRoomRequest join_room_request = JsonRequestPacketDeserializer::deserializeJoinRoomRequest(request.buffer);
-		RoomData room_data(this->_room_manager->getRooms()[join_room_request.roomId]);
-		Room room(room_data);
+		
+		std::vector<RoomData> rooms_vector = this->_room_manager->getRooms();
+		RoomData room_data = rooms_vector.at(join_room_request.roomId - 1);
 
+		Room room(room_data);
 		room.addUser(this->_user);
+
 		join_room_response.status = ResponseStatus::JoinRoomSuccess;
 		response.newHandler = this;
 	} catch (std::exception& e) {
