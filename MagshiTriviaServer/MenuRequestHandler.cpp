@@ -177,13 +177,21 @@ RequestResult MenuRequestHandler::getHighScore(RequestInfo request) {
 RequestResult MenuRequestHandler::joinRoom(RequestInfo request) {
 	RequestResult response{};
 	JoinRoomResponse join_room_response{};
+	RoomData room_data{};
 
 	try {
 		JoinRoomRequest join_room_request = JsonRequestPacketDeserializer::deserializeJoinRoomRequest(request.buffer);
-		RoomData room_data(this->_room_manager->getRooms()[join_room_request.roomId]);
-		Room room(room_data);
+		
+		std::vector<RoomData> rooms_vector = this->_room_manager->getRooms();
 
+		for (RoomData room : rooms_vector) {
+			if (room.id == join_room_request.roomId)
+				room_data = room;
+		}
+
+		Room room(room_data);
 		room.addUser(this->_user);
+
 		join_room_response.status = ResponseStatus::JoinRoomSuccess;
 		response.newHandler = this;
 	} catch (std::exception& e) {
@@ -206,6 +214,7 @@ RequestResult MenuRequestHandler::createRoom(RequestInfo request) {
 		room_data.maxPlayers = create_room_request.maxUsers;
 		room_data.numOfQuestionsInGame = create_room_request.questionCount;
 		room_data.timePerQuestion = create_room_request.answerTimeout;
+		room_data.isActive = 1;
 
 		this->_room_manager->createRoom(this->_user, room_data);
 		response.newHandler = this;

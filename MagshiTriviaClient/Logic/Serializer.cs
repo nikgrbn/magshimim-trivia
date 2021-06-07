@@ -73,5 +73,10 @@ namespace MagshiTriviaClient
             GetRoomsRequest req;
             return GenerateRequest(13, req);
         }
+
+        public static byte[] SerializeJoinRoomRequest(JoinRoomRequest req)
+        {
+            return GenerateRequest(15, req);
+        }
     }
 }

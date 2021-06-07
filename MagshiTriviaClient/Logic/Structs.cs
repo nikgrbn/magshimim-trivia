@@ -6,30 +6,35 @@ using System.Threading.Tasks;
 
 namespace MagshiTriviaClient
 {
-    // Request structs
+    // ---------------------- Requests ------------------------
     public struct LoginRequest
     {
         public string username;
         public string password;
     }
+
     public struct SignupRequest
     {
         public string username;
         public string password;
         public string mail;
     }
+
     public struct StatisticsRequest
     {
         // EMPTY
     }
+
     public struct HighScoreRequest
     {
         // EMPTY
     }
+
     public struct LogoutRequest
     {
         // EMPTY
     }
+
     public struct CreateRoomRequest
     {
         public string roomName;
@@ -43,7 +48,15 @@ namespace MagshiTriviaClient
         // EMPTY
     }
 
-    // Response structs 
+    public struct JoinRoomRequest
+    {
+        public int roomId;
+    }
+
+
+    // -------------------------------- Responses ----------------------------------
+
+
     public struct LoginResponse
     {
         public int status;
@@ -74,6 +87,22 @@ namespace MagshiTriviaClient
     public struct GetRoomsResponse
     {
         public int status;
-        public string Rooms;
+        public List<RoomData> Rooms;
+    }
+
+    public struct JoinRoomResponse
+    {
+        public int status;
+    }
+
+    // -------------
+    public struct RoomData
+    {
+        public int id;
+        public string name;
+        public int maxPlayers;
+        public int numOfQuestionsInGame;
+        public int timePerQuestion;
+        public int isActive;
     }
 }
