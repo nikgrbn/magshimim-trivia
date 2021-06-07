@@ -55,12 +55,12 @@ namespace MagshiTriviaClient
                 
                 if (Deserializer.DeserializeCreateRoomResponse(res).status == 601)
                 {
-                    creation_error.Content = "Login error!";
+                    creation_error.Content = "Create room failed!";
                 }
                 else
                 {
                     creation_error.Content = "";
-                    switchToMainWindow();
+                    switchToMainWindow(); // TODO: switch window to the new room
                 }
             }
             else
