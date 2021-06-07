@@ -58,15 +58,20 @@ Buffer JsonResponsePacketSerializer::serializeResponse(LogoutResponse response) 
 Buffer JsonResponsePacketSerializer::serializeResponse(GetRoomsResponse response) {
     json j{};
     std::string rooms_string{};
+    
+    j["status"] = response.status;
 
     for (auto r : response.rooms) {
-        if (!rooms_string.empty())
-            rooms_string += ',';
-        rooms_string += r.name;
-    }
+        json current_room;
+        current_room["id"] = r.id;
+        current_room["isActive"] = r.isActive;
+        current_room["maxPlayers"] = r.maxPlayers;
+        current_room["name"] = r.name;
+        current_room["numOfQuestionsInGame"] = r.numOfQuestionsInGame;
+        current_room["timePerQuestion"] = r.timePerQuestion;
 
-    j["status"] = response.status;
-    j["Rooms"] = rooms_string;
+        j["Rooms"][r.name] = current_room;
+    }
 
     return generateResponse(j.dump(), ProtocolCodes::GetRoomsRequest);
 }
@@ -99,8 +104,6 @@ Buffer JsonResponsePacketSerializer::serializeResponse(CreateRoomResponse respon
 
     return generateResponse(j.dump(), ProtocolCodes::CreateRoomRequest);
 }
-
-// { UsersStatistics: {"user1": {...}, "user2" : {...}}, "HighScoreStatistics" : {"user1" :{....}} }
 
 Buffer JsonResponsePacketSerializer::serializeResponse(GetStatisticsResponse response) {
     json final_j{};
