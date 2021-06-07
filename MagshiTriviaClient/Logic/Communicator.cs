@@ -46,7 +46,7 @@ namespace MagshiTriviaClient
             socket.Connect(ip, port);
         }
 
-        public string sendPacketToServer(byte[] packet)
+        public byte[] sendPacketToServer(byte[] packet)
         {
             NetworkStream serverStream = socket.GetStream();
             serverStream.Write(packet, 0, packet.Length);
@@ -54,7 +54,7 @@ namespace MagshiTriviaClient
 
             byte[] inStream = new byte[10025];
             serverStream.Read(inStream, 0, inStream.Length);
-            return System.Text.Encoding.ASCII.GetString(inStream);
+            return inStream;
         }
     }
 }

@@ -46,7 +46,7 @@ namespace MagshiTriviaClient
             {
                 if (radiobutton_login.IsChecked == true && !string.IsNullOrWhiteSpace(tb_username.Text) && !string.IsNullOrWhiteSpace(tb_password.Text))
                 {
-                    string resp = com.sendPacketToServer(Serializer.SerializeLoginRequest(tb_username.Text, tb_password.Text));
+                    byte[] resp = com.sendPacketToServer(Serializer.SerializeLoginRequest(tb_username.Text, tb_password.Text));
                     if (Deserializer.DeserializeLoginResponse(resp).status == 101)
                     {
                         l_error.Content = "Login error!";
@@ -60,7 +60,7 @@ namespace MagshiTriviaClient
 
                 else if (radiobutton_register.IsChecked == true && !string.IsNullOrWhiteSpace(tb_username.Text) && !string.IsNullOrWhiteSpace(tb_password.Text) && !string.IsNullOrWhiteSpace(tb_email.Text))
                 {
-                    string resp = com.sendPacketToServer(Serializer.SerializeSignupRequest(tb_username.Text, tb_password.Text, tb_email.Text));
+                    byte[] resp = com.sendPacketToServer(Serializer.SerializeSignupRequest(tb_username.Text, tb_password.Text, tb_email.Text));
                     if (Deserializer.DeserializeLoginResponse(resp).status == 201)
                     {
                         l_error.Content = "Registration error!";

@@ -58,7 +58,11 @@ namespace MagshiTriviaClient
 
             return GenerateRequest(19, req);
         }
-
+        public static byte[] SerializeHighScoreRequest()
+        {
+            HighScoreRequest req;
+            return GenerateRequest(18, req);
+        }
         public static byte[] SerializeCreateRoomRequest(CreateRoomRequest req)
         {
             return GenerateRequest(12, req);

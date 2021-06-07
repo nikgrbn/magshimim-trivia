@@ -22,6 +22,10 @@ namespace MagshiTriviaClient
     {
         // EMPTY
     }
+    public struct HighScoreRequest
+    {
+        // EMPTY
+    }
     public struct LogoutRequest
     {
         // EMPTY
@@ -54,6 +58,12 @@ namespace MagshiTriviaClient
     {
         public int status;
         public string statistics;
+    }
+
+    public struct HighScoreResponse
+    {
+        public int status;
+        public string HighScore;
     }
 
     public struct CreateRoomResponse
