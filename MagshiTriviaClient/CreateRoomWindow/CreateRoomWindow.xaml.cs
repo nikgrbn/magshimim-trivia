@@ -51,7 +51,7 @@ namespace MagshiTriviaClient
                 create_room.maxUsers = Int32.Parse(this.tb_number_of_players.Text);
                 create_room.questionCount = Int32.Parse(this.tb_number_of_questions.Text);
                 create_room.answerTimeout = Int32.Parse(this.tb_question_time.Text);
-                string res = this._communicator.sendPacketToServer(Serializer.SerializeCreateRoomRequest(create_room));
+                byte[] res = this._communicator.sendPacketToServer(Serializer.SerializeCreateRoomRequest(create_room));
                 
                 if (Deserializer.DeserializeCreateRoomResponse(res).status == 601)
                 {
