@@ -177,12 +177,17 @@ RequestResult MenuRequestHandler::getHighScore(RequestInfo request) {
 RequestResult MenuRequestHandler::joinRoom(RequestInfo request) {
 	RequestResult response{};
 	JoinRoomResponse join_room_response{};
+	RoomData room_data{};
 
 	try {
 		JoinRoomRequest join_room_request = JsonRequestPacketDeserializer::deserializeJoinRoomRequest(request.buffer);
 		
 		std::vector<RoomData> rooms_vector = this->_room_manager->getRooms();
-		RoomData room_data = rooms_vector.at(join_room_request.roomId - 1);
+
+		for (RoomData room : rooms_vector) {
+			if (room.id == join_room_request.roomId)
+				room_data = room;
+		}
 
 		Room room(room_data);
 		room.addUser(this->_user);
