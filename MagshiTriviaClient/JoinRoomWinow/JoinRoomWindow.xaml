@@ -3,10 +3,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MagshiTriviaClient.JoinRoomWinow"
+        xmlns:local="clr-namespace:MagshiTriviaClient"
         mc:Ignorable="d"
-        Title="JoinRoomWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="Join Room" Height="450" Width="800">
+    <Grid Background="#FF363636">
+        <Image Source="/Resources/Magshimim.png" HorizontalAlignment="Left" Height="85" Margin="249,17,0,0" VerticalAlignment="Top" Width="287"/>
+        <Label Content="Join Room" HorizontalAlignment="Left" Margin="348,98,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="15"/>
+        <Button Content="Resresh" Click="clicked_refresh" HorizontalAlignment="Left" Margin="213,369,0,0" Background="#FF46D38C" BorderBrush="Black" VerticalAlignment="Top" Width="167" Height="38"/>
+        <Button Content="Menu" Click="clicked_menu" HorizontalAlignment="Left" Margin="391,369,0,0" Background="#5199FF" BorderBrush="Black" VerticalAlignment="Top" Width="167" Height="38"/>
+
+        <ListBox x:Name="RoomsList" HorizontalAlignment="Left" Height="229" Margin="122,133,0,0" VerticalAlignment="Top" Width="542" ItemsSource="{Binding}" ScrollViewer.VerticalScrollBarVisibility="Visible">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Margin="1" Source="{Binding Image, Mode=TwoWay}" Height="20" Stretch="Uniform" />
+                        <TextBlock Margin="10" Text="{Binding RoomName, Mode=TwoWay}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </Window>

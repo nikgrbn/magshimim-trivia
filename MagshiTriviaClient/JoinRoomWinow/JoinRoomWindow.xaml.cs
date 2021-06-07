@@ -22,6 +22,21 @@ namespace MagshiTriviaClient
         public JoinRoomWindow()
         {
             InitializeComponent();
+            ShowRoomsList();
+        }
+
+        public void ShowRoomsList()
+        {
+
+        }
+        private void clicked_refresh(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void clicked_menu(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
