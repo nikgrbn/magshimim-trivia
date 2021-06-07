@@ -42,7 +42,9 @@ namespace MagshiTriviaClient
 
         private void clicked_join_room(object sender, RoutedEventArgs e)
         {
-
+            JoinRoomWindow join_room_window = new JoinRoomWindow(this._communicator_obj);
+            Visibility = Visibility.Hidden;
+            join_room_window.Show();
         }
 
         private void clicked_create_room(object sender, RoutedEventArgs e)
