@@ -75,5 +75,10 @@ namespace MagshiTriviaClient
             Visibility = Visibility.Hidden;
             mainWindow.Show();
         }
+
+        private void clicked_menu(object sender, RoutedEventArgs e)
+        {
+            switchToMainWindow();
+        }
     }
 }
