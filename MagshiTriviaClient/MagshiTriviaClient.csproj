@@ -68,6 +68,7 @@
     <Compile Include="CreateRoomWindow\CreateRoomWindow.xaml.cs">
       <DependentUpon>CreateRoomWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="HighScoreWindow\HighScoreWindow.xaml.cs" />
     <Compile Include="JoinRoomWinow\JoinRoomWindow.xaml.cs">
       <DependentUpon>JoinRoomWindow.xaml</DependentUpon>
     </Compile>
@@ -115,6 +116,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="HighScoreWindow\HighScoreWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="JoinRoomWinow\JoinRoomWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -137,6 +142,14 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Magshimim.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\kisspng-computer-icons-portable-network-graphics-vector-gr-person-outline-transparent-amp-png-clipart-free-5d02928d206b16.9431901115604496771328.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\cup_icon-icons.com_55322.png" />
+    <Resource Include="Resources\free-icon-bronze-medal-179250%281%29.png" />
+    <Resource Include="Resources\free-icon-silver-medal-179251.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

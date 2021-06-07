@@ -56,7 +56,9 @@ namespace MagshiTriviaClient
 
         private void clicked_high_score(object sender, RoutedEventArgs e)
         {
-
+            HighScoreWindow high_score_window = new HighScoreWindow(this._communicator_obj);
+            Visibility = Visibility.Hidden;
+            high_score_window.Show();
         }
 
         private void clicked_statistics(object sender, RoutedEventArgs e)
