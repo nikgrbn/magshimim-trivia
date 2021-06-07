@@ -64,6 +64,6 @@ namespace MagshiTriviaClient
     public struct GetRoomsResponse
     {
         public int status;
-        public List<string> rooms_names;
+        public string rooms_names;
     }
 }
