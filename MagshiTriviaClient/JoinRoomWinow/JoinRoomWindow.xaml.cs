@@ -34,7 +34,6 @@ namespace MagshiTriviaClient
 
         public void ShowRoomsList(GetRoomsResponse response)
         {
-            string[] rooms_names_arr;
             string room_name;
 
             if (response.status == 401)
@@ -43,16 +42,15 @@ namespace MagshiTriviaClient
                 return;
             }
             
-            if (response.Rooms.Contains(','))
+            if (response.Rooms != null || response.Rooms.Any())
             {
-                rooms_names_arr = response.Rooms.Split(',');
-                foreach (var room in rooms_names_arr)
+                foreach (var room in response.Rooms)
                 {
-                    RoomsList.Items.Add(room);
+                    RoomsList.Items.Add(room.name);
                 }
-            } else if(response.Rooms != "")
+            } else if(response.Rooms.Count == 1)
             {
-                room_name = response.Rooms;
+                room_name = response.Rooms.ElementAt(1).name;
                 RoomsList.Items.Add(room_name);
             }
         }
@@ -82,7 +80,18 @@ namespace MagshiTriviaClient
         private void MouseDoubleClick_Event(object sender, MouseButtonEventArgs e)
         {
             JoinRoomRequest req;
-            req.roomId = 1; // TEST
+            req.roomId = 0;
+            GetRoomsResponse rooms_data_response = Deserializer.DeserializeGetRoomsResponse(this._communicator.sendPacketToServer(Serializer.SerializeGetRoomsRequest()));
+
+            foreach(var room in rooms_data_response.Rooms)
+            {
+                if(room.name == (string)(RoomsList.SelectedItem))
+                {
+                    req.roomId = room.id;
+                    break;
+                }
+            }
+
             JoinRoomResponse response = Deserializer.DeserializeJoinRoomResponse(this._communicator.sendPacketToServer(Serializer.SerializeJoinRoomRequest(req)));
             
             if (response.status == 501)

@@ -54,8 +54,7 @@ namespace MagshiTriviaClient
 
         public static GetRoomsResponse DeserializeGetRoomsResponse(byte[] response)
         {
-            JsonSerializerSettings settings = new JsonSerializerSettings();
-
+            // TODO: fix the deserialization
             GetRoomsResponse res = JsonConvert.DeserializeObject<GetRoomsResponse>(retrieveJson(response));
             return res;
         }
