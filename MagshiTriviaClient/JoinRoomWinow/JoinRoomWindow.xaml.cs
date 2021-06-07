@@ -103,7 +103,7 @@ namespace MagshiTriviaClient
             
             if (response.status == 501)
             {
-                MessageBox.Show("Failed to enter the room!", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                join_error.Content = "Failed to enter the room!";
                 return;
             }
 
