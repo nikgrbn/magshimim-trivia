@@ -19,9 +19,23 @@ namespace MagshiTriviaClient
     /// </summary>
     public partial class HighScoreWindow : Window
     {
+        // Members
+        Communicator _communicator;
+        public HighScoreWindow(Communicator com)
+        {
+            this._communicator = com;
+            InitializeComponent();
+        }
         public HighScoreWindow()
         {
             InitializeComponent();
+        }
+
+        private void clicked_menu(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = new MainWindow(this._communicator);
+            Visibility = Visibility.Hidden;
+            mainWindow.Show();
         }
     }
 }

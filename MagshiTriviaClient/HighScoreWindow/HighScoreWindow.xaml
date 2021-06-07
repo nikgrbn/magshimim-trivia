@@ -49,14 +49,7 @@
             <Label x:Name="label_score_user4" Content="0" HorizontalAlignment="Left" Margin="364,81,0,0" VerticalAlignment="Top" FontSize="18" Background="{x:Null}" Foreground="White" FontStyle="Italic"/>
         </Grid>
 
-        <Grid x:Name="group_user_5" Margin="0,280,0,0">
-            <Rectangle Fill="#FF363636" HorizontalAlignment="Left" Height="64" Margin="206,56,0,0" Stroke="#FF2C2C2C" VerticalAlignment="Top" Width="393"/>
-            <Image HorizontalAlignment="Left" Height="64" Margin="220,56,0,0" VerticalAlignment="Top" Width="64" Source="/Resources/kisspng-computer-icons-portable-network-graphics-vector-gr-person-outline-transparent-amp-png-clipart-free-5d02928d206b16.9431901115604496771328.png"/>
-            <Label Content="Name:" HorizontalAlignment="Left" Margin="294,58,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Background="{x:Null}" Foreground="White"/>
-            <Label Content="Score:" HorizontalAlignment="Left" Margin="294,81,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Background="{x:Null}" Foreground="White"/>
-            <Label x:Name="lable_name_user5"  Content="User" HorizontalAlignment="Left" Margin="364,58,0,0" VerticalAlignment="Top" FontSize="18" Background="{x:Null}" Foreground="White" FontStyle="Italic"/>
-            <Label x:Name="label_score_user5" Content="0" HorizontalAlignment="Left" Margin="364,81,0,0" VerticalAlignment="Top" FontSize="18" Background="{x:Null}" Foreground="White" FontStyle="Italic"/>
-        </Grid>
+        <Button Content="Menu" Click="clicked_menu" HorizontalAlignment="Center" Background="#5199FF" BorderBrush="Black" VerticalAlignment="Bottom" Width="168" Height="38" Margin="312,0,312,22"/>
 
         <Rectangle HorizontalAlignment="Left" Height="411" Margin="50,-25,0,0" Stroke="#FF2C2C2C" VerticalAlignment="Top" Width="12" Opacity="0.8">
             <Rectangle.Fill>
