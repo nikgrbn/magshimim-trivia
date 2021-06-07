@@ -70,7 +70,7 @@ Buffer JsonResponsePacketSerializer::serializeResponse(GetRoomsResponse response
         current_room["numOfQuestionsInGame"] = r.numOfQuestionsInGame;
         current_room["timePerQuestion"] = r.timePerQuestion;
 
-        j["Rooms"][r.name] = current_room;
+        j["Rooms"] += current_room;
     }
 
     return generateResponse(j.dump(), ProtocolCodes::GetRoomsRequest);
