@@ -48,7 +48,7 @@ namespace MagshiTriviaClient
                 {
                     RoomsList.Items.Add(room.name);
                 }
-            } else if(response.Rooms.Count == 1)
+            } else if (response.Rooms != null && response.Rooms.Count == 1)
             {
                 room_name = response.Rooms.ElementAt(1).name;
                 RoomsList.Items.Add(room_name);
@@ -77,6 +77,13 @@ namespace MagshiTriviaClient
             this.Close();
         }
 
+        private void switchToMainWindow()
+        {
+            MainWindow mainWindow = new MainWindow(this._communicator);
+            Visibility = Visibility.Hidden;
+            mainWindow.Show();
+        }
+
         private void MouseDoubleClick_Event(object sender, MouseButtonEventArgs e)
         {
             JoinRoomRequest req;
@@ -99,6 +106,8 @@ namespace MagshiTriviaClient
                 MessageBox.Show("Failed to enter the room!", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 return;
             }
+
+            switchToMainWindow(); // TODO: join to the room
         }
     }
 }
