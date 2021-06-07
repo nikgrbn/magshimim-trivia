@@ -16,14 +16,6 @@
         <Label Name="loading" Content="" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="{x:Null}" Foreground="Green" Margin="391,0,391,237"/>
 
         <ListBox x:Name="RoomsList" HorizontalAlignment="Left" Height="229" Margin="122,133,0,0" VerticalAlignment="Top" Width="542" ItemsSource="{Binding}" ScrollViewer.VerticalScrollBarVisibility="Visible">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Margin="1" Source="{Binding Image, Mode=TwoWay}" Height="20" Stretch="Uniform" />
-                        <TextBlock Margin="10" Text="{Binding RoomName, Mode=TwoWay}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
         </ListBox>
     </Grid>
 </Window>

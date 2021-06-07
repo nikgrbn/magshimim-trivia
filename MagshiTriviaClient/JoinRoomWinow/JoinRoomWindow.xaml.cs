@@ -34,18 +34,27 @@ namespace MagshiTriviaClient
 
         public void ShowRoomsList(GetRoomsResponse response)
         {
+            string[] rooms_names_arr;
+            string room_name;
+
             if (response.status == 401)
             {
                 get_rooms_error.Content = "Failed to get rooms list from the server";
                 return;
             }
-
-            string[] rooms_names = response.rooms_names.Split(',');
-            foreach (var room in rooms_names)
+            
+            if (response.Rooms.Contains(','))
             {
-                RoomsList.Items.Add(room);
+                rooms_names_arr = response.Rooms.Split(',');
+                foreach (var room in rooms_names_arr)
+                {
+                    RoomsList.Items.Add(room);
+                }
+            } else if(response.Rooms != "")
+            {
+                room_name = response.Rooms;
+                RoomsList.Items.Add(room_name);
             }
-
         }
         private void clicked_refresh(object sender, RoutedEventArgs e)
         {
