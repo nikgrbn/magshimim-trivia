@@ -25,6 +25,7 @@ Buffer JsonResponsePacketSerializer::generateResponse(const std::string& json_me
 
 Buffer JsonResponsePacketSerializer::serializeResponse(ErrorResponse response) {
     json j{};
+
     j["message"] = response.message;
 
     return generateResponse(j.dump(), ProtocolCodes::Error);
@@ -32,6 +33,7 @@ Buffer JsonResponsePacketSerializer::serializeResponse(ErrorResponse response) {
 
 Buffer JsonResponsePacketSerializer::serializeResponse(LoginResponse response) {
     json j{};
+
     j["status"] = response.status;
 
     return generateResponse(j.dump(), ProtocolCodes::Login);
@@ -39,6 +41,7 @@ Buffer JsonResponsePacketSerializer::serializeResponse(LoginResponse response) {
 
 Buffer JsonResponsePacketSerializer::serializeResponse(SignupResponse response) {
     json j{};
+
     j["status"] = response.status;
 
     return generateResponse(j.dump(), ProtocolCodes::Signup);
@@ -46,6 +49,7 @@ Buffer JsonResponsePacketSerializer::serializeResponse(SignupResponse response) 
 
 Buffer JsonResponsePacketSerializer::serializeResponse(LogoutResponse response) {
     json j{};
+
     j["status"] = response.status;
 
     return generateResponse(j.dump(), ProtocolCodes::LogoutRequest);
@@ -61,6 +65,7 @@ Buffer JsonResponsePacketSerializer::serializeResponse(GetRoomsResponse response
         rooms_string += r.name;
     }
 
+    j["status"] = response.status;
     j["Rooms"] = rooms_string;
 
     return generateResponse(j.dump(), ProtocolCodes::GetRoomsRequest);
@@ -126,6 +131,7 @@ Buffer JsonResponsePacketSerializer::serializeResponse(GetStatisticsResponse res
         highscore_j[user.username] = current_user;
     }
     
+    final_j["status"] = response.status;
     final_j["UsersStatistics"] = users_j;
     final_j["HighScore"] = highscore_j;
 
@@ -134,6 +140,7 @@ Buffer JsonResponsePacketSerializer::serializeResponse(GetStatisticsResponse res
 
 Buffer JsonResponsePacketSerializer::serializeResponse(getPersonalStatsResponse response) {
     json j{};
+
     j["status"] = response.status;
     j["statistics"] = response.statistics;
 
@@ -150,6 +157,7 @@ Buffer JsonResponsePacketSerializer::serializeResponse(getHighScoreResponse resp
         users_string += r;
     }
 
+    j["status"] = response.status;
     j["HighScore"] = users_string;
 
     return generateResponse(j.dump(), ProtocolCodes::HighScoreRequest);
