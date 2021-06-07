@@ -34,15 +34,22 @@ namespace MagshiTriviaClient
         public int answerTimeout;
     }
 
+    public struct GetRoomsRequest
+    {
+        // EMPTY
+    }
+
     // Response structs 
     public struct LoginResponse
     {
         public int status;
     }
+
     public struct SignupResponse
     {
         public int status;
     }
+
     public struct StatisticsResponse
     {
         public int status;
@@ -52,5 +59,11 @@ namespace MagshiTriviaClient
     public struct CreateRoomResponse
     {
         public int status;
+    }
+
+    public struct GetRoomsResponse
+    {
+        public int status;
+        public List<string> rooms_names;
     }
 }
