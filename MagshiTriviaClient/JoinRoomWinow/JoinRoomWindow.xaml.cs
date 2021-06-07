@@ -42,7 +42,7 @@ namespace MagshiTriviaClient
                 return;
             }
             
-            if (response.Rooms != null || response.Rooms.Any())
+            if (response.Rooms != null && response.Rooms.Any())
             {
                 foreach (var room in response.Rooms)
                 {
