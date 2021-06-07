@@ -50,7 +50,7 @@ namespace MagshiTriviaClient
 
     public struct JoinRoomRequest
     {
-        public int room_id;
+        public int roomId;
     }
 
 
