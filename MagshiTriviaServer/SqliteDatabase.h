@@ -11,13 +11,10 @@ public:
 	SqliteDatabase();
 	~SqliteDatabase();
 
-	// User table questionaries
+	// Questionaries
 	bool doesUserExists(std::string username) override;
 	bool doesPasswordMatch(std::string username, std::string password) override;
 	void addNewUser(std::string username, std::string password, std::string mail) override;
-	std::vector<std::string> getUsers() override;
-
-	// Questions table questionaries
 	std::list<Question> getQuestions(int num) override;
 
 	// Statistics table questionaries
