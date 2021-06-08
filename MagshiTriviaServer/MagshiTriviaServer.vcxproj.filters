@@ -131,9 +131,6 @@
     <ClInclude Include="sqlite3.h">
       <Filter>Header Files\DataBase</Filter>
     </ClInclude>
-    <ClInclude Include="SqliteDatabase.h">
-      <Filter>Header Files\DataBase</Filter>
-    </ClInclude>
     <ClInclude Include="StatisticsManager.h">
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
@@ -154,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="json.hpp">
       <Filter>Header Files\External Libraries</Filter>
+    </ClInclude>
+    <ClInclude Include="SqliteDatabase.h">
+      <Filter>Header Files\DataBase</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
