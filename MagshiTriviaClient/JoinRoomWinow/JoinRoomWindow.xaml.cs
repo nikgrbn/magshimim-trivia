@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Threading;
 
 namespace MagshiTriviaClient
 {
@@ -57,7 +58,6 @@ namespace MagshiTriviaClient
 
         private void clicked_refresh(object sender, RoutedEventArgs e)
         {
-            loading.Content = "Loading...";
             RoomsList.Items.Clear();
 
             GetRoomsResponse response = Deserializer.DeserializeGetRoomsResponse(this._communicator.sendPacketToServer(Serializer.SerializeGetRoomsRequest()));
