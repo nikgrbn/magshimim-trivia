@@ -14,7 +14,6 @@
         <Button Content="Refresh" Click="clicked_refresh" HorizontalAlignment="Left" Margin="217,350,0,0" Background="#FF46D38C" BorderBrush="Black" VerticalAlignment="Top" Width="167" Height="38"/>
         <Button Content="Menu" Click="clicked_menu" HorizontalAlignment="Left" Margin="395,350,0,0" Background="#5199FF" BorderBrush="Black" VerticalAlignment="Top" Width="167" Height="38"/>
         <Label Name="get_rooms_error" Content="" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="{x:Null}" Foreground="Red" Margin="391,0,391,237"/>
-        <Label Name="loading" Content="" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="{x:Null}" Foreground="Green" Margin="391,0,391,237"/>
 
         <ListBox x:Name="RoomsList" BorderBrush="White" Background="White" HorizontalAlignment="Left" Height="229" Margin="122,112,0,0" VerticalAlignment="Top" Width="542" ItemsSource="{Binding}" ScrollViewer.VerticalScrollBarVisibility="Visible">
             <ListBox.ItemContainerStyle>
