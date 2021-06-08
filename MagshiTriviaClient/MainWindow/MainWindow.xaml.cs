@@ -71,6 +71,14 @@ namespace MagshiTriviaClient
         private void clicked_logout(object sender, RoutedEventArgs e)
         {
             this._communicator_obj.sendPacketToServer(Serializer.SerializeLogoutRequest());
+            LoginWindow login_window = new LoginWindow();
+            Visibility = Visibility.Hidden;
+            login_window.Show();
+        }
+
+        private void clicked_exit(object sender, RoutedEventArgs e)
+        {
+            this._communicator_obj.sendPacketToServer(Serializer.SerializeLogoutRequest());
             this.Close();
         }
     }
