@@ -1,4 +1,5 @@
 #include "LoginRequestHandler.h"
+#include "MenuRequestHandler.h"
 
 LoginRequestHandler::LoginRequestHandler(LoginManager& login_manager, RequestHandlerFactory* handler_factory)
 	: IRequestHandler(), _login_manager(login_manager), _handler_factory(handler_factory) {
@@ -8,7 +9,7 @@ LoginRequestHandler::~LoginRequestHandler()
 { }
 
 bool LoginRequestHandler::IsRequestRelevant(RequestInfo info) {
-	return (info.id == ProtocolCodes::Signup || info.id == ProtocolCodes::Login);
+	return (info.id == ProtocolCodes::Signup || info.id == ProtocolCodes::Login || info.id == ProtocolCodes::LogoutRequest);
 }
 
 RequestResult LoginRequestHandler::handleRequest(RequestInfo info) {
@@ -23,6 +24,9 @@ RequestResult LoginRequestHandler::handleRequest(RequestInfo info) {
 	return response;
 }
 
+void LoginRequestHandler::DisconnectUser()
+{ }
+
 RequestResult LoginRequestHandler::login(RequestInfo request) {
 	RequestResult response;
 	LoginResponse login_response;
@@ -31,7 +35,9 @@ RequestResult LoginRequestHandler::login(RequestInfo request) {
 		LoginRequest deserialized_request = JsonRequestPacketDeserializer::deserializeLoginRequest(request.buffer);
 		this->_login_manager.login(deserialized_request.username, deserialized_request.password);
 		login_response.status = ResponseStatus::LoginSuccess;
-		response.newHandler = this->_handler_factory->createLoginRequestHandler();
+
+		LoggedUser user(deserialized_request.username);
+		response.newHandler = this->_handler_factory->createMenuRequestHandler(user);
 	} catch (std::exception& e) {
 		login_response.status = ResponseStatus::LoginError;
 		response.newHandler = this->_handler_factory->createLoginRequestHandler();
@@ -50,7 +56,8 @@ RequestResult LoginRequestHandler::signup(RequestInfo request) {
 		this->_login_manager.signup(deserialized_request.username, deserialized_request.password, deserialized_request.email);
 		
 		signup_response.status = ResponseStatus::SignupSuccess;
-		response.newHandler = this->_handler_factory->createLoginRequestHandler();
+		LoggedUser user(deserialized_request.username);
+		response.newHandler = this->_handler_factory->createMenuRequestHandler(user);
 	} catch (std::exception& e) {
 		signup_response.status = ResponseStatus::SignupError;
 		response.newHandler = this->_handler_factory->createLoginRequestHandler();

@@ -1,0 +1,108 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MagshiTriviaClient
+{
+    // ---------------------- Requests ------------------------
+    public struct LoginRequest
+    {
+        public string username;
+        public string password;
+    }
+
+    public struct SignupRequest
+    {
+        public string username;
+        public string password;
+        public string mail;
+    }
+
+    public struct StatisticsRequest
+    {
+        // EMPTY
+    }
+
+    public struct HighScoreRequest
+    {
+        // EMPTY
+    }
+
+    public struct LogoutRequest
+    {
+        // EMPTY
+    }
+
+    public struct CreateRoomRequest
+    {
+        public string roomName;
+        public int maxUsers;
+        public int questionCount;
+        public int answerTimeout;
+    }
+
+    public struct GetRoomsRequest
+    {
+        // EMPTY
+    }
+
+    public struct JoinRoomRequest
+    {
+        public int roomId;
+    }
+
+
+    // -------------------------------- Responses ----------------------------------
+
+
+    public struct LoginResponse
+    {
+        public int status;
+    }
+
+    public struct SignupResponse
+    {
+        public int status;
+    }
+
+    public struct StatisticsResponse
+    {
+        public int status;
+        public string statistics;
+    }
+
+    public struct HighScoreResponse
+    {
+        public int status;
+        public string HighScore;
+    }
+
+    public struct CreateRoomResponse
+    {
+        public int status;
+    }
+
+    public struct GetRoomsResponse
+    {
+        public int status;
+        public List<RoomData> Rooms;
+    }
+
+    public struct JoinRoomResponse
+    {
+        public int status;
+    }
+
+    // -------------
+    public struct RoomData
+    {
+        public int id;
+        public string name;
+        public int maxPlayers;
+        public int numOfQuestionsInGame;
+        public int timePerQuestion;
+        public int isActive;
+    }
+}
