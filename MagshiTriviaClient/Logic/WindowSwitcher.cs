@@ -8,5 +8,10 @@ namespace MagshiTriviaClient.Logic
 {
     class WindowSwitcher
     {
+        
+        static void SwitchWindow<T>()
+        {
+
+        }
     }
 }
