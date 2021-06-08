@@ -17,6 +17,14 @@ public:
 	void addNewUser(std::string username, std::string password, std::string mail) override;
 	std::list<Question> getQuestions(int num) override;
 
+	// Statistics table questionaries
+	float getPlayerAverageAnswerTime(std::string username) override;
+	int getNumOfCorrectAnswers(std::string username) override;
+	int getNumOfTotalAnswers(std::string username) override;
+	int getNumOfPlayerGames(std::string username) override;
+	void addToPlayerStatistic(std::string username, float time_played,
+		int games_played, int correct_answers, int total_answers) override;
+
 private:
 	// Database data
 	sqlite3* db;
