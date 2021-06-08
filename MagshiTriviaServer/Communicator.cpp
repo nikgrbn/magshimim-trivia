@@ -44,14 +44,17 @@ void Communicator::bindAndListen() {
 	sa.sin_family = AF_INET;
 	sa.sin_addr.s_addr = INADDR_ANY;
 
-	// Socket binding
-	if (bind(this->_serverSocket, (struct sockaddr*)&sa, sizeof(sa)) == SOCKET_ERROR)
-		throw std::exception(__FUNCTION__ " - bind");
+	try {
+		// Socket binding
+		if (bind(this->_serverSocket, (struct sockaddr*)&sa, sizeof(sa)) == SOCKET_ERROR)
+			throw std::exception(__FUNCTION__ " - bind");
+	} catch (std::exception& e) {
+		std::cout << e.what() << '\n';
+	}
 
 	// Start listening for incoming requests of clients
 	if (listen(this->_serverSocket, SOMAXCONN) == SOCKET_ERROR)
 		throw std::exception(__FUNCTION__ " - listen");
-
 	return;
 }
 
