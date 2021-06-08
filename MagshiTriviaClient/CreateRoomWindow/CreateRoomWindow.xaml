@@ -7,8 +7,7 @@
         mc:Ignorable="d"
         Closed="logout"
         Title="Create Room" Height="450" Width="800">
-    <Grid>
-        <Rectangle Fill="#FF363636" HorizontalAlignment="Center" Height="419" Stroke="#FF2C2C2C" VerticalAlignment="Bottom" Width="792" />
+    <Grid Background="#FF363636">
         <Image Source="/Resources/Magshimim.png" HorizontalAlignment="Left" Height="96" Margin="220,31,0,0" VerticalAlignment="Top" Width="331"/>
         <Label Content="Create Room" HorizontalAlignment="Left" Margin="327,125,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="15" Height="34" Width="117"/>
         <Button Content="Create" Click="clicked_create" HorizontalAlignment="Left" Margin="188,338,0,0" Background="#FF70C548" BorderBrush="Black" VerticalAlignment="Top" Width="193" Height="43"/>
