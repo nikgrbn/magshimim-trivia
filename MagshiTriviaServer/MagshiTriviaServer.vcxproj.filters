@@ -69,9 +69,6 @@
     <ClCompile Include="SqliteDatabase.cpp">
       <Filter>Source Files\DataBase</Filter>
     </ClCompile>
-    <ClCompile Include="RequestHandlerFactory.cpp">
-      <Filter>Source Files\Infrastructure</Filter>
-    </ClCompile>
     <ClCompile Include="Server.cpp">
       <Filter>Source Files\Infrastructure</Filter>
     </ClCompile>
@@ -92,6 +89,9 @@
     </ClCompile>
     <ClCompile Include="Questionnaire.cpp">
       <Filter>Source Files\DataBase</Filter>
+    </ClCompile>
+    <ClCompile Include="RequestHandlerFactory.cpp">
+      <Filter>Source Files\Handlers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
