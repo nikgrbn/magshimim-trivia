@@ -22,7 +22,11 @@ enum class ProtocolCodes : unsigned int {
 	GetStatisticsRequest = 16,
 	LogoutRequest = 17,
 	HighScoreRequest = 18,
-	GetPersonalStats = 19
+	GetPersonalStats = 19,
+	CloseRoomRequest = 20,
+	StartGameRequest = 21,
+	GetRoomStateRequest = 22,
+	LeaveRoomRequest = 23
 };
 
 enum ResponseStatus {
@@ -51,5 +55,17 @@ enum ResponseStatus {
 	GetPersonalStatsError = 801,
 
 	HighScoreRequestSuccess = 900,
-	HighScoreRequestError = 901
+	HighScoreRequestError = 901,
+
+	CloseRoomRequestSuccess = 1000,
+	CloseRoomRequestError = 1001,
+
+	StartGameRequestSuccess = 1100,
+	StartGameRequestError = 1101,
+
+	GetRoomStateRequestSuccess = 1200,
+	GetRoomStateRequestError = 1201,
+	
+	LeaveRoomRequestSucces = 1300,
+	LeaveRoomRequestError = 1301
 };
