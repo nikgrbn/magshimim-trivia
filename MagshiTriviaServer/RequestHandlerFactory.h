@@ -21,8 +21,8 @@ public:
 
 	LoginRequestHandler* createLoginRequestHandler();
 	MenuRequestHandler* createMenuRequestHandler(LoggedUser& user);
-	RoomAdminRequestHandler* createRoomAdminRequestHandler();
-	RoomMemberRequestHandler* createRoomMemberRequestHandler();
+	RoomAdminRequestHanlder* createRoomAdminRequestHandler(LoggedUser& user, Room room, RoomManager* room_manager);
+	RoomMemberRequestHandler* createRoomMemberRequestHandler(LoggedUser& user);
 
 	// Getters / Setters
 	LoginManager& getLoginManager();

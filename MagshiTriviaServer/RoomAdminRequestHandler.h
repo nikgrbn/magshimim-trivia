@@ -16,6 +16,7 @@ public:
 
 	bool IsRequestRelevant(RequestInfo info) override;
 	RequestResult handleRequest(RequestInfo info) override;
+	void DisconnectUser() override;
 
 private:
 	Room _room;

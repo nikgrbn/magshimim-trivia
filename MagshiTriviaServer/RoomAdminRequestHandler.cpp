@@ -40,6 +40,9 @@ RequestResult RoomAdminRequestHanlder::handleRequest(RequestInfo info) {
 	return response;
 }
 
+void RoomAdminRequestHanlder::DisconnectUser()
+{ }
+
 RequestResult RoomAdminRequestHanlder::closeRoom(RequestInfo info) {
 	RequestResult response{};
 	CloseRoomResponse close_room_response{};
@@ -62,7 +65,7 @@ RequestResult RoomAdminRequestHanlder::startGame(RequestInfo info) {
 	StartGameResponse start_game_response{};
 
 	try {
-		this->_room.activateRoom();
+		this->_room.activateRoom(); // TODO: fix
 		response.newHandler = this;
 		start_game_response.status = ResponseStatus::StartGameRequestSuccess;
 	} catch (std::exception& e) {
