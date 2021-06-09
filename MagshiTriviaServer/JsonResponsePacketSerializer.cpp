@@ -165,3 +165,43 @@ Buffer JsonResponsePacketSerializer::serializeResponse(getHighScoreResponse resp
 
     return generateResponse(j.dump(), ProtocolCodes::HighScoreRequest);
 }
+
+Buffer JsonResponsePacketSerializer::serializeResponse(CloseRoomResponse response) {
+    json j{};
+
+    j["status"] = response.status;
+
+    return generateResponse(j.dump(), ProtocolCodes::CloseRoomRequest);
+}
+
+Buffer JsonResponsePacketSerializer::serializeResponse(StartGameResponse response) {
+    json j{};
+
+    j["status"] = response.status;
+
+    return generateResponse(j.dump(), ProtocolCodes::StartGameRequest);
+}
+
+Buffer JsonResponsePacketSerializer::serializeResponse(GetRoomStateResponse response) {
+    json j{};
+    std::string players_string{};
+
+    j["status"] = response.status;
+    j["hasGameBegun"] = response.hasGameBegun;
+
+    for (auto player : response.players)
+        j["players"] += player;
+
+    j["questionCount"] = response.questionCount;
+    j["answerTimeout"] = response.answerTimeout;
+
+    return generateResponse(j.dump(), ProtocolCodes::GetRoomsRequest);
+}
+
+Buffer JsonResponsePacketSerializer::serializeResponse(LeaveRoomResponse response) {
+    json j{};
+
+    j["status"] = response.status;
+
+    return generateResponse(j.dump(), ProtocolCodes::LeaveRoomRequest);
+}
