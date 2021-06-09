@@ -1,6 +1,11 @@
 #include "RoomAdminRequestHandler.h"
 #include "MenuRequestHandler.h"
 
+RoomAdminRequestHanlder::RoomAdminRequestHanlder(RequestHandlerFactory* factory, LoggedUser& user, Room& room, RoomManager* room_manager)
+	: _user(user), _handle_factory(factory), _room(room) , _room_manager(room_manager) {
+
+}
+
 RoomAdminRequestHanlder::~RoomAdminRequestHanlder()
 { }
 

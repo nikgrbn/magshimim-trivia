@@ -11,6 +11,7 @@
 class RoomAdminRequestHanlder : public IRequestHandler
 {
 public:
+	RoomAdminRequestHanlder(RequestHandlerFactory* factory, LoggedUser& user, Room& room, RoomManager* room_manager);
 	~RoomAdminRequestHanlder();
 
 	bool IsRequestRelevant(RequestInfo info) override;
