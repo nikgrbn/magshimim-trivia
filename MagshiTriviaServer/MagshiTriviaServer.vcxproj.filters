@@ -93,6 +93,9 @@
     <ClCompile Include="RequestHandlerFactory.cpp">
       <Filter>Source Files\Handlers</Filter>
     </ClCompile>
+    <ClCompile Include="RoomAdminRequestHandler.cpp">
+      <Filter>Source Files\Handlers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Communicator.h">
@@ -154,6 +157,9 @@
     </ClInclude>
     <ClInclude Include="SqliteDatabase.h">
       <Filter>Header Files\DataBase</Filter>
+    </ClInclude>
+    <ClInclude Include="RoomAdminRequestHandler.h">
+      <Filter>Header Files\Handlers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
