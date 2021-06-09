@@ -8,6 +8,7 @@
 
 class MenuRequestHandler;
 class LoginRequestHandler;
+class RoomAdminRequestHandler;
 
 class RequestHandlerFactory
 {
@@ -19,6 +20,7 @@ public:
 
 	LoginRequestHandler* createLoginRequestHandler();
 	MenuRequestHandler* createMenuRequestHandler(LoggedUser& user);
+	RoomAdminRequestHandler* createRoomAdminRequestHandler();
 
 	// Getters / Setters
 	LoginManager& getLoginManager();
