@@ -31,6 +31,11 @@ RoomAdminRequestHandler* RequestHandlerFactory::createRoomAdminRequestHandler()
 	return nullptr;
 }
 
+RoomMemberRequestHandler* RequestHandlerFactory::createRoomMemberRequestHandler()
+{
+	return nullptr;
+}
+
 LoginManager& RequestHandlerFactory::getLoginManager()  {
 	return this->_login_manager;
 }
