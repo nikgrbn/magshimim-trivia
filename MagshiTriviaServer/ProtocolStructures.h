@@ -63,9 +63,9 @@ typedef struct GetStatisticsResponse {
 	std::vector<UserStatistics> high_score;
 } GetStatisticsResponse;
 
-typedef struct CreateRoomResponse {
+typedef struct CloseRoomResponse {
 	unsigned int status;
-} CreateRoomResponse;
+} CloseRoomResponse;
 
 typedef struct StartGameResponse {
 	unsigned int status;
