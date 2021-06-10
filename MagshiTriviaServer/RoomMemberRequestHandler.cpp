@@ -61,7 +61,7 @@ RequestResult RoomMemberRequestHandler::leaveRoom(RequestInfo info) {
 }
 
 RequestResult RoomMemberRequestHandler::startGame(RequestInfo info) {
-	return RequestResult();
+	
 }
 
 RequestResult RoomMemberRequestHandler::getRoomState(RequestInfo info) {
