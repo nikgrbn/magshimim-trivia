@@ -109,12 +109,19 @@ RequestResult MenuRequestHandler::signout(RequestInfo request) {
 RequestResult MenuRequestHandler::getRooms(RequestInfo request) {
 	RequestResult response{};
 	GetRoomsResponse get_rooms_response{};
+	std::vector<RoomData> roomsDatas;
 
 	try {
-		get_rooms_response.rooms = this->_room_manager->getRooms();
+		std::vector<Room> rooms = this->_room_manager->getRooms();
+		for (auto room : rooms)
+		{
+			roomsDatas.push_back(room.getRoomData());
+		}
+		get_rooms_response.rooms = roomsDatas;
 		response.newHandler = this;
 		get_rooms_response.status = ResponseStatus::GetRoomsSuccess;
-	} catch (std::exception& e) {
+	}
+	catch (std::exception& e) {
 		get_rooms_response.status = ResponseStatus::GetRoomsError;
 		response.newHandler = this;
 	}
@@ -129,21 +136,17 @@ RequestResult MenuRequestHandler::getPlayersInRoom(RequestInfo request) {
 
 	try {
 		GetPlayersInRoomRequest room_request = JsonRequestPacketDeserializer::deserializeGetPlayersRequest(request.buffer);
-		std::vector<RoomData> rooms = this->_room_manager->getRooms();
-		
-		RoomData room_data;
+		std::vector<Room> rooms = this->_room_manager->getRooms();
+
 		for (auto current_room : rooms) {
-			if (current_room.id == room_request.roomId) {
-				room_data = current_room;
+			if (current_room.getRoomData().id == room_request.roomId) {
+				get_players_in_room_response.players = current_room.getAllUsers();
 				break;
 			}
 		}
-
-		Room desired_room(room_data);
-		get_players_in_room_response.players = desired_room.getAllUsers();
 		response.newHandler = this;
-
-	} catch (std::exception& e) {
+	}
+	catch (std::exception& e) {
 		response.newHandler = this;
 	}
 
@@ -204,18 +207,17 @@ RequestResult MenuRequestHandler::joinRoom(RequestInfo request) {
 	try {
 		JoinRoomRequest join_room_request = JsonRequestPacketDeserializer::deserializeJoinRoomRequest(request.buffer);
 		
-		std::vector<RoomData> rooms_vector = this->_room_manager->getRooms();
+		std::vector<Room> rooms_vector = this->_room_manager->getRooms();
 
-		for (RoomData room : rooms_vector) {
-			if (room.id == join_room_request.roomId)
-				room_data = room;
+		for (Room room : rooms_vector) {
+			if (room.getRoomData().id == join_room_request.roomId)
+			{
+				room.addUser(this->_user);
+				join_room_response.status = ResponseStatus::JoinRoomSuccess;
+				response.newHandler = this->_request_handler_factory->createRoomMemberRequestHandler(this->_user, room, this->_room_manager);
+				break;
+			}
 		}
-
-		Room room(room_data);
-		room.addUser(this->_user);
-
-		join_room_response.status = ResponseStatus::JoinRoomSuccess;
-		response.newHandler = this->_request_handler_factory->createRoomMemberRequestHandler(this->_user, room, this->_room_manager);
 	} catch (std::exception& e) {
 		join_room_response.status = ResponseStatus::JoinRoomError;
 		response.newHandler = this;
@@ -238,9 +240,11 @@ RequestResult MenuRequestHandler::createRoom(RequestInfo request) {
 		room_data.timePerQuestion = create_room_request.answerTimeout;
 		room_data.isActive = inactive;
 
-		this->_room_manager->createRoom(this->_user, room_data);
-		response.newHandler = this->_request_handler_factory->createRoomAdminRequestHandler(this->_user, this->_room_manager->getRooms().at((room_data.id)), this->_room_manager);
+		room_data.id = this->_room_manager->createRoom(this->_user, room_data);
+
+		response.newHandler = this->_request_handler_factory->createRoomAdminRequestHandler(this->_user, room_data, this->_room_manager);
 		create_room_response.status = ResponseStatus::CreateRoomSuccess;
+		create_room_response.roomId = room_data.id;
 	} catch (std::exception& e) {
 		create_room_response.status = ResponseStatus::CreateRoomError;
 		response.newHandler = this;

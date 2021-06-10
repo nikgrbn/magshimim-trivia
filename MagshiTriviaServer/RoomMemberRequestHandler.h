@@ -26,4 +26,6 @@ private:
 	RequestResult leaveRoom(RequestInfo info);
 	RequestResult startGame(RequestInfo info);
 	RequestResult getRoomState(RequestInfo info);
+	RequestResult getRooms(RequestInfo request);
+	RequestResult getPlayersInRoom(RequestInfo request);
 };

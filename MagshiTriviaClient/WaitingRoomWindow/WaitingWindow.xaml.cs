@@ -27,7 +27,20 @@ namespace MagshiTriviaClient
             this.roomData = room;
             InitializeComponent();
             initializeRoomData();
+            getRoomUsers();
+        }
 
+        private void getRoomUsers()
+        {
+            GetPlayersInRoomRequest req = new GetPlayersInRoomRequest();
+            req.roomId = this.roomData.id;
+            GetPlayersInRoomResponse res = Deserializer.DeserializeGetPlayersInRoomResponse(this._communicator.sendPacketToServer(Serializer.SerializeGetPlayersInRoomRequest(req)));
+            
+            string[] users = res.players.Split(',');
+            foreach (var user in users)
+            {
+
+            }
         }
 
         private void initializeRoomData()

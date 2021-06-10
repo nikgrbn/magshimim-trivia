@@ -1,6 +1,6 @@
 #include "RoomManager.h"
 
-void RoomManager::createRoom(LoggedUser user, RoomData rm_data)
+int RoomManager::createRoom(LoggedUser user, RoomData rm_data)
 {
 	// Create room
 	this->_room_id_counter++;
@@ -10,6 +10,8 @@ void RoomManager::createRoom(LoggedUser user, RoomData rm_data)
 
 	// Insert room to map
 	this->_rooms.insert(std::pair<unsigned int, Room>(rm_data.id, room));
+
+	return rm_data.id;
 }
 
 void RoomManager::deleteRoom(unsigned int ID)
@@ -24,15 +26,15 @@ unsigned int RoomManager::getRoomState(int ID)
 	return (*it).second.getRoomData().isActive;
 }
 
-std::vector<RoomData> RoomManager::getRooms()
+std::vector<Room> RoomManager::getRooms()
 {
-	std::vector<RoomData> rooms;
+	std::vector<Room> rooms;
 
 	// Iterate through map
 	std::map<unsigned int, Room>::iterator it;
 	for (it = this->_rooms.begin(); it != this->_rooms.end(); it++)
 	{
-		rooms.push_back(it->second.getRoomData());
+		rooms.push_back(it->second);
 	}
 
 	return rooms;

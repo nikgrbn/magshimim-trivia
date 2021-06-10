@@ -10,7 +10,7 @@ RoomMemberRequestHandler::~RoomMemberRequestHandler()
 { }
 
 bool RoomMemberRequestHandler::IsRequestRelevant(RequestInfo info) {
-	return (info.id == ProtocolCodes::LeaveRoomRequest || info.id == ProtocolCodes::StartGameRequest || info.id == ProtocolCodes::GetRoomStateRequest);
+	return (info.id == ProtocolCodes::LeaveRoomRequest || info.id == ProtocolCodes::StartGameRequest || info.id == ProtocolCodes::GetRoomStateRequest || info.id == ProtocolCodes::GetRoomsRequest || info.id == ProtocolCodes::GetPlayersInRoomRequest);
 }
 
 RequestResult RoomMemberRequestHandler::handleRequest(RequestInfo info) {
@@ -35,6 +35,16 @@ RequestResult RoomMemberRequestHandler::handleRequest(RequestInfo info) {
 
 	case ProtocolCodes::GetHandlerTypeRequest: {
 		response = this->GetHandlerType();
+		break;
+	}
+	
+	case ProtocolCodes::GetRoomsRequest: {
+		response = this->getRooms(info);
+		break;
+	}
+
+	case ProtocolCodes::GetPlayersInRoomRequest: {
+		response = this->getPlayersInRoom(info);
 		break;
 	}
 
@@ -106,5 +116,55 @@ RequestResult RoomMemberRequestHandler::getRoomState(RequestInfo info) {
 	}
 
 	response.buffer = JsonResponsePacketSerializer::serializeResponse(get_room_state_response);
+	return response;
+}
+
+RequestResult RoomMemberRequestHandler::getRooms(RequestInfo request)
+{
+	RequestResult response{};
+	GetRoomsResponse get_rooms_response{};
+	std::vector<RoomData> roomsDatas;
+
+	try {
+		std::vector<Room> rooms = this->_room_manager->getRooms();
+		for (auto room : rooms)
+		{
+			roomsDatas.push_back(room.getRoomData());
+		}
+		get_rooms_response.rooms = roomsDatas;
+		response.newHandler = this;
+		get_rooms_response.status = ResponseStatus::GetRoomsSuccess;
+	}
+	catch (std::exception& e) {
+		get_rooms_response.status = ResponseStatus::GetRoomsError;
+		response.newHandler = this;
+	}
+
+	response.buffer = JsonResponsePacketSerializer::serializeResponse(get_rooms_response);
+	return response;
+}
+
+RequestResult RoomMemberRequestHandler::getPlayersInRoom(RequestInfo request)
+{
+	RequestResult response{};
+	GetPlayersInRoomResponse get_players_in_room_response{};
+
+	try {
+		GetPlayersInRoomRequest room_request = JsonRequestPacketDeserializer::deserializeGetPlayersRequest(request.buffer);
+		std::vector<Room> rooms = this->_room_manager->getRooms();
+
+		for (auto current_room : rooms) {
+			if (current_room.getRoomData().id == room_request.roomId) {
+				get_players_in_room_response.players = current_room.getAllUsers();
+				break;
+			}
+		}
+		response.newHandler = this;
+	}
+	catch (std::exception& e) {
+		response.newHandler = this;
+	}
+
+	response.buffer = JsonResponsePacketSerializer::serializeResponse(get_players_in_room_response);
 	return response;
 }
