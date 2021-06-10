@@ -1,19 +1,19 @@
 #include "RoomAdminRequestHandler.h"
 #include "RequestHandlerFactory.h"
 
-RoomAdminRequestHanlder::RoomAdminRequestHanlder(RequestHandlerFactory* factory, LoggedUser& user, Room& room, RoomManager* room_manager)
+RoomAdminRequestHandler::RoomAdminRequestHandler(RequestHandlerFactory* factory, LoggedUser& user, Room& room, RoomManager* room_manager)
 	: _user(user), _handle_factory(factory), _room(room) , _room_manager(room_manager) {
 
 }
 
-RoomAdminRequestHanlder::~RoomAdminRequestHanlder()
+RoomAdminRequestHandler::~RoomAdminRequestHandler()
 { }
 
-bool RoomAdminRequestHanlder::IsRequestRelevant(RequestInfo info) {
+bool RoomAdminRequestHandler::IsRequestRelevant(RequestInfo info) {
 	return (info.id == ProtocolCodes::CloseRoomRequest || info.id == ProtocolCodes::StartGameRequest || info.id == ProtocolCodes::GetRoomStateRequest);
 }
 
-RequestResult RoomAdminRequestHanlder::handleRequest(RequestInfo info) {
+RequestResult RoomAdminRequestHandler::handleRequest(RequestInfo info) {
 	RequestResult response;
 
 	switch (info.id)
@@ -32,6 +32,10 @@ RequestResult RoomAdminRequestHanlder::handleRequest(RequestInfo info) {
 		response = this->getRoomState(info);
 		break;
 	}
+	case ProtocolCodes::GetHandlerTypeRequest: {
+		response = this->GetHandlerType();
+		break;
+	}
 
 	default:
 		break;
@@ -40,10 +44,27 @@ RequestResult RoomAdminRequestHanlder::handleRequest(RequestInfo info) {
 	return response;
 }
 
-void RoomAdminRequestHanlder::DisconnectUser()
+void RoomAdminRequestHandler::DisconnectUser()
 { }
 
-RequestResult RoomAdminRequestHanlder::closeRoom(RequestInfo info) {
+RequestResult RoomAdminRequestHandler::GetHandlerType() {
+	RequestResult response;
+	GetHandlerTypeResponse handler_type_response;
+
+	try {
+		handler_type_response.request_handler = this;
+		handler_type_response.status = ResponseStatus::GetHandlerTypeRequestSuccess;
+		response.newHandler = this;
+	} catch (std::exception& e) {
+		handler_type_response.status = ResponseStatus::GetHandlerTypeRequestError;
+		response.newHandler = this;
+	}
+
+	response.buffer = JsonResponsePacketSerializer::serializeResponse(handler_type_response);
+	return response;
+}
+
+RequestResult RoomAdminRequestHandler::closeRoom(RequestInfo info) {
 	RequestResult response{};
 	CloseRoomResponse close_room_response{};
 
@@ -60,7 +81,7 @@ RequestResult RoomAdminRequestHanlder::closeRoom(RequestInfo info) {
 	return response;
 }
 
-RequestResult RoomAdminRequestHanlder::startGame(RequestInfo info) {
+RequestResult RoomAdminRequestHandler::startGame(RequestInfo info) {
 	RequestResult response{};
 	StartGameResponse start_game_response{};
 
@@ -77,7 +98,7 @@ RequestResult RoomAdminRequestHanlder::startGame(RequestInfo info) {
 	return response;
 }
 
-RequestResult RoomAdminRequestHanlder::getRoomState(RequestInfo info) {
+RequestResult RoomAdminRequestHandler::getRoomState(RequestInfo info) {
 	RequestResult response{};
 	GetRoomStateResponse get_room_state_response{};
 

@@ -7,16 +7,16 @@
 #include "JsonResponsePacketSerializer.h"
 class RequestHandlerFactory;
 
-class RoomAdminRequestHanlder : public IRequestHandler
+class RoomAdminRequestHandler : public IRequestHandler
 {
 public:
-	RoomAdminRequestHanlder(RequestHandlerFactory* factory, LoggedUser& user, Room& room, RoomManager* room_manager);
-	~RoomAdminRequestHanlder();
+	RoomAdminRequestHandler(RequestHandlerFactory* factory, LoggedUser& user, Room& room, RoomManager* room_manager);
+	~RoomAdminRequestHandler();
 
 	bool IsRequestRelevant(RequestInfo info) override;
 	RequestResult handleRequest(RequestInfo info) override;
 	void DisconnectUser() override;
-
+	RequestResult GetHandlerType() override;
 private:
 	Room _room;
 	LoggedUser _user;

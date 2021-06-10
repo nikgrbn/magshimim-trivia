@@ -19,6 +19,8 @@ RequestResult LoginRequestHandler::handleRequest(RequestInfo info) {
 		response = signup(info);
 	} else if (info.buffer[0] == (unsigned char)ProtocolCodes::Login) {
 		response = login(info);
+	} if (info.buffer[0] == (unsigned char)ProtocolCodes::GetHandlerTypeRequest) {
+		response = GetHandlerType();
 	}
 
 	return response;
@@ -26,6 +28,23 @@ RequestResult LoginRequestHandler::handleRequest(RequestInfo info) {
 
 void LoginRequestHandler::DisconnectUser()
 { }
+
+RequestResult LoginRequestHandler::GetHandlerType() {
+	RequestResult response;
+	GetHandlerTypeResponse handler_type_response;
+
+	try {
+		handler_type_response.request_handler = this;
+		handler_type_response.status = ResponseStatus::GetHandlerTypeRequestSuccess;
+		response.newHandler = this;
+	} catch (std::exception& e) {
+		handler_type_response.status = ResponseStatus::GetHandlerTypeRequestError;
+		response.newHandler = this;
+	}
+
+	response.buffer = JsonResponsePacketSerializer::serializeResponse(handler_type_response);
+	return response;
+}
 
 RequestResult LoginRequestHandler::login(RequestInfo request) {
 	RequestResult response;

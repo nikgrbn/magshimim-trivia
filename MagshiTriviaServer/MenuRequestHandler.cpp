@@ -58,6 +58,11 @@ RequestResult MenuRequestHandler::handleRequest(RequestInfo info) {
 		response = this->createRoom(info);
 		break;
 	}
+
+	case ProtocolCodes::GetHandlerTypeRequest: {
+		response = this->GetHandlerType();
+		break;
+	}
 	}
 
 	return response;
@@ -65,6 +70,23 @@ RequestResult MenuRequestHandler::handleRequest(RequestInfo info) {
 
 void MenuRequestHandler::DisconnectUser() {
 	this->_request_handler_factory->getLoginManager().logout(this->_user.getUsername());
+}
+
+RequestResult MenuRequestHandler::GetHandlerType() {
+	RequestResult response;
+	GetHandlerTypeResponse handler_type_response;
+
+	try {
+		handler_type_response.request_handler = this;
+		handler_type_response.status = ResponseStatus::GetHandlerTypeRequestSuccess;
+		response.newHandler = this;
+	} catch (std::exception& e) {
+		handler_type_response.status = ResponseStatus::GetHandlerTypeRequestError;
+		response.newHandler = this;
+	}
+
+	response.buffer = JsonResponsePacketSerializer::serializeResponse(handler_type_response);
+	return response;
 }
 
 RequestResult MenuRequestHandler::signout(RequestInfo request) {

@@ -33,4 +33,5 @@ public:
     static Buffer serializeResponse(StartGameResponse response);
     static Buffer serializeResponse(GetRoomStateResponse response);
     static Buffer serializeResponse(LeaveRoomResponse response);
+    static Buffer serializeResponse(GetHandlerTypeResponse response);
 };

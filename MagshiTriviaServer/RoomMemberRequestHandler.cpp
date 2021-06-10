@@ -33,6 +33,11 @@ RequestResult RoomMemberRequestHandler::handleRequest(RequestInfo info) {
 		break;
 	}
 
+	case ProtocolCodes::GetHandlerTypeRequest: {
+		response = this->GetHandlerType();
+		break;
+	}
+
 	default:
 		break;
 	}
@@ -42,6 +47,23 @@ RequestResult RoomMemberRequestHandler::handleRequest(RequestInfo info) {
 
 void RoomMemberRequestHandler::DisconnectUser()
 { }
+
+RequestResult RoomMemberRequestHandler::GetHandlerType() {
+	RequestResult response;
+	GetHandlerTypeResponse handler_type_response;
+
+	try {
+		handler_type_response.request_handler = this;
+		handler_type_response.status = ResponseStatus::GetHandlerTypeRequestSuccess;
+		response.newHandler = this;
+	} catch (std::exception& e) {
+		handler_type_response.status = ResponseStatus::GetHandlerTypeRequestError;
+		response.newHandler = this;
+	}
+
+	response.buffer = JsonResponsePacketSerializer::serializeResponse(handler_type_response);
+	return response;
+}
 
 RequestResult RoomMemberRequestHandler::leaveRoom(RequestInfo info) {
 	RequestResult response{};
