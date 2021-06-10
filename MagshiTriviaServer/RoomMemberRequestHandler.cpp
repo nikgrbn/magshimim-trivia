@@ -7,10 +7,11 @@ RoomMemberRequestHandler::RoomMemberRequestHandler(RequestHandlerFactory* factor
 }
 
 RoomMemberRequestHandler::~RoomMemberRequestHandler()
-{ }
+{
+}
 
 bool RoomMemberRequestHandler::IsRequestRelevant(RequestInfo info) {
-	return (info.id == ProtocolCodes::GetHandlerTypeRequest ||info.id == ProtocolCodes::LeaveRoomRequest || info.id == ProtocolCodes::StartGameRequest || info.id == ProtocolCodes::GetRoomStateRequest || info.id == ProtocolCodes::GetRoomsRequest || info.id == ProtocolCodes::GetPlayersInRoomRequest);
+	return (info.id == ProtocolCodes::LogoutRequest || info.id == ProtocolCodes::GetHandlerTypeRequest ||info.id == ProtocolCodes::LeaveRoomRequest || info.id == ProtocolCodes::StartGameRequest || info.id == ProtocolCodes::GetRoomStateRequest || info.id == ProtocolCodes::GetRoomsRequest || info.id == ProtocolCodes::GetPlayersInRoomRequest);
 }
 
 RequestResult RoomMemberRequestHandler::handleRequest(RequestInfo info) {
@@ -18,6 +19,11 @@ RequestResult RoomMemberRequestHandler::handleRequest(RequestInfo info) {
 
 	switch (info.id)
 	{
+	case ProtocolCodes::LogoutRequest: {
+		response = this->signout(info);
+		break;
+	}
+
 	case ProtocolCodes::LeaveRoomRequest: {
 		response = this->leaveRoom(info);
 		break;
@@ -56,7 +62,9 @@ RequestResult RoomMemberRequestHandler::handleRequest(RequestInfo info) {
 }
 
 void RoomMemberRequestHandler::DisconnectUser()
-{ }
+{
+	this->_handle_factory->getLoginManager().logout(this->_user.getUsername());
+}
 
 RequestResult RoomMemberRequestHandler::GetHandlerType() {
 	RequestResult response;
@@ -72,6 +80,25 @@ RequestResult RoomMemberRequestHandler::GetHandlerType() {
 	}
 
 	response.buffer = JsonResponsePacketSerializer::serializeResponse(handler_type_response);
+	return response;
+}
+
+RequestResult RoomMemberRequestHandler::signout(RequestInfo request)
+{
+	RequestResult response{};
+	LogoutResponse logout_response{};
+
+	try {
+		this->_handle_factory->getLoginManager().logout(this->_user.getUsername());
+		logout_response.status = ResponseStatus::LogoutSuccess;
+		response.newHandler = this->_handle_factory->createLoginRequestHandler();
+	}
+	catch (std::exception& e) {
+		logout_response.status = ResponseStatus::LogoutError;
+		response.newHandler = this->_handle_factory->createLoginRequestHandler();
+	}
+
+	response.buffer = JsonResponsePacketSerializer::serializeResponse(logout_response);
 	return response;
 }
 
