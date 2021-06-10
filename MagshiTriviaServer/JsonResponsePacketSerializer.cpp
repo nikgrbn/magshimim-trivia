@@ -90,7 +90,7 @@ Buffer JsonResponsePacketSerializer::serializeResponse(GetPlayersInRoomResponse 
         users_string += r;
     }
 
-    j["Rooms"] = users_string;
+    j["players"] = users_string;
 
     return generateResponse(j.dump(), ProtocolCodes::GetPlayersInRoomRequest);
 }
@@ -105,6 +105,7 @@ Buffer JsonResponsePacketSerializer::serializeResponse(JoinRoomResponse response
 Buffer JsonResponsePacketSerializer::serializeResponse(CreateRoomResponse response) {
     json j{};
     j["status"] = response.status;
+    j["roomId"] = response.roomId;
 
     return generateResponse(j.dump(), ProtocolCodes::CreateRoomRequest);
 }

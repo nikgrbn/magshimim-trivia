@@ -11,10 +11,10 @@ public:
 	RoomManager() : _room_id_counter(0) {};
 	~RoomManager() = default;
 
-	void createRoom(LoggedUser user, RoomData rm_data);
+	int createRoom(LoggedUser user, RoomData rm_data);
 	void deleteRoom(unsigned int ID);
 	unsigned int getRoomState(int ID);
-	std::vector<RoomData> getRooms();
+	std::vector<Room> getRooms();
 
 private:
 	unsigned int _room_id_counter;
