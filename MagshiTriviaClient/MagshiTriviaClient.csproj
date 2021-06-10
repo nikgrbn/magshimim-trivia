@@ -164,5 +164,8 @@
   <ItemGroup>
     <Resource Include="magshimim_icon.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\user_icon_2.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

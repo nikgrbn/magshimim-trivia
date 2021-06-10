@@ -8,19 +8,20 @@
         Closed="logout"
         Title="WaitingWindow" Height="450" Width="800">
     <Grid  Background="#FF363636">
-        <Label Content="Waiting Room" HorizontalAlignment="center" VerticalAlignment="Top" Foreground="White" FontSize="20" Margin="324,6,324,0" FontWeight="Bold"/>
+        <Label Content="Waiting Room" HorizontalAlignment="center" VerticalAlignment="Top" Foreground="White" FontSize="20" Margin="324,6,301,0" FontWeight="Bold" Width="167"/>
 
-        <ListBox Margin="219,133,218,66" Background="#FF474747" BorderBrush="{x:Null}">
-
+        <ListBox x:Name="players_list" Margin="219,133,218,66" Background="#FF474747" BorderBrush="{x:Null}">
         </ListBox>
+
         <Button Content="Leave Room" Click="clicked_leave" HorizontalAlignment="Left" Margin="220,358,0,0" Background="#FFFF5151" BorderBrush="Black" VerticalAlignment="Top" Width="168" Height="38"/>
         <Label Content="Room name:" HorizontalAlignment="center" VerticalAlignment="Top" Foreground="White" FontSize="16" Margin="320,44,310,0" Width="162"/>
-        <Label x:Name="label_room_name" Content="name" HorizontalAlignment="center" VerticalAlignment="Top" Foreground="White" FontSize="16" Margin="426,44,292,0" Width="74"/>
+        <Label x:Name="label_room_name" Content="name" HorizontalAlignment="center" VerticalAlignment="Top" Foreground="#FF5199FF" FontSize="16" Margin="426,44,292,0" Width="74" Background="{x:Null}" FontWeight="Bold"/>
         <Label Content="Max players:" HorizontalAlignment="center" VerticalAlignment="Top" Foreground="White" FontSize="16" Margin="324,71,301,0" Width="167"/>
-        <Label x:Name="label_max_players" Content="name" HorizontalAlignment="center" VerticalAlignment="Top" Foreground="White" FontSize="16" Margin="426,71,301,0" Width="65"/>
+        <Label x:Name="label_max_players" Content="name" HorizontalAlignment="center" VerticalAlignment="Top" Foreground="#FF5199FF" FontSize="16" Margin="426,71,301,0" Width="65" FontWeight="Bold"/>
         <Label Content="Qestions:" HorizontalAlignment="center" VerticalAlignment="Top" Foreground="White" FontSize="16" Margin="332,97,301,0" Width="159"/>
-        <Label x:Name="label_questions_amount" Content="name" HorizontalAlignment="center" VerticalAlignment="Top" Foreground="White" FontSize="16" Margin="426,97,292,0" Width="74"/>
+        <Label x:Name="label_questions_amount" Content="name" HorizontalAlignment="center" VerticalAlignment="Top" Foreground="#FF5199FF" FontSize="16" Margin="426,97,292,0" Width="74" FontWeight="Bold"/>
         <Button Content="Start game" Click="clicked_start_game" HorizontalAlignment="Left" Margin="406,358,0,0" Background="#FF51FF69" BorderBrush="Black" VerticalAlignment="Top" Width="168" Height="38"/>
+
 
     </Grid>
 </Window>

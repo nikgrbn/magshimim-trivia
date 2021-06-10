@@ -21,13 +21,22 @@ namespace MagshiTriviaClient
     {
         Communicator _communicator;
         RoomData roomData;
+        bool isAdmin = false;
         public WaitingWindow(Communicator com, RoomData room)
         {
             this._communicator = com;
             this.roomData = room;
             InitializeComponent();
             initializeRoomData();
+            getUserType();
             getRoomUsers();
+        }
+
+        private void getUserType()
+        {
+            GetHandlerTypeResponse res = Deserializer.DeserializeGetHandlerTypeResponse(this._communicator.sendPacketToServer(Serializer.SerializeGetHandlerTypeRequest()));
+            if (res.handler_type == "admin")
+                isAdmin = true;
         }
 
         private void getRoomUsers()
@@ -39,7 +48,31 @@ namespace MagshiTriviaClient
             string[] users = res.players.Split(',');
             foreach (var user in users)
             {
+                // Create stack panel
+                StackPanel user_panel = new StackPanel();
+                user_panel.Orientation = Orientation.Horizontal;
+                user_panel.Margin = new Thickness(2);
 
+                // Add image to stack panel
+                Image img = new Image();
+                img.Source = new BitmapImage(new Uri("pack://application:,,,/MagshiTriviaClient;component/Resources/user_icon_2.png"));
+                img.Width = 50;
+                img.Height = 50;
+                img.Margin = new Thickness(80, 0, 0, 0);
+                user_panel.Children.Add(img);
+
+                // Add username to stack panel
+                TextBlock username = new TextBlock();
+                username.Text = user;
+                username.VerticalAlignment = VerticalAlignment.Center;
+                username.HorizontalAlignment = HorizontalAlignment.Center;
+                username.Margin = new Thickness(25,0,0,5);
+                username.FontSize = 22;
+                username.Foreground = System.Windows.Media.Brushes.White;
+                user_panel.Children.Add(username);
+
+                // Add stack panel to players list
+                players_list.Items.Add(user_panel);
             }
         }
 
@@ -63,6 +96,16 @@ namespace MagshiTriviaClient
 
         private void clicked_leave(object sender, RoutedEventArgs e)
         {
+            // Close or Leave room
+            if (isAdmin)
+            {
+                CloseRoomResponse res = Deserializer.DeserializeCloseRoomResponse(this._communicator.sendPacketToServer(Serializer.SerializeCloseRoomRequest()));
+            }
+            else
+            {
+                LeaveRoomResponse res = Deserializer.DeserializeLeaveRoomResponse(this._communicator.sendPacketToServer(Serializer.SerializeLeaveRoomRequest()));
+            }
+
             JoinRoomWindow joinWindow = new JoinRoomWindow(this._communicator);
             Visibility = Visibility.Hidden;
             joinWindow.Show();
