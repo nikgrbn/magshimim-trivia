@@ -78,6 +78,9 @@
     <Compile Include="StatisticsWindow\StatisticsWindow.xaml.cs">
       <DependentUpon>StatisticsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WaitingRoomWindow\WaitingWindow.xaml.cs">
+      <DependentUpon>WaitingWindow.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Logic\Communicator.cs" />
@@ -136,6 +139,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="StatisticsWindow\StatisticsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WaitingRoomWindow\WaitingWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
