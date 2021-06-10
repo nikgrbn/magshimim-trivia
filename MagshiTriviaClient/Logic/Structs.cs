@@ -53,6 +53,10 @@ namespace MagshiTriviaClient
         public int roomId;
     }
 
+    public struct GetPlayersInRoomRequest
+    {
+        public int roomId;
+    }
 
     // -------------------------------- Responses ----------------------------------
 
@@ -82,6 +86,7 @@ namespace MagshiTriviaClient
     public struct CreateRoomResponse
     {
         public int status;
+        public int roomId;
     }
 
     public struct GetRoomsResponse
@@ -93,6 +98,12 @@ namespace MagshiTriviaClient
     public struct JoinRoomResponse
     {
         public int status;
+    }
+
+    public struct GetPlayersInRoomResponse
+    {
+        public int status;
+        public string players;
     }
 
     // -------------
