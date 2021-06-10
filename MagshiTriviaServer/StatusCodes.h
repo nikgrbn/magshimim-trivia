@@ -68,5 +68,8 @@ enum ResponseStatus {
 	GetRoomStateRequestError = 1201,
 	
 	LeaveRoomRequestSucces = 1300,
-	LeaveRoomRequestError = 1301
+	LeaveRoomRequestError = 1301,
+
+	GetHandlerTypeRequestSuccess = 1400,
+	GetHandlerTypeRequestError = 1401
 };
