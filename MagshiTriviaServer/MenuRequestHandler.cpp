@@ -1,5 +1,5 @@
-#include "LoginRequestHandler.h"
 #include "MenuRequestHandler.h"
+#include "RequestHandlerFactory.h"
 
 MenuRequestHandler::MenuRequestHandler(RequestHandlerFactory* factory, LoggedUser& user) 
 	: _request_handler_factory(factory), _user(user) {

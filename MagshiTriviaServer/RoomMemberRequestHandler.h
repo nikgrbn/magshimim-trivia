@@ -4,7 +4,7 @@
 #include "IRequestHandler.h"
 #include "RoomManager.h"
 #include "JsonResponsePacketSerializer.h"
-#include "RequestHandlerFactory.h"
+class RequestHandlerFactory;
 
 class RoomMemberRequestHandler : public IRequestHandler
 {

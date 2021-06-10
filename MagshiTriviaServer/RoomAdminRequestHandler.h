@@ -3,10 +3,9 @@
 // Project header files
 #include "IRequestHandler.h"
 #include "RoomManager.h"
-#include "Room.h"
 #include "LoggedUser.h"
 #include "JsonResponsePacketSerializer.h"
-#include "RequestHandlerFactory.h"
+class RequestHandlerFactory;
 
 class RoomAdminRequestHanlder : public IRequestHandler
 {

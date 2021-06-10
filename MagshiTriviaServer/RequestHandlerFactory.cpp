@@ -1,7 +1,4 @@
 #include "RequestHandlerFactory.h"
-#include "MenuRequestHandler.h"
-#include "LoginRequestHandler.h"
-#include "RoomAdminRequestHandler.h"
 
 RequestHandlerFactory::RequestHandlerFactory() : _login_manager(nullptr) {
 
