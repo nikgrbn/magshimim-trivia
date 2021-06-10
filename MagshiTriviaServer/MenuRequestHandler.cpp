@@ -193,7 +193,7 @@ RequestResult MenuRequestHandler::joinRoom(RequestInfo request) {
 		room.addUser(this->_user);
 
 		join_room_response.status = ResponseStatus::JoinRoomSuccess;
-		response.newHandler = this;
+		response.newHandler = this->_request_handler_factory->createRoomMemberRequestHandler(this->_user, room, this->_room_manager);
 	} catch (std::exception& e) {
 		join_room_response.status = ResponseStatus::JoinRoomError;
 		response.newHandler = this;
@@ -217,7 +217,7 @@ RequestResult MenuRequestHandler::createRoom(RequestInfo request) {
 		room_data.isActive = inactive;
 
 		this->_room_manager->createRoom(this->_user, room_data);
-		response.newHandler = this;
+		response.newHandler = this->_request_handler_factory->createRoomAdminRequestHandler(this->_user, this->_room_manager->getRooms().at((room_data.id)), this->_room_manager);
 		create_room_response.status = ResponseStatus::CreateRoomSuccess;
 	} catch (std::exception& e) {
 		create_room_response.status = ResponseStatus::CreateRoomError;
