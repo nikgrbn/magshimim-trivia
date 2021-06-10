@@ -26,7 +26,8 @@ enum class ProtocolCodes : unsigned int {
 	CloseRoomRequest = 20,
 	StartGameRequest = 21,
 	GetRoomStateRequest = 22,
-	LeaveRoomRequest = 23
+	LeaveRoomRequest = 23,
+	GetHandlerTypeRequest = 24
 };
 
 enum ResponseStatus {

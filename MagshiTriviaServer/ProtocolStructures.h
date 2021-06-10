@@ -83,6 +83,11 @@ typedef struct LeaveRoomResponse {
 	unsigned int status;
 } LeaveRoomResponse;
 
+typedef struct GetHandlerTypeResponse {
+	unsigned int status;
+	IRequestHandler* request_handler;
+};
+
 // -------- Request ---------
 
 typedef struct LoginRequest {
