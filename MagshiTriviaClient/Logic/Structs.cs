@@ -58,6 +58,21 @@ namespace MagshiTriviaClient
         public int roomId;
     }
 
+    public struct GetHandlerTypeRequest
+    {
+        // EMPTY
+    }
+
+    public struct CloseRoomRequest
+    {
+        // EMPTY
+    }
+
+    public struct LeaveRoomRequest
+    {
+        // EMPTY
+    }
+
     // -------------------------------- Responses ----------------------------------
 
 
@@ -104,6 +119,24 @@ namespace MagshiTriviaClient
     {
         public int status;
         public string players;
+    }
+
+    public struct GetHandlerTypeResponse
+    {
+        public int status;
+        public string handler_type;
+    }
+
+    public struct CloseRoomResponse
+    {
+        public int status;
+        public string handler_type;
+    }
+
+    public struct LeaveRoomResponse
+    {
+        public int status;
+        public string handler_type;
     }
 
     // -------------

@@ -10,7 +10,7 @@ RoomMemberRequestHandler::~RoomMemberRequestHandler()
 { }
 
 bool RoomMemberRequestHandler::IsRequestRelevant(RequestInfo info) {
-	return (info.id == ProtocolCodes::LeaveRoomRequest || info.id == ProtocolCodes::StartGameRequest || info.id == ProtocolCodes::GetRoomStateRequest || info.id == ProtocolCodes::GetRoomsRequest || info.id == ProtocolCodes::GetPlayersInRoomRequest);
+	return (info.id == ProtocolCodes::GetHandlerTypeRequest ||info.id == ProtocolCodes::LeaveRoomRequest || info.id == ProtocolCodes::StartGameRequest || info.id == ProtocolCodes::GetRoomStateRequest || info.id == ProtocolCodes::GetRoomsRequest || info.id == ProtocolCodes::GetPlayersInRoomRequest);
 }
 
 RequestResult RoomMemberRequestHandler::handleRequest(RequestInfo info) {
