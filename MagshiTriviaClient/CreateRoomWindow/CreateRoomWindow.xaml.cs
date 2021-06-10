@@ -60,7 +60,7 @@ namespace MagshiTriviaClient
                 else
                 {
                     creation_error.Content = "";
-                    switchToMainWindow(); // TODO: switch window to the new room
+                    switchToRoom(); // TODO: switch window to the new room
                 }
             }
             else
@@ -75,6 +75,27 @@ namespace MagshiTriviaClient
             Visibility = Visibility.Hidden;
             mainWindow.Show();
         }
+
+        private void switchToRoom()
+        {
+            RoomData selected_room = new RoomData();
+
+            GetRoomsResponse rooms_data_response = Deserializer.DeserializeGetRoomsResponse(this._communicator.sendPacketToServer(Serializer.SerializeGetRoomsRequest()));
+
+            foreach (var room in rooms_data_response.Rooms)
+            {
+                if (room.name == tb_room_name.Text)
+                {
+                    selected_room = room;
+                    break;
+                }
+            }
+
+            WaitingWindow waiting_window = new WaitingWindow(this._communicator, selected_room);
+            Visibility = Visibility.Hidden;
+            waiting_window.Show();
+        }
+
 
         private void clicked_menu(object sender, RoutedEventArgs e)
         {
