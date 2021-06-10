@@ -58,7 +58,7 @@ namespace MagshiTriviaClient
                 img.Source = new BitmapImage(new Uri("pack://application:,,,/MagshiTriviaClient;component/Resources/user_icon_2.png"));
                 img.Width = 50;
                 img.Height = 50;
-                img.Margin = new Thickness(80, 0, 0, 0);
+                img.Margin = new Thickness(10, 0, 0, 0);
                 user_panel.Children.Add(img);
 
                 // Add username to stack panel
@@ -66,7 +66,7 @@ namespace MagshiTriviaClient
                 username.Text = user;
                 username.VerticalAlignment = VerticalAlignment.Center;
                 username.HorizontalAlignment = HorizontalAlignment.Center;
-                username.Margin = new Thickness(25,0,0,5);
+                username.Margin = new Thickness(10,0,0,5);
                 username.FontSize = 22;
                 username.Foreground = System.Windows.Media.Brushes.White;
                 user_panel.Children.Add(username);
@@ -113,7 +113,10 @@ namespace MagshiTriviaClient
 
         private void clicked_start_game(object sender, RoutedEventArgs e)
         {
-
+            if (!isAdmin)
+            {
+                label_error.Content = "Only admin can start the game!";
+            }
         }
     }
 }
