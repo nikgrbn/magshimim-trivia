@@ -1,4 +1,8 @@
 #include "JsonResponsePacketSerializer.h"
+#include "LoginRequestHandler.h"
+#include "MenuRequestHandler.h"
+#include "RoomAdminRequestHandler.h"
+#include "RoomMemberRequestHandler.h"
 
 /**
 * This method grenerate repsponse according to the protocol
@@ -204,4 +208,22 @@ Buffer JsonResponsePacketSerializer::serializeResponse(LeaveRoomResponse respons
     j["status"] = response.status;
 
     return generateResponse(j.dump(), ProtocolCodes::LeaveRoomRequest);
+}
+
+Buffer JsonResponsePacketSerializer::serializeResponse(GetHandlerTypeResponse response) {
+    json j{};
+
+    j["status"] = response.status;
+
+    if (dynamic_cast<LoginRequestHandler*>(response.request_handler)) {
+        j["handler_type"] = "login";
+    } else if (dynamic_cast<MenuRequestHandler*>(response.request_handler)) {
+        j["handler_type"] = "menu";
+    } else if (dynamic_cast<RoomAdminRequestHanlder*>(response.request_handler)) {
+        j["handler_type"] = "admin";
+    } else if (dynamic_cast<RoomMemberRequestHandler*>(response.request_handler)) {
+        j["handler_type"] = "member";
+    }
+
+    return generateResponse(j.dump(), ProtocolCodes::GetHandlerTypeRequest);
 }
