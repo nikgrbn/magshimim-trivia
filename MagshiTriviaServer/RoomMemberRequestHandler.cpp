@@ -61,9 +61,28 @@ RequestResult RoomMemberRequestHandler::leaveRoom(RequestInfo info) {
 }
 
 RequestResult RoomMemberRequestHandler::startGame(RequestInfo info) {
-	
+	/*TODO: realize what the fuck this method does */
+	return RequestResult();
 }
 
 RequestResult RoomMemberRequestHandler::getRoomState(RequestInfo info) {
-	return RequestResult();
+	RequestResult response{};
+	GetRoomStateResponse get_room_state_response{};
+
+	try {
+		RoomData room_data = this->_room.getRoomData();
+		get_room_state_response.players = this->_room.getAllUsers();
+		get_room_state_response.questionCount = room_data.numOfQuestionsInGame;
+		get_room_state_response.hasGameBegun = room_data.isActive;
+		get_room_state_response.answerTimeout = room_data.timePerQuestion;
+
+		response.newHandler = this;
+		get_room_state_response.status = ResponseStatus::GetRoomStateRequestSuccess;
+	} catch (std::exception& e) {
+		response.newHandler = this;
+		get_room_state_response.status = ResponseStatus::GetRoomStateRequestError;
+	}
+
+	response.buffer = JsonResponsePacketSerializer::serializeResponse(get_room_state_response);
+	return response;
 }
