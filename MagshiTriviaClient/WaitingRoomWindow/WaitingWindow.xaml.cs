@@ -116,6 +116,7 @@ namespace MagshiTriviaClient
             if (!isAdmin)
             {
                 label_error.Content = "Only admin can start the game!";
+                return;
             }
         }
     }
