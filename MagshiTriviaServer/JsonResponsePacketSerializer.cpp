@@ -219,7 +219,7 @@ Buffer JsonResponsePacketSerializer::serializeResponse(GetHandlerTypeResponse re
         j["handler_type"] = "login";
     } else if (dynamic_cast<MenuRequestHandler*>(response.request_handler)) {
         j["handler_type"] = "menu";
-    } else if (dynamic_cast<RoomAdminRequestHanlder*>(response.request_handler)) {
+    } else if (dynamic_cast<RoomAdminRequestHandler*>(response.request_handler)) {
         j["handler_type"] = "admin";
     } else if (dynamic_cast<RoomMemberRequestHandler*>(response.request_handler)) {
         j["handler_type"] = "member";
