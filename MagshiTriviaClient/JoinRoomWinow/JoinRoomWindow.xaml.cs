@@ -87,6 +87,7 @@ namespace MagshiTriviaClient
         private void MouseDoubleClick_Event(object sender, MouseButtonEventArgs e)
         {
             JoinRoomRequest req;
+            RoomData selected_room = new RoomData();
             req.roomId = 0;
             GetRoomsResponse rooms_data_response = Deserializer.DeserializeGetRoomsResponse(this._communicator.sendPacketToServer(Serializer.SerializeGetRoomsRequest()));
 
@@ -94,6 +95,7 @@ namespace MagshiTriviaClient
             {
                 if(room.name == (string)(RoomsList.SelectedItem))
                 {
+                    selected_room = room;
                     req.roomId = room.id;
                     break;
                 }
@@ -107,7 +109,10 @@ namespace MagshiTriviaClient
                 return;
             }
 
-            switchToMainWindow(); // TODO: join to the room
+            // Switch to waiting room window
+            WaitingWindow waitingWindow = new WaitingWindow(this._communicator, selected_room);
+            Visibility = Visibility.Hidden;
+            waitingWindow.Show();
         }
     }
 }
