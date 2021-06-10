@@ -23,8 +23,8 @@ MenuRequestHandler* RequestHandlerFactory::createMenuRequestHandler(LoggedUser& 
 	return menu_req_handler;
 }
 
-RoomAdminRequestHanlder* RequestHandlerFactory::createRoomAdminRequestHandler(LoggedUser& user, Room room, RoomManager* room_manager) {
-	RoomAdminRequestHanlder* room_admin_req_handler = new RoomAdminRequestHanlder(this, user, room, room_manager);
+RoomAdminRequestHandler* RequestHandlerFactory::createRoomAdminRequestHandler(LoggedUser& user, Room room, RoomManager* room_manager) {
+	RoomAdminRequestHandler* room_admin_req_handler = new RoomAdminRequestHandler(this, user, room, room_manager);
 
 	return room_admin_req_handler;
 }

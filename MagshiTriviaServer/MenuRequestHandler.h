@@ -18,6 +18,7 @@ public:
 	bool IsRequestRelevant(RequestInfo info) override;
 	RequestResult handleRequest(RequestInfo info) override;
 	void DisconnectUser() override;
+	RequestResult GetHandlerType() override;
 
 private:
 	// Class members
