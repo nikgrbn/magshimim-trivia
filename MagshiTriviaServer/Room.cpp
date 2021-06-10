@@ -48,3 +48,7 @@ RoomData Room::getRoomData()
 {
 	return this->_metadata;
 }
+
+void Room::activateRoom() {
+	this->_metadata.isActive = active;
+}

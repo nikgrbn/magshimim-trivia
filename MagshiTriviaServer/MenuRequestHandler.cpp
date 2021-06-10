@@ -1,5 +1,5 @@
-#include "LoginRequestHandler.h"
 #include "MenuRequestHandler.h"
+#include "RequestHandlerFactory.h"
 
 MenuRequestHandler::MenuRequestHandler(RequestHandlerFactory* factory, LoggedUser& user) 
 	: _request_handler_factory(factory), _user(user) {
@@ -214,7 +214,7 @@ RequestResult MenuRequestHandler::createRoom(RequestInfo request) {
 		room_data.maxPlayers = create_room_request.maxUsers;
 		room_data.numOfQuestionsInGame = create_room_request.questionCount;
 		room_data.timePerQuestion = create_room_request.answerTimeout;
-		room_data.isActive = 1;
+		room_data.isActive = inactive;
 
 		this->_room_manager->createRoom(this->_user, room_data);
 		response.newHandler = this;
