@@ -23,6 +23,7 @@ private:
 	RoomManager* _room_manager;
 	RequestHandlerFactory* _handle_factory;
 
+	RequestResult signout(RequestInfo request);
 	RequestResult closeRoom(RequestInfo info);
 	RequestResult startGame(RequestInfo info);
 	RequestResult getRoomState(RequestInfo info);
