@@ -15,6 +15,8 @@ using System.Net;
 using System.Net.Sockets;
 using System.Windows.Threading;
 using System.IO;
+using System.ComponentModel;
+using System.Threading;
 
 namespace MagshiTriviaClient
 {
@@ -24,10 +26,14 @@ namespace MagshiTriviaClient
     public partial class LoginWindow : Window
     {
         Communicator com = new Communicator();
+        private static BackgroundWorker backgroundWorker;
         public LoginWindow()
         {
             InitializeComponent();
-            connectToServer();
+
+            backgroundWorker = new BackgroundWorker { WorkerSupportsCancellation = true };
+            backgroundWorker.DoWork += new DoWorkEventHandler(connectToServer); ;
+            backgroundWorker.RunWorkerAsync();
         }
 
         private void rb_register_checked(object sender, RoutedEventArgs e)
@@ -84,48 +90,49 @@ namespace MagshiTriviaClient
 
         private void switchToMainWindow()
         {
+            backgroundWorker.CancelAsync();
             MainWindow mainWindow = new MainWindow(com);
             Visibility = Visibility.Hidden;
             mainWindow.Show();
         }
-        private void connectToServer()
+
+        void connectToServer(object sender, DoWorkEventArgs e)
         {
-            try
+            bool isConnected = false;
+
+            while (!isConnected)
             {
-                com.ConnectToServer();
-                l_error.Content = "";
-                bt_enter.IsEnabled = true;
-            }
-            catch (DirectoryNotFoundException e)
-            {
-                l_error.Content = e.Message;
-                bt_enter.IsEnabled = false;
-                DelayAction(5000, connectToServer);
-            }
-            catch (Exception e)
-            {
-                l_error.Content = "Can't establish connection with a server!";
-                bt_enter.IsEnabled = false;
-                DelayAction(5000, connectToServer);
+                this.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    try
+                    {
+                        com.ConnectToServer();
+                        l_error.Content = "";
+                        bt_enter.IsEnabled = true;
+                        isConnected = true;
+                        backgroundWorker.CancelAsync();
+                    }
+                    catch (DirectoryNotFoundException exc)
+                    {
+                        l_error.Content = exc.Message;
+                        bt_enter.IsEnabled = false;
+                    }
+                    catch (Exception exc)
+                    {
+                        l_error.Content = "Can't establish connection with a server!";
+                        bt_enter.IsEnabled = false;
+                    }
+                }));
+
+                Thread.Sleep(3000);
             }
         }
-        private static void DelayAction(int millisecond, Action action)
-        {
-            var timer = new DispatcherTimer();
-            timer.Tick += delegate
 
-            {
-                action.Invoke();
-                timer.Stop();
-            };
-
-            timer.Interval = TimeSpan.FromMilliseconds(millisecond);
-            timer.Start();
-        }
         private void logout(object sender, EventArgs e)
         {
             try
             {
+                backgroundWorker.CancelAsync();
                 com.sendPacketToServer(Serializer.SerializeLogoutRequest());
                 this.Close();
             }
