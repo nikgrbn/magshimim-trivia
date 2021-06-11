@@ -32,13 +32,12 @@ namespace MagshiTriviaClient
             InitializeComponent();
 
             backgroundWorker = new BackgroundWorker();
-            backgroundWorker.DoWork += new DoWorkEventHandler(worker_DoWork); ;
+            backgroundWorker.DoWork += new DoWorkEventHandler(refreshRoomList); ;
             backgroundWorker.RunWorkerAsync();
         }
 
-        void worker_DoWork(object sender, DoWorkEventArgs e)
+        void refreshRoomList(object sender, DoWorkEventArgs e)
         {
-            int counter = 0;
             while (true)
             {
                 
@@ -52,9 +51,6 @@ namespace MagshiTriviaClient
 
                     // Set list up to date
                     ShowRoomsList(response);
-
-                    get_rooms_error.Content = counter++;
-                    bt_m.Content = "WORKING" + counter;
                 }
                 ));
 
