@@ -110,6 +110,7 @@ namespace MagshiTriviaClient
                         l_error.Content = "";
                         bt_enter.IsEnabled = true;
                         isConnected = true;
+                        backgroundWorker.CancelAsync();
                     }
                     catch (DirectoryNotFoundException exc)
                     {
