@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Threading;
+using System.ComponentModel;
 
 namespace MagshiTriviaClient
 {
@@ -23,14 +24,39 @@ namespace MagshiTriviaClient
     {
         // Members
         Communicator _communicator;
+        private static BackgroundWorker backgroundWorker;
 
         public JoinRoomWindow(Communicator com)
         {
             this._communicator = com;
             InitializeComponent();
 
-            GetRoomsResponse response = Deserializer.DeserializeGetRoomsResponse(this._communicator.sendPacketToServer(Serializer.SerializeGetRoomsRequest()));
-            ShowRoomsList(response);
+            backgroundWorker = new BackgroundWorker { WorkerSupportsCancellation = true };
+            backgroundWorker.DoWork += new DoWorkEventHandler(refreshRoomList); ;
+            backgroundWorker.RunWorkerAsync();
+        }
+
+        void refreshRoomList(object sender, DoWorkEventArgs e)
+        {
+            while (true)
+            {
+                
+                // Get available rooms
+                GetRoomsResponse response = Deserializer.DeserializeGetRoomsResponse(this._communicator.sendPacketToServer(Serializer.SerializeGetRoomsRequest()));
+
+                this.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    // Clear list
+                    RoomsList.Items.Clear();
+
+                    // Set list up to date
+                    ShowRoomsList(response);
+                }
+                ));
+
+                // Wait 3 seconds before next refresh
+                Thread.Sleep(3000);
+            }
         }
 
         public void ShowRoomsList(GetRoomsResponse response)
@@ -66,6 +92,7 @@ namespace MagshiTriviaClient
 
         private void clicked_menu(object sender, RoutedEventArgs e)
         {
+            backgroundWorker.CancelAsync();
             MainWindow mainWindow = new MainWindow(this._communicator);
             Visibility = Visibility.Hidden;
             mainWindow.Show();
@@ -73,6 +100,7 @@ namespace MagshiTriviaClient
 
         private void logout(object sender, EventArgs e)
         {
+            backgroundWorker.CancelAsync();
             this._communicator.sendPacketToServer(Serializer.SerializeLogoutRequest());
             this.Close();
         }
@@ -110,6 +138,7 @@ namespace MagshiTriviaClient
             }
 
             // Switch to waiting room window
+            backgroundWorker.CancelAsync();
             WaitingWindow waitingWindow = new WaitingWindow(this._communicator, selected_room);
             Visibility = Visibility.Hidden;
             waitingWindow.Show();
