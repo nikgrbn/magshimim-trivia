@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Threading;
+using System.ComponentModel;
 
 namespace MagshiTriviaClient
 {
@@ -23,34 +24,39 @@ namespace MagshiTriviaClient
     {
         // Members
         Communicator _communicator;
+        private static BackgroundWorker backgroundWorker;
 
         public JoinRoomWindow(Communicator com)
         {
             this._communicator = com;
             InitializeComponent();
 
-            Thread t = new Thread(new ThreadStart(refreshRoomList));
-            t.Start();
+            backgroundWorker = new BackgroundWorker();
+            backgroundWorker.DoWork += new DoWorkEventHandler(worker_DoWork); ;
+            backgroundWorker.RunWorkerAsync();
         }
 
-        private void refreshRoomList()
+        void worker_DoWork(object sender, DoWorkEventArgs e)
         {
+            int counter = 0;
             while (true)
             {
+                
                 // Get available rooms
                 GetRoomsResponse response = Deserializer.DeserializeGetRoomsResponse(this._communicator.sendPacketToServer(Serializer.SerializeGetRoomsRequest()));
 
-                // Enter WPF UI with dispathcer
                 this.Dispatcher.BeginInvoke(new Action(() =>
                 {
-
                     // Clear list
                     RoomsList.Items.Clear();
 
                     // Set list up to date
                     ShowRoomsList(response);
 
-                }));
+                    get_rooms_error.Content = counter++;
+                    bt_m.Content = "WORKING" + counter;
+                }
+                ));
 
                 // Wait 3 seconds before next refresh
                 Thread.Sleep(3000);
