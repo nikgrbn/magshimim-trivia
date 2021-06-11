@@ -29,8 +29,32 @@ namespace MagshiTriviaClient
             this._communicator = com;
             InitializeComponent();
 
-            GetRoomsResponse response = Deserializer.DeserializeGetRoomsResponse(this._communicator.sendPacketToServer(Serializer.SerializeGetRoomsRequest()));
-            ShowRoomsList(response);
+            Thread t = new Thread(new ThreadStart(refreshRoomList));
+            t.Start();
+        }
+
+        private void refreshRoomList()
+        {
+            while (true)
+            {
+                // Get available rooms
+                GetRoomsResponse response = Deserializer.DeserializeGetRoomsResponse(this._communicator.sendPacketToServer(Serializer.SerializeGetRoomsRequest()));
+
+                // Enter WPF UI with dispathcer
+                this.Dispatcher.BeginInvoke(new Action(() =>
+                {
+
+                    // Clear list
+                    RoomsList.Items.Clear();
+
+                    // Set list up to date
+                    ShowRoomsList(response);
+
+                }));
+
+                // Wait 3 seconds before next refresh
+                Thread.Sleep(3000);
+            }
         }
 
         public void ShowRoomsList(GetRoomsResponse response)
