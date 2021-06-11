@@ -31,7 +31,7 @@ namespace MagshiTriviaClient
             this._communicator = com;
             InitializeComponent();
 
-            backgroundWorker = new BackgroundWorker();
+            backgroundWorker = new BackgroundWorker { WorkerSupportsCancellation = true };
             backgroundWorker.DoWork += new DoWorkEventHandler(refreshRoomList); ;
             backgroundWorker.RunWorkerAsync();
         }
@@ -92,6 +92,7 @@ namespace MagshiTriviaClient
 
         private void clicked_menu(object sender, RoutedEventArgs e)
         {
+            backgroundWorker.CancelAsync();
             MainWindow mainWindow = new MainWindow(this._communicator);
             Visibility = Visibility.Hidden;
             mainWindow.Show();
@@ -99,6 +100,7 @@ namespace MagshiTriviaClient
 
         private void logout(object sender, EventArgs e)
         {
+            backgroundWorker.CancelAsync();
             this._communicator.sendPacketToServer(Serializer.SerializeLogoutRequest());
             this.Close();
         }
@@ -136,6 +138,7 @@ namespace MagshiTriviaClient
             }
 
             // Switch to waiting room window
+            backgroundWorker.CancelAsync();
             WaitingWindow waitingWindow = new WaitingWindow(this._communicator, selected_room);
             Visibility = Visibility.Hidden;
             waitingWindow.Show();
