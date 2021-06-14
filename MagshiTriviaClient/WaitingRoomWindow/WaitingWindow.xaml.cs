@@ -54,7 +54,7 @@ namespace MagshiTriviaClient
                 req.roomId = this.roomData.id;
                 GetPlayersInRoomResponse res = Deserializer.DeserializeGetPlayersInRoomResponse(this._communicator.sendPacketToServer(Serializer.SerializeGetPlayersInRoomRequest(req)));
 
-                if (res.status == (int)ResponseStatus.GetPlayersInRoomRequestError) {
+                if (string.IsNullOrEmpty(res.players)) {
                     this.switchToMainWindow();
                 }
 
