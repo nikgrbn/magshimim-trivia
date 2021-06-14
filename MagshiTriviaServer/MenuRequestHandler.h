@@ -13,7 +13,7 @@ class RequestHandlerFactory;
 class MenuRequestHandler : public IRequestHandler
 {
 public:
-	MenuRequestHandler(RequestHandlerFactory* factory, LoggedUser& user);
+	MenuRequestHandler(RequestHandlerFactory* factory, LoggedUser& user, RoomManager* room_manager);
 	~MenuRequestHandler();
 	bool IsRequestRelevant(RequestInfo info) override;
 	RequestResult handleRequest(RequestInfo info) override;

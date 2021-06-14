@@ -1,16 +1,15 @@
 #include "MenuRequestHandler.h"
 #include "RequestHandlerFactory.h"
 
-MenuRequestHandler::MenuRequestHandler(RequestHandlerFactory* factory, LoggedUser& user) 
-	: _request_handler_factory(factory), _user(user) {
+MenuRequestHandler::MenuRequestHandler(RequestHandlerFactory* factory, LoggedUser& user, RoomManager* room_manager) 
+	: _request_handler_factory(factory), _user(user), _room_manager(room_manager) {
 
 	SqliteDatabase* db = new SqliteDatabase();
-	this->_room_manager = new RoomManager();
 	this->_statistics_manager = StatisticsManager(db);
 }
 
 MenuRequestHandler::~MenuRequestHandler() {
-	delete this->_room_manager;
+	
 }
 
 bool MenuRequestHandler::IsRequestRelevant(RequestInfo info) {
@@ -212,9 +211,9 @@ RequestResult MenuRequestHandler::joinRoom(RequestInfo request) {
 		for (Room room : rooms_vector) {
 			if (room.getRoomData().id == join_room_request.roomId)
 			{
-				room.addUser(this->_user);
+				this->_room_manager->InsertUserIntoRoom(join_room_request.roomId, this->_user);
 				join_room_response.status = ResponseStatus::JoinRoomSuccess;
-				response.newHandler = this->_request_handler_factory->createRoomMemberRequestHandler(this->_user, room, this->_room_manager);
+				response.newHandler = this->_request_handler_factory->createRoomMemberRequestHandler(this->_user, this->_room_manager->getRooms()[join_room_request.roomId - 1]);
 				break;
 			}
 		}
@@ -242,7 +241,7 @@ RequestResult MenuRequestHandler::createRoom(RequestInfo request) {
 
 		room_data.id = this->_room_manager->createRoom(this->_user, room_data);
 
-		response.newHandler = this->_request_handler_factory->createRoomAdminRequestHandler(this->_user, room_data, this->_room_manager);
+		response.newHandler = this->_request_handler_factory->createRoomAdminRequestHandler(this->_user, room_data);
 		create_room_response.status = ResponseStatus::CreateRoomSuccess;
 		create_room_response.roomId = room_data.id;
 	} catch (std::exception& e) {
