@@ -3,7 +3,7 @@
 // Definitions
 using Buffer = std::vector<unsigned char>;
 
-#define SERVER_PORT 9853
+#define SERVER_PORT 8897
 
 // Protocol headers
 #define CODE_SIZE 1

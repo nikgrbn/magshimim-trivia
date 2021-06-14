@@ -54,6 +54,10 @@ namespace MagshiTriviaClient
                 req.roomId = this.roomData.id;
                 GetPlayersInRoomResponse res = Deserializer.DeserializeGetPlayersInRoomResponse(this._communicator.sendPacketToServer(Serializer.SerializeGetPlayersInRoomRequest(req)));
 
+                if (string.IsNullOrEmpty(res.players)) {
+                    this.switchToMainWindow();
+                }
+
                 this.Dispatcher.BeginInvoke(new Action(() =>
                 {
                     players_list.Items.Clear();
@@ -123,6 +127,14 @@ namespace MagshiTriviaClient
                 LeaveRoomResponse res = Deserializer.DeserializeLeaveRoomResponse(this._communicator.sendPacketToServer(Serializer.SerializeLeaveRoomRequest()));
             }
 
+            backgroundWorker.CancelAsync();
+            JoinRoomWindow joinWindow = new JoinRoomWindow(this._communicator);
+            Visibility = Visibility.Hidden;
+            joinWindow.Show();
+        }
+
+        private void switchToMainWindow()
+        {
             backgroundWorker.CancelAsync();
             JoinRoomWindow joinWindow = new JoinRoomWindow(this._communicator);
             Visibility = Visibility.Hidden;
