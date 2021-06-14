@@ -90,6 +90,7 @@ Buffer JsonResponsePacketSerializer::serializeResponse(GetPlayersInRoomResponse 
         users_string += r;
     }
 
+    j["status"] = response.status;
     j["players"] = users_string;
 
     return generateResponse(j.dump(), ProtocolCodes::GetPlayersInRoomRequest);
