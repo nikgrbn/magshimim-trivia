@@ -107,7 +107,7 @@ RequestResult RoomMemberRequestHandler::leaveRoom(RequestInfo info) {
 	LeaveRoomResponse leave_room_response{};
 
 	try {
-		this->_room.removeUser(this->_user);
+		this->_room_manager->EraseUserFromRoom(this->_room.getRoomData().id, this->_user);
 		leave_room_response.status = ResponseStatus::LeaveRoomRequestSucces;
 		response.newHandler = this->_handle_factory->createMenuRequestHandler(this->_user);
 	} catch (std::exception& e) {
