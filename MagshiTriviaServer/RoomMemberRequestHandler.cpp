@@ -186,9 +186,12 @@ RequestResult RoomMemberRequestHandler::getPlayersInRoom(RequestInfo request)
 				break;
 			}
 		}
+
+		get_players_in_room_response.status = ResponseStatus::GetPlayersInRoomRequestSuccess;
 		response.newHandler = this;
 	}
 	catch (std::exception& e) {
+		get_players_in_room_response.status = ResponseStatus::GetPlayersInRoomRequestError;
 		response.newHandler = this;
 	}
 
