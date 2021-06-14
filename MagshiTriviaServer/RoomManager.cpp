@@ -39,3 +39,11 @@ std::vector<Room> RoomManager::getRooms()
 
 	return rooms;
 }
+
+void RoomManager::InsertUserIntoRoom(unsigned int room_id, LoggedUser& user) {
+	this->_rooms.at(room_id).addUser(user);
+}
+
+void RoomManager::EraseUserFromRoom(unsigned int room_id, LoggedUser& user) {
+	this->_rooms.at(room_id).removeUser(user);
+}
