@@ -40,7 +40,12 @@ namespace MagshiTriviaClient
         {
             while (true)
             {
-                
+                if (backgroundWorker.CancellationPending)
+                {
+                    e.Cancel = true;
+                    break;
+                }
+
                 // Get available rooms
                 GetRoomsResponse response = Deserializer.DeserializeGetRoomsResponse(this._communicator.sendPacketToServer(Serializer.SerializeGetRoomsRequest()));
 
