@@ -102,6 +102,12 @@ namespace MagshiTriviaClient
 
             while (!isConnected)
             {
+                if (backgroundWorker.CancellationPending)
+                {
+                    e.Cancel = true;
+                    break;
+                }
+
                 this.Dispatcher.BeginInvoke(new Action(() =>
                 {
                     try

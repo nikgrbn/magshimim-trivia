@@ -43,52 +43,66 @@ namespace MagshiTriviaClient
             GetHandlerTypeResponse res = Deserializer.DeserializeGetHandlerTypeResponse(this._communicator.sendPacketToServer(Serializer.SerializeGetHandlerTypeRequest()));
             if (res.handler_type == "admin")
                 isAdmin = true;
+            else
+                bt_start_game.IsEnabled = false;
         }
 
         private void getRoomUsers(object sender, DoWorkEventArgs e)
         {
             while (true)
             {
+                if (backgroundWorker.CancellationPending)
+                {
+                    e.Cancel = true;
+                    break;
+                }
 
                 GetPlayersInRoomRequest req = new GetPlayersInRoomRequest();
                 req.roomId = this.roomData.id;
                 GetPlayersInRoomResponse res = Deserializer.DeserializeGetPlayersInRoomResponse(this._communicator.sendPacketToServer(Serializer.SerializeGetPlayersInRoomRequest(req)));
 
-                if (string.IsNullOrEmpty(res.players)) {
-                    this.switchToMainWindow();
-                }
-
                 this.Dispatcher.BeginInvoke(new Action(() =>
                 {
-                    players_list.Items.Clear();
-                    string[] users = res.players.Split(',');
-                    foreach (var user in users)
+                    if (res.players == null || res.players == "")
                     {
-                        // Create stack panel
-                        StackPanel user_panel = new StackPanel();
-                        user_panel.Orientation = Orientation.Horizontal;
-                        user_panel.Margin = new Thickness(2);
+                        LeaveRoomResponse res_leave = Deserializer.DeserializeLeaveRoomResponse(this._communicator.sendPacketToServer(Serializer.SerializeLeaveRoomRequest()));
+                        backgroundWorker.CancelAsync();
+                        JoinRoomWindow joinWindow = new JoinRoomWindow(this._communicator);
+                        Visibility = Visibility.Hidden;
+                        joinWindow.Show();
+                    }
+                    else 
+                    {
+                        players_list.Items.Clear();
+                        string[] users = res.players.Split(',');
+                        foreach (var user in users)
+                        {
+                            // Create stack panel
+                            StackPanel user_panel = new StackPanel();
+                            user_panel.Orientation = Orientation.Horizontal;
+                            user_panel.Margin = new Thickness(2);
 
-                        // Add image to stack panel
-                        Image img = new Image();
-                        img.Source = new BitmapImage(new Uri("pack://application:,,,/MagshiTriviaClient;component/Resources/user_icon_2.png"));
-                        img.Width = 50;
-                        img.Height = 50;
-                        img.Margin = new Thickness(10, 0, 0, 0);
-                        user_panel.Children.Add(img);
+                            // Add image to stack panel
+                            Image img = new Image();
+                            img.Source = new BitmapImage(new Uri("pack://application:,,,/MagshiTriviaClient;component/Resources/user_icon_2.png"));
+                            img.Width = 50;
+                            img.Height = 50;
+                            img.Margin = new Thickness(10, 0, 0, 0);
+                            user_panel.Children.Add(img);
 
-                        // Add username to stack panel
-                        TextBlock username = new TextBlock();
-                        username.Text = user;
-                        username.VerticalAlignment = VerticalAlignment.Center;
-                        username.HorizontalAlignment = HorizontalAlignment.Center;
-                        username.Margin = new Thickness(10, 0, 0, 5);
-                        username.FontSize = 22;
-                        username.Foreground = System.Windows.Media.Brushes.White;
-                        user_panel.Children.Add(username);
+                            // Add username to stack panel
+                            TextBlock username = new TextBlock();
+                            username.Text = user;
+                            username.VerticalAlignment = VerticalAlignment.Center;
+                            username.HorizontalAlignment = HorizontalAlignment.Center;
+                            username.Margin = new Thickness(10, 0, 0, 5);
+                            username.FontSize = 22;
+                            username.Foreground = System.Windows.Media.Brushes.White;
+                            user_panel.Children.Add(username);
 
-                        // Add stack panel to players list
-                        players_list.Items.Add(user_panel);
+                            // Add stack panel to players list
+                            players_list.Items.Add(user_panel);
+                        }
                     }
                 }));
 
@@ -127,14 +141,6 @@ namespace MagshiTriviaClient
                 LeaveRoomResponse res = Deserializer.DeserializeLeaveRoomResponse(this._communicator.sendPacketToServer(Serializer.SerializeLeaveRoomRequest()));
             }
 
-            backgroundWorker.CancelAsync();
-            JoinRoomWindow joinWindow = new JoinRoomWindow(this._communicator);
-            Visibility = Visibility.Hidden;
-            joinWindow.Show();
-        }
-
-        private void switchToMainWindow()
-        {
             backgroundWorker.CancelAsync();
             JoinRoomWindow joinWindow = new JoinRoomWindow(this._communicator);
             Visibility = Visibility.Hidden;
