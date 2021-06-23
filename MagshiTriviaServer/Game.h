@@ -23,7 +23,7 @@ typedef struct GameData {
 
 class Game {
 public:
-	Game(std::vector<LoggedUser> users, unsigned int maxQuestions, IDatabase* db);
+	Game(std::vector<LoggedUser> users, unsigned int maxQuestions,  IDatabase* db);
 	Game(std::vector<LoggedUser> users, unsigned int maxQuestions);
 	~Game() = default;
 

@@ -14,3 +14,8 @@ bool operator==(const LoggedUser& u1, const LoggedUser& u2)
 {
 	return u1.getUsername() == u2.getUsername();
 }
+
+bool operator<(const LoggedUser& u1, const LoggedUser& u2)
+{
+	return u1.getUsername().size() < u2.getUsername().size();
+}

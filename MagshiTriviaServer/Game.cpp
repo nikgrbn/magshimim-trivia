@@ -10,12 +10,12 @@ Game::Game(std::vector<LoggedUser> users, unsigned int maxQuestions, IDatabase* 
 	}
 
 	// Create startup game data structure
-	GameData templateData(this->_questions[0], 0, 0, 0);
+	GameData templateData(this->_questions.at(0), 0, 0, 0);
 
 	// Create map of users and data
 	for (auto user : users)
 	{
-		this->_players.insert({ user, templateData });
+		this->_players.insert(std::pair<LoggedUser, GameData>(user, templateData));
 	}
 }
 
@@ -37,7 +37,7 @@ Game::Game(std::vector<LoggedUser> users, unsigned int maxQuestions)
 	// Create map of users and data
 	for (auto user : users)
 	{
-		this->_players.insert({ user, templateData });
+		this->_players.insert(std::pair<LoggedUser, GameData>( user, templateData ));
 	}
 }
 
