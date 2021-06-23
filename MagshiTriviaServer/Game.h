@@ -8,6 +8,7 @@
 // Project header files
 #include "Questionnaire.h"
 #include "LoggedUser.h"
+#include "SqliteDatabase.h"
 
 typedef struct GameData {
 	Question currentQuestion;
@@ -18,8 +19,17 @@ typedef struct GameData {
 
 class Game {
 public:
-	//
+	Game(std::vector<LoggedUser> users, GameData gameData, unsigned int maxQuestions, IDatabase* db);
+	Game(std::vector<LoggedUser> users, GameData gameData, unsigned int maxQuestions);
+	~Game() = default;
+
+	Question getQuestionForUser(LoggedUser user);
+	void submitAnswer(LoggedUser user, unsigned int answer);
+	void removePlayer(LoggedUser user);
+
 private:
+	unsigned int _maxQuestions;
 	std::vector<Question> _questions;
 	std::map<LoggedUser, GameData> _players;
+	IDatabase* _db;
 };
