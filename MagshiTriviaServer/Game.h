@@ -15,12 +15,16 @@ typedef struct GameData {
 	unsigned int correctAnswerCount;
 	unsigned int wrongAnswerCount;
 	unsigned int averageAnswerTime;
-}; GameData;
+
+	GameData(Question cq, unsigned int cac, unsigned int wac, unsigned int aat)
+		: currentQuestion(cq), correctAnswerCount(cac), wrongAnswerCount(wac), averageAnswerTime(aat) {};
+
+} GameData;
 
 class Game {
 public:
-	Game(std::vector<LoggedUser> users, GameData gameData, unsigned int maxQuestions, IDatabase* db);
-	Game(std::vector<LoggedUser> users, GameData gameData, unsigned int maxQuestions);
+	Game(std::vector<LoggedUser> users, unsigned int maxQuestions, IDatabase* db);
+	Game(std::vector<LoggedUser> users, unsigned int maxQuestions);
 	~Game() = default;
 
 	Question getQuestionForUser(LoggedUser user);
