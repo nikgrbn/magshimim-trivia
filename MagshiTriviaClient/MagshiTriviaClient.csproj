@@ -78,6 +78,9 @@
     <Compile Include="StatisticsWindow\StatisticsWindow.xaml.cs">
       <DependentUpon>StatisticsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WaitingRoomWindow\WaitingWindow.xaml.cs">
+      <DependentUpon>WaitingWindow.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Logic\Communicator.cs" />
@@ -139,6 +142,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="WaitingRoomWindow\WaitingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\gifbgstatistics.gif" />
@@ -156,6 +163,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="magshimim_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\user_icon_2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

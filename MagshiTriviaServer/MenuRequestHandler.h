@@ -6,17 +6,19 @@
 #include "StatisticsManager.h"
 #include "LoggedUser.h"
 #include "JsonResponsePacketSerializer.h"
-#include "RequestHandlerFactory.h"
 #include "SqliteDatabase.h"
+
+class RequestHandlerFactory;
 
 class MenuRequestHandler : public IRequestHandler
 {
 public:
-	MenuRequestHandler(RequestHandlerFactory* factory, LoggedUser& user);
+	MenuRequestHandler(RequestHandlerFactory* factory, LoggedUser& user, RoomManager* room_manager);
 	~MenuRequestHandler();
 	bool IsRequestRelevant(RequestInfo info) override;
 	RequestResult handleRequest(RequestInfo info) override;
 	void DisconnectUser() override;
+	RequestResult GetHandlerType() override;
 
 private:
 	// Class members

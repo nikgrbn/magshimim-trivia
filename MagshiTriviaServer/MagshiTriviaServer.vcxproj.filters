@@ -69,9 +69,6 @@
     <ClCompile Include="SqliteDatabase.cpp">
       <Filter>Source Files\DataBase</Filter>
     </ClCompile>
-    <ClCompile Include="RequestHandlerFactory.cpp">
-      <Filter>Source Files\Infrastructure</Filter>
-    </ClCompile>
     <ClCompile Include="Server.cpp">
       <Filter>Source Files\Infrastructure</Filter>
     </ClCompile>
@@ -92,6 +89,15 @@
     </ClCompile>
     <ClCompile Include="Questionnaire.cpp">
       <Filter>Source Files\DataBase</Filter>
+    </ClCompile>
+    <ClCompile Include="RequestHandlerFactory.cpp">
+      <Filter>Source Files\Handlers</Filter>
+    </ClCompile>
+    <ClCompile Include="RoomAdminRequestHandler.cpp">
+      <Filter>Source Files\Handlers</Filter>
+    </ClCompile>
+    <ClCompile Include="RoomMemberRequestHandler.cpp">
+      <Filter>Source Files\Handlers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -154,6 +160,12 @@
     </ClInclude>
     <ClInclude Include="SqliteDatabase.h">
       <Filter>Header Files\DataBase</Filter>
+    </ClInclude>
+    <ClInclude Include="RoomAdminRequestHandler.h">
+      <Filter>Header Files\Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="RoomMemberRequestHandler.h">
+      <Filter>Header Files\Handlers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

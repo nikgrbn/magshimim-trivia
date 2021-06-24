@@ -29,4 +29,9 @@ public:
     static Buffer serializeResponse(GetStatisticsResponse response);
     static Buffer serializeResponse(getPersonalStatsResponse response);
     static Buffer serializeResponse(getHighScoreResponse response);
+    static Buffer serializeResponse(CloseRoomResponse response);
+    static Buffer serializeResponse(StartGameResponse response);
+    static Buffer serializeResponse(GetRoomStateResponse response);
+    static Buffer serializeResponse(LeaveRoomResponse response);
+    static Buffer serializeResponse(GetHandlerTypeResponse response);
 };

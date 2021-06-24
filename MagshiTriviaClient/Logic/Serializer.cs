@@ -78,5 +78,28 @@ namespace MagshiTriviaClient
         {
             return GenerateRequest(15, req);
         }
+
+        public static byte[] SerializeGetPlayersInRoomRequest(GetPlayersInRoomRequest req)
+        {
+            return GenerateRequest(14, req);
+        }
+
+        public static byte[] SerializeGetHandlerTypeRequest()
+        {
+            GetHandlerTypeRequest req;
+            return GenerateRequest(24, req);
+        }
+
+        public static byte[] SerializeCloseRoomRequest()
+        {
+            CloseRoomRequest req;
+            return GenerateRequest(20, req);
+        }
+
+        public static byte[] SerializeLeaveRoomRequest()
+        {
+            LeaveRoomRequest req;
+            return GenerateRequest(23, req);
+        }
     }
 }

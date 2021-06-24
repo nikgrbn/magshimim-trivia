@@ -3,9 +3,10 @@
 // Project header files
 #include "IRequestHandler.h"
 #include "LoginManager.h"
-#include "RequestHandlerFactory.h"
 #include "JsonResponsePacketSerializer.h"
 #include "JsonRequestPacketDeserializer.h"
+
+class RequestHandlerFactory;
 
 class LoginRequestHandler : public IRequestHandler
 {
@@ -17,6 +18,7 @@ public:
 	bool IsRequestRelevant(RequestInfo info) override;
 	RequestResult handleRequest(RequestInfo info) override;
 	void DisconnectUser() override;
+	RequestResult GetHandlerType() override;
 
 private:
 	RequestResult login(RequestInfo request);

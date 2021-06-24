@@ -52,15 +52,16 @@ namespace MagshiTriviaClient
                 create_room.questionCount = Int32.Parse(this.tb_number_of_questions.Text);
                 create_room.answerTimeout = Int32.Parse(this.tb_question_time.Text);
                 byte[] res = this._communicator.sendPacketToServer(Serializer.SerializeCreateRoomRequest(create_room));
-                
-                if (Deserializer.DeserializeCreateRoomResponse(res).status == 601)
+
+                CreateRoomResponse response = Deserializer.DeserializeCreateRoomResponse(res);
+                if (response.status == 601)
                 {
                     creation_error.Content = "Create room failed!";
                 }
                 else
                 {
                     creation_error.Content = "";
-                    switchToMainWindow(); // TODO: switch window to the new room
+                    switchToRoom(response.roomId);
                 }
             }
             else
@@ -75,6 +76,26 @@ namespace MagshiTriviaClient
             Visibility = Visibility.Hidden;
             mainWindow.Show();
         }
+
+        private void switchToRoom(int roomId)
+        {
+            RoomData selected_room = new RoomData();
+            
+            GetRoomsResponse response = Deserializer.DeserializeGetRoomsResponse(this._communicator.sendPacketToServer(Serializer.SerializeGetRoomsRequest()));
+            foreach (var room in response.Rooms)
+            {
+                if (room.id == roomId)
+                {
+                    selected_room = room;
+                    break;
+                }
+            }
+
+            WaitingWindow waiting_window = new WaitingWindow(this._communicator, selected_room);
+            Visibility = Visibility.Hidden;
+            waiting_window.Show();
+        }
+
 
         private void clicked_menu(object sender, RoutedEventArgs e)
         {

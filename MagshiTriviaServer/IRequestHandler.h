@@ -12,4 +12,5 @@ public:
 	virtual bool IsRequestRelevant(RequestInfo info) = 0;
 	virtual RequestResult handleRequest(RequestInfo info) = 0;
 	virtual void DisconnectUser() = 0;
+	virtual RequestResult GetHandlerType() = 0;
 };
