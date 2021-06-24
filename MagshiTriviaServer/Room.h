@@ -7,6 +7,9 @@
 // Project header files
 #include "LoggedUser.h"
 
+constexpr unsigned int active = 1;
+constexpr unsigned int inactive = 0;
+
 typedef struct RoomData {
 	unsigned int id;
 	std::string name;
@@ -27,6 +30,8 @@ public:
 	void removeUser(LoggedUser user);
 	std::vector<std::string> getAllUsers();
 	RoomData getRoomData();
+	void activateRoom();
+
 private:
 	RoomData _metadata;
 	std::vector<LoggedUser> _users;

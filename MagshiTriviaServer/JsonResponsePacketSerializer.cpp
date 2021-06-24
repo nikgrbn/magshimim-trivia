@@ -1,4 +1,8 @@
 #include "JsonResponsePacketSerializer.h"
+#include "LoginRequestHandler.h"
+#include "MenuRequestHandler.h"
+#include "RoomAdminRequestHandler.h"
+#include "RoomMemberRequestHandler.h"
 
 /**
 * This method grenerate repsponse according to the protocol
@@ -86,7 +90,8 @@ Buffer JsonResponsePacketSerializer::serializeResponse(GetPlayersInRoomResponse 
         users_string += r;
     }
 
-    j["Rooms"] = users_string;
+    j["status"] = response.status;
+    j["players"] = users_string;
 
     return generateResponse(j.dump(), ProtocolCodes::GetPlayersInRoomRequest);
 }
@@ -101,6 +106,7 @@ Buffer JsonResponsePacketSerializer::serializeResponse(JoinRoomResponse response
 Buffer JsonResponsePacketSerializer::serializeResponse(CreateRoomResponse response) {
     json j{};
     j["status"] = response.status;
+    j["roomId"] = response.roomId;
 
     return generateResponse(j.dump(), ProtocolCodes::CreateRoomRequest);
 }
@@ -164,4 +170,62 @@ Buffer JsonResponsePacketSerializer::serializeResponse(getHighScoreResponse resp
     j["HighScore"] = users_string;
 
     return generateResponse(j.dump(), ProtocolCodes::HighScoreRequest);
+}
+
+Buffer JsonResponsePacketSerializer::serializeResponse(CloseRoomResponse response) {
+    json j{};
+
+    j["status"] = response.status;
+
+    return generateResponse(j.dump(), ProtocolCodes::CloseRoomRequest);
+}
+
+Buffer JsonResponsePacketSerializer::serializeResponse(StartGameResponse response) {
+    json j{};
+
+    j["status"] = response.status;
+
+    return generateResponse(j.dump(), ProtocolCodes::StartGameRequest);
+}
+
+Buffer JsonResponsePacketSerializer::serializeResponse(GetRoomStateResponse response) {
+    json j{};
+    std::string players_string{};
+
+    j["status"] = response.status;
+    j["hasGameBegun"] = response.hasGameBegun;
+
+    for (auto player : response.players)
+        j["players"] += player;
+
+    j["questionCount"] = response.questionCount;
+    j["answerTimeout"] = response.answerTimeout;
+
+    return generateResponse(j.dump(), ProtocolCodes::GetRoomsRequest);
+}
+
+Buffer JsonResponsePacketSerializer::serializeResponse(LeaveRoomResponse response) {
+    json j{};
+
+    j["status"] = response.status;
+
+    return generateResponse(j.dump(), ProtocolCodes::LeaveRoomRequest);
+}
+
+Buffer JsonResponsePacketSerializer::serializeResponse(GetHandlerTypeResponse response) {
+    json j{};
+
+    j["status"] = response.status;
+
+    if (dynamic_cast<LoginRequestHandler*>(response.request_handler)) {
+        j["handler_type"] = "login";
+    } else if (dynamic_cast<MenuRequestHandler*>(response.request_handler)) {
+        j["handler_type"] = "menu";
+    } else if (dynamic_cast<RoomAdminRequestHandler*>(response.request_handler)) {
+        j["handler_type"] = "admin";
+    } else if (dynamic_cast<RoomMemberRequestHandler*>(response.request_handler)) {
+        j["handler_type"] = "member";
+    }
+
+    return generateResponse(j.dump(), ProtocolCodes::GetHandlerTypeRequest);
 }

@@ -36,6 +36,7 @@ typedef struct GetRoomsResponse {
 } GetRoomsResponse;
 
 typedef struct GetPlayersInRoomResponse {
+	unsigned int status;
 	std::vector<std::string> players;
 } GetPlayersInRoomResponse;
 
@@ -55,6 +56,7 @@ typedef struct JoinRoomResponse {
 
 typedef struct CreateRoomResponse {
 	unsigned int status;
+	unsigned int roomId;
 } CreateRoomResponse;
 
 typedef struct GetStatisticsResponse {
@@ -62,6 +64,31 @@ typedef struct GetStatisticsResponse {
 	std::vector<UserStatistics> user_statistics;
 	std::vector<UserStatistics> high_score;
 } GetStatisticsResponse;
+
+typedef struct CloseRoomResponse {
+	unsigned int status;
+} CloseRoomResponse;
+
+typedef struct StartGameResponse {
+	unsigned int status;
+} StartGameResponse;
+
+typedef struct GetRoomStateResponse {
+	unsigned int status;
+	bool hasGameBegun;
+	std::vector<std::string> players;
+	unsigned int questionCount;
+	unsigned int answerTimeout;
+} GetRoomStateResponse;
+
+typedef struct LeaveRoomResponse {
+	unsigned int status;
+} LeaveRoomResponse;
+
+typedef struct GetHandlerTypeResponse {
+	unsigned int status;
+	IRequestHandler* request_handler;
+};
 
 // -------- Request ---------
 
